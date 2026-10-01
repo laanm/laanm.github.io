@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 390" role="img" aria-labelledby="title description">
+  <title id="title">Sentinel Desk interface preview</title>
+  <desc id="description">Fictional security dashboard showing alerts, risks and assets.</desc>
+  <defs>
+    <linearGradient id="back" x2="1" y2="1"><stop stop-color="#0d1729"/><stop offset="1" stop-color="#07101e"/></linearGradient>
+    <linearGradient id="card" x2="1" y2="1"><stop stop-color="#17243b"/><stop offset="1" stop-color="#101b2f"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8"/></filter>
+  </defs>
+  <rect width="1200" height="390" fill="url(#back)"/>
+  <rect x="0" y="0" width="215" height="390" fill="#0d1829"/>
+  <path d="M215 0v390M215 58h985" stroke="#26344c"/>
+  <rect x="22" y="20" width="35" height="35" rx="9" fill="#2459c8"/>
+  <path d="M39 27l10 4v8c0 6-4 9-10 12-6-3-10-6-10-12v-8z" fill="none" stroke="#d4e8ff" stroke-width="2"/>
+  <text x="69" y="37" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#f1f7ff">sentinel.</text>
+  <text x="69" y="51" font-family="Arial,sans-serif" font-size="7" letter-spacing="3" fill="#93a5bc">SECURITY DESK</text>
+  <text x="22" y="95" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="#687f9e">WORKSPACE</text>
+  <rect x="15" y="111" width="186" height="39" rx="6" fill="#1b355c"/>
+  <rect x="15" y="111" width="3" height="39" rx="2" fill="#55a0ff"/>
+  <text x="35" y="136" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#eaf2ff">Overview</text>
+  <text x="35" y="178" font-family="Arial,sans-serif" font-size="13" fill="#a8bbd2">Alerts</text>
+  <text x="35" y="216" font-family="Arial,sans-serif" font-size="13" fill="#a8bbd2">Assets</text>
+  <text x="245" y="36" font-family="Arial,sans-serif" font-size="11" fill="#9fb3ca">Workspace</text>
+  <text x="322" y="36" font-family="Arial,sans-serif" font-size="11" fill="#667e98">›</text>
+  <text x="339" y="36" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#dce8f8">Overview</text>
+  <rect x="1010" y="17" width="146" height="28" rx="14" fill="#0c1a29" stroke="#284a4c"/>
+  <circle cx="1028" cy="31" r="4" fill="#4fd6ab"/><text x="1040" y="35" font-family="Arial,sans-serif" font-size="10" fill="#c6dbdf">Demo environment</text>
+  <text x="245" y="101" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="3" fill="#7da6ff">SECURITY OPERATIONS</text>
+  <text x="245" y="137" font-family="Arial,sans-serif" font-size="29" font-weight="700" fill="#f4f7ff">Security overview</text>
+  <text x="245" y="158" font-family="Arial,sans-serif" font-size="12" fill="#a7b9cb">A clear view of what needs attention right now.</text>
+  <g transform="translate(245 183)">
+    <rect width="282" height="118" rx="9" fill="url(#card)" stroke="#243550"/>
+    <text x="18" y="26" font-family="Arial,sans-serif" font-size="12" fill="#9fb5cb">Open alerts</text><text x="18" y="74" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#f5f8ff">04</text><text x="18" y="96" font-family="Arial,sans-serif" font-size="11" fill="#8ba0b9">Requiring review</text>
+  </g>
+  <g transform="translate(541 183)">
+    <rect width="282" height="118" rx="9" fill="url(#card)" stroke="#243550"/>
+    <text x="18" y="26" font-family="Arial,sans-serif" font-size="12" fill="#9fb5cb">Critical risks</text><text x="18" y="74" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#f5f8ff">01</text><text x="18" y="96" font-family="Arial,sans-serif" font-size="11" fill="#8ba0b9">Across monitored assets</text>
+  </g>
+  <g transform="translate(837 183)">
+    <rect width="282" height="118" rx="9" fill="url(#card)" stroke="#243550"/>
+    <text x="18" y="26" font-family="Arial,sans-serif" font-size="12" fill="#9fb5cb">Assets tracked</text><text x="18" y="74" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#f5f8ff">05</text><text x="18" y="96" font-family="Arial,sans-serif" font-size="11" fill="#8ba0b9">In this demo workspace</text>
+  </g>
+  <text x="245" y="343" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#e8f1ff">Priority alerts</text>
+  <text x="245" y="366" font-family="Arial,sans-serif" font-size="11" fill="#9aadc1">Recent activity that may need an analyst.</text>
+  <text x="1025" y="345" font-family="Arial,sans-serif" font-size="11" fill="#7faeff">View all alerts  ›</text>
+</svg>

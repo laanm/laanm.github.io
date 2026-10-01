@@ -1,4 +1,5 @@
 const $ = id => document.getElementById(id);
+if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('embed-mode');
 const API_BASE = document.querySelector('meta[name="demo-api-base"]')?.content?.trim().replace(/\/$/, '') || '';
 const STORAGE_KEY = 'sylclips-public-demo-reviews-v1';
 const labelFor = {separate:'Separate',merge:'Merge',review:'Needs review'};
