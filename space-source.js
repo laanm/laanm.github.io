@@ -25,6 +25,64 @@ motionToggle?.addEventListener('click',()=>{
   motionToggle.querySelector('span').textContent=motion?'ON':'OFF';
 });
 
+// Keep the same sky map available after the hero, and mark the actual place
+// reached by scrolling or by choosing a destination.
+const heroChart=document.querySelector('.constellation-nav');
+const chartMap=heroChart?.querySelector('.constellation-map');
+if(chartMap){
+  const traveler=document.createElement('span');
+  traveler.className='chart-traveler';
+  traveler.setAttribute('aria-hidden','true');
+  chartMap.appendChild(traveler);
+}
+const chartDock=heroChart?.cloneNode(true);
+if(chartDock){
+  chartDock.classList.add('constellation-dock');
+  chartDock.setAttribute('aria-label','Persistent portfolio navigation');
+  chartDock.inert=true;
+  document.body.appendChild(chartDock);
+}
+const charts=[heroChart,chartDock].filter(Boolean);
+const chartPositions={
+  '#top':[48.7,48], '#about':[14.1,11], '#work-fullstack':[8.7,62],
+  '#work-ai':[83.2,8], '#work-frontend':[89.6,61],
+  '#skills':[35.4,85], '#contact':[66.5,85]
+};
+const routeStops=[
+  ['work','#work-fullstack'],
+  ['work-ai','#work-ai'],
+  ['work-frontend','#work-frontend'],
+  ['sylclips-demo','#work-ai'],
+  ['about','#about'],
+  ['skills','#skills'],
+  ['contact','#contact']
+];
+function updateChartLocation(y){
+  let current='#top';
+  for(const [id,href] of routeStops){
+    const el=document.getElementById(id);
+    if(el && y>=el.getBoundingClientRect().top+scrollY) current=href;
+  }
+  for(const chart of charts){
+    const [x,py]=chartPositions[current];
+    chart.style.setProperty('--traveler-x',`${x}%`);
+    chart.style.setProperty('--traveler-y',`${py}%`);
+    chart.querySelectorAll('a').forEach(link=>{
+      const active=link.getAttribute('href')===current;
+      link.classList.toggle('is-current',active);
+      if(active)link.setAttribute('aria-current','location');
+      else link.removeAttribute('aria-current');
+    });
+    chart.querySelector('.constellation-origin small').textContent=current==='#top'?'YOU ARE HERE':'START';
+  }
+  if(chartDock){
+    const show=scrollY>document.getElementById('top').offsetHeight-innerHeight*.3;
+    chartDock.classList.toggle('is-visible',show);
+    document.documentElement.classList.toggle('chart-docked',show);
+    chartDock.inert=!show;
+  }
+}
+
 function sectionJourney() {
   const y = window.scrollY + window.innerHeight * .38;
   const tops = chapters.map(el => el.getBoundingClientRect().top + window.scrollY);
@@ -36,6 +94,7 @@ function sectionJourney() {
   targetJourney = index + amount;
   if (progressEl) progressEl.style.height = `${clamp(targetJourney / 5, 0, 1) * 100}%`;
   if (labelEl) labelEl.textContent = `${String(index + 1).padStart(2, '0')} / ${labels[index]}`;
+  updateChartLocation(y);
 }
 window.addEventListener('scroll', sectionJourney, { passive: true });
 window.addEventListener('resize', sectionJourney);
@@ -134,7 +193,9 @@ if (renderer) {
   }
   const stars = [], starColors = [], starSizes = [];
   const count = mobile.matches ? 35000 : 72000;
-  const palette = [[.83,.9,1],[.24,.73,1],[.3,1,.9],[1,.56,.78],[.72,.55,1],[1,.74,.37],[1,.97,.85]];
+  // Stellar light ranges from cool blue-white to warm amber/red; the richer
+  // cyan and violet tones belong to the distant gas, not every foreground star.
+  const palette = [[.87,.92,1],[.57,.76,1],[.76,.86,1],[1,.98,.87],[1,.82,.61],[1,.65,.56]];
   for (let i = 0; i < count; i++) {
     // The travel corridor, middle field and distant field occupy separate 3D volumes.
     const layer = Math.random();
@@ -148,7 +209,7 @@ if (renderer) {
     const light = rand(.72,1.28);
     starColors.push(color[0]*light,color[1]*light,color[2]*light);
     const bright = Math.random();
-    starSizes.push(bright > .994 ? rand(5,8.2) : bright > .93 ? rand(2.6,4.7) : rand(1.2,2.8));
+    starSizes.push(bright > .994 ? rand(4.3,6.8) : bright > .93 ? rand(2.3,4) : rand(1.1,2.5));
   }
   points(stars,starColors,starSizes,1);
   const beaconPositions=[],beaconColors=[],beaconSizes=[];
@@ -158,7 +219,7 @@ if (renderer) {
     beaconPositions.push(x,y,z);
     const tint=palette[Math.floor(Math.random()*palette.length)];
     beaconColors.push(tint[0],tint[1],tint[2]);
-    beaconSizes.push(rand(6,16));
+    beaconSizes.push(rand(5,12));
   }
   points(beaconPositions,beaconColors,beaconSizes,.62);
 
@@ -301,7 +362,7 @@ if (renderer) {
     world3.group.position.x=mobile.matches?-4.4:-8;
     world4.group.position.x=mobile.matches?-4.4:-8;
     world5.group.position.x=mobile.matches?-4.4:-8;
-    world6.group.position.x=mobile.matches?4.4:9;
+    world6.group.position.x=mobile.matches?6.5:11.5;
   };
   positionWorlds();
   function rings(world, inner, outer) {
@@ -338,15 +399,25 @@ if (renderer) {
     }
     points(p,c,s,.77);nebula(cx,cy,cz+2,radius*2,0x667ef0,.22);
   }
-  galaxy(10,0,-94,mobile.matches?3000:6000,18,[.55,.69,1]);
-  galaxy(-10,2,-296,mobile.matches?3000:6500,19,[.62,.55,1]);
+  // Far clusters sit behind the travel path, so each chapter has a distinct
+  // blue, violet or warm region without hiding the foreground planets.
+  galaxy(-29,13,-75,mobile.matches?2100:4200,22,[.27,.68,1]);
+  galaxy(26,-12,-141,mobile.matches?2200:4500,21,[.83,.36,.42]);
+  galaxy(-27,13,-201,mobile.matches?2100:4200,22,[.38,.72,1]);
+  galaxy(28,12,-268,mobile.matches?2200:4400,21,[.78,.46,.96]);
+  galaxy(-27,-11,-341,mobile.matches?2100:4200,22,[.26,.74,.96]);
+  nebula(-29,13,-72,47,0x195b9b,.35);
+  nebula(26,-12,-139,46,0xa33052,.29);
+  nebula(-27,13,-198,49,0x286bb4,.31);
+  nebula(28,12,-264,46,0x7543a5,.3);
+  nebula(-27,-11,-338,48,0x1d7994,.31);
 
   const resize=()=>{camera.aspect=innerWidth/innerHeight;camera.fov=mobile.matches?68:58;camera.updateProjectionMatrix();positionWorlds();const ratio=renderRatio();renderer.setPixelRatio(ratio);renderer.setSize(innerWidth,innerHeight);pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});};
   window.addEventListener('resize',resize);
   let last=performance.now();
   let rendered=false;
   setTimeout(()=>{if(!rendered)fallback();},4500);
-  const backdropColors=[0x020610,0x070718,0x03121c,0x130a19,0x0b0820,0x04191c].map(c=>new THREE.Color(c));
+  const backdropColors=[0x031023,0x071b2d,0x201020,0x0b1f37,0x190f2a,0x072431].map(c=>new THREE.Color(c));
   function tick(now){
     // The first animation timestamp can precede performance.now() sampled
     // during setup. A negative delta would move deep links backward past 0.
@@ -354,6 +425,10 @@ if (renderer) {
     pointer.x=smooth(pointer.x,pointer.tx,dt*4.5);pointer.y=smooth(pointer.y,pointer.ty,dt*4.5);
     pointer.activity=smooth(pointer.activity,pointer.targetActive,dt*2.6);
     journey=motion?smooth(journey,targetJourney,dt*2.1):targetJourney;
+    if(chartDock){
+      chartDock.style.setProperty('--drift-x',`${motion?(Math.sin(journey*1.25)*9+pointer.x*2).toFixed(1):0}px`);
+      chartDock.style.setProperty('--drift-y',`${motion?(Math.cos(journey*1.1)*5+pointer.y*2).toFixed(1):0}px`);
+    }
     syncPlanetMaps();
     if(!Number.isFinite(journey)){
       document.documentElement.dataset.sceneDiagnostic=JSON.stringify({targetJourney,now,last});
@@ -367,10 +442,10 @@ if (renderer) {
     const mouseX=motion?pointer.x:0,mouseY=motion?pointer.y:0;
     camera.position.x=smooth(camera.position.x,(Math.sin(journey*1.5)*1.7+mouseX*3.8)*offset,dt*3.2);
     camera.position.y=smooth(camera.position.y,(Math.cos(journey*1.2)*.8-mouseY*2.3)*offset,dt*3.2);
-    const mouseApproach=motion?pointer.activity*.6*offset:0;
+    const mouseApproach=motion?pointer.activity*1.35*offset:0;
     camera.position.z=smooth(camera.position.z,1-journey*59-mouseApproach,dt*2.1);
     const baseFov=mobile.matches?68:58;
-    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*1.45:0);
+    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*3.6:0);
     const nextFov=smooth(camera.fov,zoomFov,dt*3.1);
     if(Math.abs(nextFov-camera.fov)>.002){camera.fov=nextFov;camera.updateProjectionMatrix();}
     // Off-axis projection keeps the spot beneath the pointer stationary as
@@ -389,7 +464,7 @@ if (renderer) {
     }
     futureWorlds.forEach((world,i)=>{
       const arrival=clamp((journey-(i+.1))/.7,0,1);
-      world.group.scale.setScalar(arrival*arrival*(3-2*arrival));
+      world.group.scale.setScalar(arrival*arrival*(3-2*arrival)*(i===4?.52:1));
     });
     if(!contextLost){
       try{
