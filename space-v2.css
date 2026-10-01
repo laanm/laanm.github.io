@@ -163,3 +163,30 @@
 .skills-grid>div{background:linear-gradient(90deg,rgba(2,9,23,.95),rgba(3,12,28,.84) 78%,rgba(3,12,28,.25));padding:18px 20px}
 .tech-cluster{background:linear-gradient(120deg,rgba(2,9,23,.94),rgba(4,17,37,.83));border-color:rgba(134,208,227,.3)}
 .about-grid>div:first-child{position:relative;isolation:isolate}.about-grid>div:first-child::before{content:'';position:absolute;z-index:-1;inset:-20px -5px -20px -35px;background:radial-gradient(ellipse at 36% 45%,rgba(2,8,21,.91),rgba(2,8,21,.62) 62%,transparent 93%);filter:blur(17px);pointer-events:none}
+
+/* The navigation is drawn as a scalable star chart within the space scene. */
+.constellation-nav{position:relative;width:min(630px,100%);margin-top:16px;isolation:isolate}
+.constellation-nav::before{content:'';position:absolute;z-index:-1;inset:22px -12px -6px;background:radial-gradient(ellipse at 50% 52%,rgba(1,7,20,.83),rgba(1,7,20,.48) 65%,transparent 91%);filter:blur(15px);pointer-events:none}
+.constellation-heading{display:block;color:#baf6f0;font:700 9px var(--display);letter-spacing:.18em;text-shadow:0 0 15px rgba(74,216,230,.6)}
+.constellation-heading span{color:#a9c6dc;font-weight:500}
+.constellation-map{position:relative;width:100%;height:230px;margin-top:2px}
+.constellation-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.constellation-lines path{fill:none;stroke:rgba(164,225,242,.82);stroke-width:1.25;filter:drop-shadow(0 0 4px rgba(126,207,240,.88))}
+.constellation-scatter circle{fill:#cff9ff;filter:drop-shadow(0 0 3px #8bd7f8)}
+.constellation-origin{position:absolute;left:48.7%;top:48%;transform:translate(-50%,-5px);display:flex;align-items:center;flex-direction:column;gap:7px;white-space:nowrap}
+.constellation-origin b{width:16px;height:16px;background:#f3fffd;clip-path:polygon(50% 0,59% 40%,100% 50%,59% 59%,50% 100%,41% 59%,0 50%,41% 40%);filter:drop-shadow(0 0 10px #8df5e6)}
+.constellation-origin small{font:700 8px var(--display);letter-spacing:.12em;color:#cff9f0;text-shadow:0 1px 10px #000}
+.constellation-destination{--star:#b8f5ff;position:absolute;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:92px;padding:0 2px;text-align:center;transform:translateX(-50%);text-shadow:0 1px 8px #000,0 1px 14px #000;outline:0}
+.destination-star{position:relative;display:block;width:11px;height:11px;border-radius:50%;background:var(--star);box-shadow:0 0 3px #fff,0 0 10px var(--star),0 0 26px var(--star);transition:transform .24s,box-shadow .24s}
+.destination-star::before,.destination-star::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--star);opacity:.78;filter:blur(.3px)}
+.destination-star::before{height:27px;width:1px}.destination-star::after{height:1px;width:27px}
+.constellation-destination small{color:#c1d7e7;font:700 7px var(--display);letter-spacing:.15em;margin-top:6px}
+.constellation-destination strong{color:#edfaff;font:600 11px var(--display);line-height:1.17;white-space:nowrap}
+.constellation-destination:hover .destination-star,.constellation-destination:focus-visible .destination-star{transform:scale(1.48);box-shadow:0 0 5px #fff,0 0 18px var(--star),0 0 40px var(--star)}
+.constellation-destination:hover strong,.constellation-destination:focus-visible strong{color:var(--star);text-decoration:underline;text-underline-offset:4px}
+.star-experience{--star:#a4edff;left:14.1%;top:11%}.star-professional{--star:#70dce6;left:8.7%;top:62%}.star-ai{--star:#d4a3ff;left:83.2%;top:8%}.star-frontend{--star:#98e9de;left:89.6%;top:61%}.star-skills{--star:#ffddac;left:35.4%;top:85%}.star-contact{--star:#ffaaa6;left:66.5%;top:85%}
+.star-ai .destination-star{width:14px;height:14px}.star-professional .destination-star{width:13px;height:13px}.star-skills .destination-star{width:8px;height:8px}.star-contact .destination-star{width:9px;height:9px}
+.constellation-hint{display:block;margin-top:-5px;color:#b8d9e8;font:500 10px var(--display)}.constellation-hint span{color:#a2eee8}
+@media(min-width:761px){.constellation-map{height:200px}.constellation-lines{height:100%}.constellation-hint{margin-top:1px}}
+@media(max-width:760px){.constellation-nav{margin-top:22px}.constellation-heading{font-size:8px}.constellation-map{height:220px}.constellation-destination{min-width:75px}.constellation-destination strong{font-size:9px;white-space:normal}.constellation-destination small{font-size:6px}.star-professional{left:12%}.star-frontend{left:86%}.constellation-hint{margin-top:4px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){.destination-star{transition:none}}
