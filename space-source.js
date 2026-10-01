@@ -295,7 +295,7 @@ if (renderer) {
     const material = new THREE.ShaderMaterial({
       uniforms: { uPixelRatio: { value: renderRatio() }, uOpacity: { value: baseOpacity }, uTime:{value:0} },
       vertexShader: `attribute vec3 aColor; attribute float aSize; attribute float aPhase; varying vec3 vColor; varying float vPhase; varying float vSize; uniform float uPixelRatio; void main(){ vColor=aColor;vPhase=aPhase;vSize=aSize; vec4 mv=modelViewMatrix*vec4(position,1.); gl_Position=projectionMatrix*mv; gl_PointSize=clamp(aSize*uPixelRatio*128./max(1.,-mv.z),1.15*uPixelRatio,52.0*uPixelRatio); }`,
-      fragmentShader: `varying vec3 vColor; varying float vPhase; varying float vSize; uniform float uOpacity;uniform float uTime; void main(){vec2 p=gl_PointCoord-vec2(.5);float d=length(p);float halo=exp(-d*d*17.);float core=exp(-d*d*220.);float cross=exp(-abs(p.x)*52.)*exp(-abs(p.y)*6.)+exp(-abs(p.y)*52.)*exp(-abs(p.x)*6.);float sparkle=step(4.8,vSize)*cross*.55;float pulse=.87+.13*sin(uTime*(.8+vPhase*.12)+vPhase);float a=(halo*.63+core*.88+sparkle)*uOpacity*pulse;vec3 color=mix(vColor,vec3(1.),core*.24);gl_FragColor=vec4(color*1.25,a);}`,
+      fragmentShader: `varying vec3 vColor; varying float vPhase; varying float vSize; uniform float uOpacity;uniform float uTime; void main(){vec2 p=gl_PointCoord-vec2(.5);float d=length(p);float halo=exp(-d*d*17.);float core=exp(-d*d*220.);float cross=exp(-abs(p.x)*68.)*exp(-abs(p.y)*5.5)+exp(-abs(p.y)*68.)*exp(-abs(p.x)*5.5);float sparkle=smoothstep(10.5,14.,vSize)*cross*1.25;float pulse=.9+.1*sin(uTime*(.8+vPhase*.12)+vPhase);float a=(halo*.55+core*.9+sparkle)*uOpacity*pulse;vec3 color=mix(vColor,vec3(1.),core*.13);gl_FragColor=vec4(color*1.28,a);}`,
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
     });
     const field = new THREE.Points(geometry, material);
@@ -308,7 +308,7 @@ if (renderer) {
   const count = mobile.matches ? 35000 : 72000;
   // Stellar light ranges from cool blue-white to warm amber/red; the richer
   // cyan and violet tones belong to the distant gas, not every foreground star.
-  const palette = [[.87,.92,1],[.57,.76,1],[.76,.86,1],[1,.98,.87],[1,.82,.61],[1,.65,.56]];
+  const palette = [[.91,.94,1],[.91,.94,1],[.49,.72,1],[.69,.83,1],[1,.97,.81],[1,.73,.49],[1,.52,.43]];
   for (let i = 0; i < count; i++) {
     // The travel corridor, middle field and distant field occupy separate 3D volumes.
     const layer = Math.random();
@@ -319,10 +319,10 @@ if (renderer) {
     if(zones.some(([px,py,pz])=>z>pz&&z<pz+38&&Math.abs(x-px)<10&&Math.abs(y-py)<10)){i--;continue;}
     stars.push(x,y,z);
     const color = palette[Math.floor(Math.random()*palette.length)];
-    const light = rand(.72,1.28);
+    const light = rand(.78,1.12);
     starColors.push(color[0]*light,color[1]*light,color[2]*light);
     const bright = Math.random();
-    starSizes.push(bright > .994 ? rand(4.3,6.8) : bright > .93 ? rand(2.3,4) : rand(1.1,2.5));
+    starSizes.push(bright > .997 ? rand(5.2,8.4) : bright > .93 ? rand(2.4,4.5) : rand(1.1,2.5));
   }
   points(stars,starColors,starSizes,1);
   const beaconPositions=[],beaconColors=[],beaconSizes=[];
@@ -332,7 +332,8 @@ if (renderer) {
     beaconPositions.push(x,y,z);
     const tint=palette[Math.floor(Math.random()*palette.length)];
     beaconColors.push(tint[0],tint[1],tint[2]);
-    beaconSizes.push(rand(5,12));
+    const magnitude=Math.random();
+    beaconSizes.push(magnitude>.93?rand(13,20):magnitude>.68?rand(7,12):rand(4.5,7));
   }
   points(beaconPositions,beaconColors,beaconSizes,.62);
 
