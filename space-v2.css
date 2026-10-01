@@ -242,3 +242,68 @@
 .chart-docked .motion-toggle{right:auto;left:18px}
 @media(max-width:760px){.constellation-dock{left:0;right:0;bottom:0;width:100%;padding:8px 6px 5px;background:rgba(2,7,17,.88);backdrop-filter:blur(12px)}.constellation-dock.is-visible{transform:none}.constellation-dock::before,.constellation-dock .constellation-heading,.constellation-dock .constellation-lines,.constellation-dock .chart-traveler{display:none}.constellation-dock .constellation-map{display:flex;align-items:flex-start;justify-content:space-around;height:66px;margin:0;gap:1px}.constellation-dock .constellation-origin,.constellation-dock .constellation-destination{position:static;transform:none;flex:1;min-width:0;padding:3px 1px;gap:3px}.constellation-dock .constellation-origin small,.constellation-dock .constellation-destination strong{font-size:8px;line-height:1.08;white-space:normal;text-align:center}.constellation-dock .constellation-destination.is-current::after{display:block;font-size:5px;line-height:1}.constellation-dock .constellation-origin b{flex:none}.constellation-dock .destination-star{flex:none}.chart-docked .motion-toggle{bottom:86px;left:auto;right:12px}.chart-docked .site-footer{padding-bottom:105px}}
 @media(prefers-reduced-motion:reduce){.constellation-dock,.chart-traveler{transition:none}}
+
+/* Let the chart inhabit the scene instead of sitting on a dark plaque. */
+.constellation-nav::before,.constellation-dock::before{content:none}
+.constellation-dock{background:none;backdrop-filter:none}
+.constellation-dock .constellation-heading,.constellation-dock .constellation-destination strong,.constellation-dock .constellation-origin small{text-shadow:0 1px 3px rgba(0,0,0,.9),0 2px 11px rgba(0,0,0,.75)}
+html.is-flying{scroll-behavior:auto!important}
+@media(max-width:760px){.constellation-dock{background:linear-gradient(0deg,rgba(2,7,17,.78),rgba(2,7,17,.38) 58%,transparent);backdrop-filter:none}}
+
+/* An irregular star pattern with a few brighter, different-temperature stars. */
+.constellation-origin{left:44%;top:41%}
+.star-experience{left:20%;top:8%;--star:#b9d8ff}
+.star-professional{left:10%;top:65%;--star:#84bbff}
+.star-ai{left:71%;top:18%;--star:#e1c1ec}
+.star-frontend{left:90%;top:52%;--star:#c5e6fa}
+.star-skills{left:31%;top:91%;--star:#ffd2a0}
+.star-contact{left:73%;top:86%;--star:#f2aaa1}
+.star-professional .destination-star{width:13px;height:13px;background:#e9f2ff;box-shadow:0 0 5px #fff,0 0 18px #82baff,0 0 35px rgba(100,160,236,.65)}
+.star-skills .destination-star{width:11px;height:11px;background:#fff2d9;box-shadow:0 0 5px #fff,0 0 16px #ffbe85,0 0 32px rgba(231,131,75,.55)}
+.star-ai .destination-star{width:8px;height:8px;background:#f1dbea}
+.star-contact .destination-star{width:7px;height:7px;background:#ffd6c4}
+.constellation-scatter circle:nth-child(3n){fill:#a9cbf4}
+.constellation-scatter circle:nth-child(5n){fill:#efb4a1}
+.constellation-scatter circle:nth-child(7n){fill:#f3dfbb}
+@media(max-width:760px){.star-professional{left:15%}.star-frontend{left:85%}.constellation-dock .star-professional,.constellation-dock .star-frontend{left:auto}}
+.hero .constellation-nav{display:none}
+
+/* Skills become a navigable map of real project connections. */
+.project-constellation{position:relative;isolation:isolate;width:min(1040px,100%);height:470px;margin:0 auto 20px;overflow:hidden}
+.project-constellation-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.project-constellation-lines line{stroke:rgba(187,209,224,.19);stroke-width:1;transition:stroke .35s,stroke-width .35s,opacity .35s}
+.project-constellation-lines line.shared-connection{stroke-dasharray:3 7;stroke:rgba(202,223,238,.25)}
+.project-constellation.has-selection .project-constellation-lines line{opacity:.13}
+.project-constellation-lines line.is-lit{opacity:1!important;stroke:rgba(183,219,247,.87);stroke-width:1.5;filter:drop-shadow(0 0 3px rgba(126,185,239,.65))}
+.project-constellation-lines line.shared-connection.is-lit{stroke:rgba(194,222,255,.72)}
+.map-caption{position:absolute;top:1%;left:1%;font:600 9px var(--display);letter-spacing:.17em;color:#a7c0ce}
+.map-tech,.map-project{position:absolute;z-index:2;display:flex;align-items:center;gap:8px;transform:translate(-50%,-50%);border:0;background:none;color:#d5e2e9;text-shadow:0 1px 9px #000,0 2px 14px #000;white-space:nowrap}
+.map-tech{padding:10px 5px;font:500 11px var(--display);transition:color .25s,opacity .25s}
+.map-tech i,.map-project i{flex:none;display:block;border-radius:50%;background:var(--node-color,#d6e8fa);box-shadow:0 0 4px #fff,0 0 11px var(--node-color,#d6e8fa),0 0 25px var(--node-color,#d6e8fa);transition:transform .3s,box-shadow .3s}
+.map-tech i{width:6px;height:6px}
+.map-tech:hover,.map-tech:focus-visible,.map-tech.is-lit{color:#fff}
+.map-tech:hover i,.map-tech:focus-visible i,.map-tech.is-lit i{transform:scale(1.7);box-shadow:0 0 5px #fff,0 0 17px var(--node-color),0 0 32px var(--node-color)}
+.map-tech:focus-visible,.map-project:focus-visible{outline:1px solid rgba(212,235,248,.6);outline-offset:3px}
+.map-project{width:160px;padding:9px 3px;font:600 14px var(--display);line-height:1.15;transition:opacity .3s,color .3s}
+.map-project i{width:13px;height:13px}
+.map-project span{display:flex;flex-direction:column;gap:4px}
+.map-project small{font:500 9px var(--display);color:#9bb8c8}
+.map-project:hover,.map-project:focus-visible,.map-project.is-lit{color:#fff}
+.map-project:hover i,.map-project:focus-visible i,.map-project.is-lit i{transform:scale(1.28);box-shadow:0 0 7px #fff,0 0 25px var(--node-color),0 0 40px var(--node-color)}
+.project-constellation.has-selection .map-project:not(.is-lit){opacity:.36}
+.map-status{position:absolute;left:1%;bottom:0;margin:0;color:#bad0dc;font-size:12px;text-shadow:0 2px 10px #000}
+.tech-typescript{left:11%;top:17%;--node-color:#9dc9ff}.tech-react{left:12%;top:84%;--node-color:#bcddf5}.tech-llms{left:43%;top:10%;--node-color:#e9bded}.tech-pytorch{left:73%;top:17%;--node-color:#f8ba9c}.tech-fastapi{left:89%;top:45%;--node-color:#abdfe5}.tech-rest{left:7%;top:49%;--node-color:#b4d9ef}.tech-node{left:90%;top:84%;--node-color:#c5ddd8}.tech-sap{left:53%;top:91%;--node-color:#f0d3a1}
+.project-kiosk{left:30%;top:38%;--node-color:#9fcbff}.project-sentinel{left:31%;top:69%;--node-color:#b7d9f4}.project-sylclips{left:64%;top:44%;--node-color:#e7c8ed}.project-sap{left:72%;top:72%;--node-color:#ecd6a8}
+.toolkit-details{width:min(1040px,100%);margin:0 auto;border-top:1px solid rgba(194,220,234,.18);color:#b9ccd7}
+.toolkit-details summary{cursor:pointer;padding:16px 0;color:#d8e7ee;font:600 11px var(--display);letter-spacing:.1em;text-transform:uppercase;list-style:none}
+.toolkit-details summary::after{content:'＋';margin-left:9px;font-size:14px}.toolkit-details[open] summary::after{content:'−'}
+.toolkit-details p{font-size:12px;line-height:1.7;margin:0 0 10px}.toolkit-details strong{color:#e4edf2}
+@media(max-width:760px){.project-constellation{height:590px}.map-caption{font-size:8px}.map-tech{font-size:10px;gap:5px}.map-project{width:120px;font-size:11px;gap:5px}.map-project i{width:9px;height:9px}.map-project small{font-size:8px}.map-status{font-size:11px;max-width:75%}.tech-typescript{left:15%;top:13%}.tech-react{left:16%;top:88%}.tech-llms{left:55%;top:8%}.tech-pytorch{left:85%;top:24%}.tech-fastapi{left:86%;top:53%}.tech-rest{left:12%;top:49%}.tech-node{left:85%;top:89%}.tech-sap{left:46%;top:92%}.project-kiosk{left:30%;top:31%}.project-sentinel{left:30%;top:69%}.project-sylclips{left:64%;top:41%}.project-sap{left:64%;top:74%}}
+html:not(.motion-paused) .chart-traveler{transition:left 1.15s cubic-bezier(.23,.73,.2,1),top 1.15s cubic-bezier(.23,.73,.2,1)}
+.project-constellation{height:405px}
+@media(max-width:760px){.project-constellation{height:525px}}
+@media(min-width:1100px){.project-constellation{width:min(800px,calc(100% - 290px));margin-left:0}}
+.map-tech{font-size:12px;text-shadow:0 1px 4px #000,0 2px 12px #000,0 0 18px #000}
+.map-project{font-size:15px;text-shadow:0 1px 4px #000,0 2px 13px #000,0 0 19px #000}
+.map-project small{text-shadow:0 1px 5px #000,0 1px 10px #000}
+@media(max-width:760px){.map-tech{font-size:10px}.map-project{font-size:11px}}

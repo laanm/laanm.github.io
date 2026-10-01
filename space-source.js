@@ -38,15 +38,17 @@ if(chartMap){
 const chartDock=heroChart?.cloneNode(true);
 if(chartDock){
   chartDock.classList.add('constellation-dock');
+  chartDock.classList.add('is-visible');
   chartDock.setAttribute('aria-label','Persistent portfolio navigation');
-  chartDock.inert=true;
+  chartDock.inert=false;
   document.body.appendChild(chartDock);
+  document.documentElement.classList.add('chart-docked');
 }
 const charts=[heroChart,chartDock].filter(Boolean);
 const chartPositions={
-  '#top':[48.7,48], '#about':[14.1,11], '#work-fullstack':[8.7,62],
-  '#work-ai':[83.2,8], '#work-frontend':[89.6,61],
-  '#skills':[35.4,85], '#contact':[66.5,85]
+  '#top':[44,41], '#about':[20,8], '#work-fullstack':[10,65],
+  '#work-ai':[71,18], '#work-frontend':[90,52],
+  '#skills':[31,91], '#contact':[73,86]
 };
 const routeStops=[
   ['work','#work-fullstack'],
@@ -75,12 +77,6 @@ function updateChartLocation(y){
     });
     chart.querySelector('.constellation-origin small').textContent=current==='#top'?'YOU ARE HERE':'START';
   }
-  if(chartDock){
-    const show=scrollY>document.getElementById('top').offsetHeight-innerHeight*.3;
-    chartDock.classList.toggle('is-visible',show);
-    document.documentElement.classList.toggle('chart-docked',show);
-    chartDock.inert=!show;
-  }
 }
 
 function sectionJourney() {
@@ -105,6 +101,123 @@ window.addEventListener('pointermove', event => {
 }, { passive: true });
 window.addEventListener('pointerleave', () => { pointer.tx = 0; pointer.ty = 0; pointer.targetActive=0; });
 sectionJourney();
+
+// A destination is a continuous flight through the same 3D scene. Native
+// smooth scrolling is very short for distant anchors and makes the scene jump.
+let flightFrame=0;
+let flightIntensity=0;
+function stopFlight(){
+  if(flightFrame) cancelAnimationFrame(flightFrame);
+  flightFrame=0;
+  flightIntensity=0;
+  document.documentElement.classList.remove('is-flying');
+}
+function flyTo(target){
+  stopFlight();
+  const destination=clamp(target.getBoundingClientRect().top+scrollY-72,0,document.documentElement.scrollHeight-innerHeight);
+  const origin=scrollY;
+  const distance=destination-origin;
+  if(Math.abs(distance)<2)return;
+  const duration=clamp(1050+Math.abs(distance)*.28,1350,3900);
+  const began=performance.now();
+  document.documentElement.classList.add('is-flying');
+  const frame=now=>{
+    const t=clamp((now-began)/duration,0,1);
+    const progress=t*t*t*(t*(t*6-15)+10);
+    window.scrollTo(0,origin+distance*progress);
+    flightIntensity=Math.sin(Math.PI*t);
+    if(t<1)flightFrame=requestAnimationFrame(frame);
+    else{flightIntensity=0;stopFlight();}
+  };
+  flightFrame=requestAnimationFrame(frame);
+}
+document.addEventListener('click',event=>{
+  const link=event.target.closest('a[href^="#"]');
+  if(!link || link.classList.contains('skip-link') || event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
+  const hash=link.getAttribute('href');
+  const target=document.getElementById(hash.slice(1));
+  if(!target)return;
+  if(!motion)return;
+  event.preventDefault();
+  history.pushState(null,'',hash);
+  flyTo(target);
+});
+window.addEventListener('wheel',stopFlight,{passive:true});
+window.addEventListener('touchstart',stopFlight,{passive:true});
+window.addEventListener('keydown',event=>{
+  if(['PageDown','PageUp','Home','End','ArrowDown','ArrowUp',' '].includes(event.key))stopFlight();
+});
+
+const projectMap=document.querySelector('.project-constellation');
+if(projectMap){
+  const mapLines=projectMap.querySelector('.project-constellation-lines');
+  const technologyLinks={
+    typescript:['kiosk','sentinel'], react:['sentinel'], llms:['sylclips'],
+    pytorch:['sylclips'], fastapi:['sylclips'], rest:['kiosk','sylclips'],
+    node:['sap'], sap:['sap']
+  };
+  const techButtons=[...projectMap.querySelectorAll('[data-tech]')];
+  const projectLinks=[...projectMap.querySelectorAll('[data-project]')];
+  const status=projectMap.querySelector('.map-status');
+  let selectedTech=null;
+  let hoveredTech=null;
+  const activeTech=()=>hoveredTech||selectedTech;
+  const projectNames={kiosk:'Self-service kiosk',sentinel:'Sentinel Desk',sylclips:'SylClips',sap:'Book Management'};
+  function paintConnections(){
+    const active=activeTech();
+    projectMap.classList.toggle('has-selection',!!active);
+    techButtons.forEach(button=>{
+      const key=button.dataset.tech;
+      button.classList.toggle('is-lit',key===active);
+      button.setAttribute('aria-pressed',String(key===selectedTech));
+    });
+    projectLinks.forEach(link=>link.classList.toggle('is-lit',!!active&&technologyLinks[active].includes(link.dataset.project)));
+    mapLines.querySelectorAll('[data-connection]').forEach(line=>line.classList.toggle('is-lit',line.dataset.connection===active));
+    if(active){
+      const label=techButtons.find(button=>button.dataset.tech===active)?.textContent.trim();
+      status.textContent=`Projects using ${label}: ${technologyLinks[active].map(key=>projectNames[key]).join(' and ')}.`;
+    }else status.textContent='Hover or choose a technology to reveal its project connections.';
+  }
+  function drawConnections(){
+    const bounds=projectMap.getBoundingClientRect();
+    if(!bounds.width||!bounds.height)return;
+    mapLines.setAttribute('viewBox',`0 0 ${bounds.width} ${bounds.height}`);
+    mapLines.replaceChildren();
+    const point=element=>{
+      const rect=element.getBoundingClientRect();
+      return [rect.left+rect.width/2-bounds.left,rect.top+rect.height/2-bounds.top];
+    };
+    const makeLine=(a,b,key,shared=false)=>{
+      const [x1,y1]=point(a),[x2,y2]=point(b);
+      const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1',x1);line.setAttribute('y1',y1);
+      line.setAttribute('x2',x2);line.setAttribute('y2',y2);
+      line.dataset.connection=key;
+      if(shared)line.classList.add('shared-connection');
+      mapLines.appendChild(line);
+    };
+    techButtons.forEach(button=>{
+      const key=button.dataset.tech;
+      const matches=technologyLinks[key].map(project=>projectMap.querySelector(`[data-project="${project}"]`));
+      matches.forEach(link=>makeLine(button,link,key));
+      if(matches.length>1)makeLine(matches[0],matches[1],key,true);
+    });
+    paintConnections();
+  }
+  techButtons.forEach(button=>{
+    button.addEventListener('pointerenter',()=>{hoveredTech=button.dataset.tech;paintConnections();});
+    button.addEventListener('pointerleave',()=>{hoveredTech=null;paintConnections();});
+    button.addEventListener('focus',()=>{hoveredTech=button.dataset.tech;paintConnections();});
+    button.addEventListener('blur',()=>{hoveredTech=null;paintConnections();});
+    button.addEventListener('click',()=>{
+      selectedTech=selectedTech===button.dataset.tech?null:button.dataset.tech;
+      hoveredTech=null;
+      paintConnections();
+    });
+  });
+  new ResizeObserver(drawConnections).observe(projectMap);
+  drawConnections();
+}
 if(motion){
   document.documentElement.classList.add('motion-ready');
   const slides=[...document.querySelectorAll('.deck-slide')];
@@ -424,10 +537,10 @@ if (renderer) {
     const dt=clamp((now-last)/1000,0,.05);last=now;
     pointer.x=smooth(pointer.x,pointer.tx,dt*4.5);pointer.y=smooth(pointer.y,pointer.ty,dt*4.5);
     pointer.activity=smooth(pointer.activity,pointer.targetActive,dt*2.6);
-    journey=motion?smooth(journey,targetJourney,dt*2.1):targetJourney;
+    journey=motion?smooth(journey,targetJourney,dt*(flightFrame?5.5:2.1)):targetJourney;
     if(chartDock){
-      chartDock.style.setProperty('--drift-x',`${motion?(Math.sin(journey*1.25)*9+pointer.x*2).toFixed(1):0}px`);
-      chartDock.style.setProperty('--drift-y',`${motion?(Math.cos(journey*1.1)*5+pointer.y*2).toFixed(1):0}px`);
+      chartDock.style.setProperty('--drift-x',`${motion?(Math.sin(journey*1.25)*13+pointer.x*3).toFixed(1):0}px`);
+      chartDock.style.setProperty('--drift-y',`${motion?(Math.cos(journey*1.1)*8+pointer.y*3).toFixed(1):0}px`);
     }
     syncPlanetMaps();
     if(!Number.isFinite(journey)){
@@ -443,9 +556,9 @@ if (renderer) {
     camera.position.x=smooth(camera.position.x,(Math.sin(journey*1.5)*1.7+mouseX*3.8)*offset,dt*3.2);
     camera.position.y=smooth(camera.position.y,(Math.cos(journey*1.2)*.8-mouseY*2.3)*offset,dt*3.2);
     const mouseApproach=motion?pointer.activity*1.35*offset:0;
-    camera.position.z=smooth(camera.position.z,1-journey*59-mouseApproach,dt*2.1);
+    camera.position.z=smooth(camera.position.z,1-journey*59-mouseApproach,dt*(flightFrame?5.5:2.1));
     const baseFov=mobile.matches?68:58;
-    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*3.6:0);
+    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*3.6:0)+flightIntensity*1.4;
     const nextFov=smooth(camera.fov,zoomFov,dt*3.1);
     if(Math.abs(nextFov-camera.fov)>.002){camera.fov=nextFov;camera.updateProjectionMatrix();}
     // Off-axis projection keeps the spot beneath the pointer stationary as
