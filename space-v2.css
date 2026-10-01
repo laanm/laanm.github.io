@@ -307,3 +307,10 @@ html:not(.motion-paused) .chart-traveler{transition:left 1.15s cubic-bezier(.23,
 .map-project{font-size:15px;text-shadow:0 1px 4px #000,0 2px 13px #000,0 0 19px #000}
 .map-project small{text-shadow:0 1px 5px #000,0 1px 10px #000}
 @media(max-width:760px){.map-tech{font-size:10px}.map-project{font-size:11px}}
+
+/* Temperature is visible in the chart stars, not washed out by a white fill. */
+.star-experience{--star:#a8cbff}.star-professional{--star:#72adff}.star-ai{--star:#ef9b9b}.star-frontend{--star:#91dfe8}.star-skills{--star:#ffc077}.star-contact{--star:#e8a4c0}
+.constellation-destination .destination-star{background:radial-gradient(circle,#fff 0 10%,var(--star) 44%,color-mix(in srgb,var(--star),#10182b 18%) 100%);box-shadow:0 0 4px rgba(255,255,255,.8),0 0 13px var(--star),0 0 27px color-mix(in srgb,var(--star),transparent 32%)}
+.constellation-destination .destination-star::before,.constellation-destination .destination-star::after{background:var(--star);opacity:.43}
+.star-professional .destination-star{width:13px;height:13px;box-shadow:0 0 6px #fff,0 0 20px #72adff,0 0 37px rgba(82,144,242,.75)}
+.star-skills .destination-star{width:11px;height:11px;box-shadow:0 0 6px #fff,0 0 19px #ffc077,0 0 35px rgba(234,145,69,.67)}
