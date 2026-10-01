@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f3ed">
+  <meta name="theme-color" content="#050913">
   <meta name="description" content="Agustín Donnian — software engineer building full-stack products and practical AI applications.">
   <title>Agustín Donnian — Software Engineer</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2317201e'/%3E%3Cpath d='M16 46 29 17h6l13 29h-8l-3-7H26l-3 7zm13-13h6l-3-8z' fill='%23d5f16a'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="./extras.css">
-  <link rel="stylesheet" href="./futuristic.css">
-  <link rel="stylesheet" href="./experience.css">
-  <link rel="stylesheet" href="./space.css">
+  <link rel="stylesheet" href="./space-v2.css?v=4">
   <script defer src="./site.js"></script>
-  <script defer src="./particle-scene.js"></script>
+  <script defer src="./space-v2.js?v=4"></script>
 </head>
 <body>
+  <div id="space-scene" aria-hidden="true"></div>
+  <div class="space-grain" aria-hidden="true"></div>
+  <div class="journey-progress" aria-hidden="true"><span id="chapter-label">01 / DEPARTURE</span><i><b id="journey-fill"></b></i><span>06 / CONNECT</span></div>
+  <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="true" aria-label="Pause scene animation">MOTION <span>ON</span></button>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Agustín Donnian, back to top"><span class="brand-mark">AD<span class="brand-dot">.</span></span><span class="brand-name">Agustín Donnian</span></a>
@@ -36,12 +36,7 @@
         <p class="hero-lede">Full-stack engineer with three years of professional experience across interfaces, APIs, and data. Now building practical AI applications that put reliable software around models.</p>
         <div class="hero-actions"><a class="button button-dark" href="#work">Explore selected work <span aria-hidden="true">↗</span></a><a class="text-link" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a></div>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <canvas id="particle-scene"></canvas>
-        <div class="scene-ring scene-ring-one"></div><div class="scene-ring scene-ring-two"></div>
-        <span class="scene-label scene-label-top">INTERFACES / SYSTEMS / INTELLIGENCE</span>
-        <span class="scene-label scene-label-bottom">SCROLL TO EXPLORE <i>↓</i></span>
-      </div>
+      <div class="hero-visual" aria-hidden="true"><span class="scene-label scene-label-bottom">MOVE YOUR MOUSE · SCROLL TO TRAVEL <i>↓</i></span></div>
     </section>
 
     <div class="summary-strip" aria-label="Profile at a glance">
@@ -72,13 +67,13 @@
       <div class="architecture-grid"><div><span>01 / ENGINEERING</span><h3>Structured before creative</h3><p>Model outputs are checked against a schema and project rules before the render stage. Invalid results trigger a bounded correction loop.</p></div><div><span>02 / OVERSIGHT</span><h3>Human review stays visible</h3><p>Uncertain boundaries can be reviewed and corrected. The local PyTorch classifier remains an experimental option, while Gemini is the default decision path.</p></div><div><span>03 / OPERATIONS</span><h3>Jobs you can inspect</h3><p>The FastAPI backend tracks progress, logs, cancellation, and feedback. A bounded agent can answer questions through read and preview tools.</p></div></div>
     </section>
 
-    <section class="section about-section deck-slide" id="about" aria-labelledby="about-title"><div class="about-grid"><div><p class="section-kicker">03 / ABOUT</p><h2 id="about-title">Engineering across the whole product.</h2></div><div class="about-text"><p>I worked remotely as a Full Stack Developer from 2023 to 2025, turning requirements into interfaces, backend services, integrations, and supportable software. My work has included React and Angular frontends, REST APIs with Django, Spring Boot, and Node.js, and SQL-backed features.</p><p>Personal projects let me go deeper into applied AI: connecting LLMs to structured workflows, adding validation and review, and exploring where a small PyTorch model can make a focused decision. I care about understanding a system well enough to explain its tradeoffs and improve it.</p><a class="text-link" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">More on LinkedIn <span aria-hidden="true">↗</span></a></div></div></section>
+    <section class="section about-section deck-slide" id="about" aria-labelledby="about-title"><div class="about-grid"><div><p class="section-kicker">03 / EXPERIENCE</p><h2 id="about-title">Engineering across the whole product.</h2></div><div class="about-text"><div class="experience-entry"><span>JAN 2023 — AUG 2025 · REMOTE, CHILE</span><h3>Full Stack Developer</h3><p><strong>Sistemas Expertos e Ingeniería de Software Ltda.</strong> Delivered features from requirements and design through frontend, APIs, integration, testing and production support. Built reusable React and Angular components, REST services with Django, Spring Boot and Node.js, and SQL-backed features. Selected work includes the healthcare self-service kiosk, CORONIS integrations and the company landing page.</p></div><div class="experience-entry"><span>OCT 2021 — JAN 2023 · REMOTE, CHILE</span><h3>Help Desk Level 1</h3><p>Resolved and documented incidents, supported users remotely and managed escalation through Jira Service Management. This strengthened my requirements and stakeholder communication skills.</p></div><p>In personal projects I apply LLMs to structured workflows with validation and human review, explore a focused PyTorch model for video-boundary decisions, and develop a SAP CAP application with CDS and OData.</p><div class="background-line"><span>EDUCATION</span><p>Technical Diploma in Computer Science · Computer Engineering studies at the University of Buenos Aires</p></div><div class="background-line"><span>LANGUAGES</span><p>Spanish native · English C1 (Cambridge CAE)</p></div><a class="text-link" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">More on LinkedIn <span aria-hidden="true">↗</span></a></div></div></section>
 
-    <section class="section skills-section deck-slide" id="skills" aria-labelledby="skills-title"><div class="section-heading"><div><p class="section-kicker">04 / TOOLKIT</p><h2 id="skills-title">Tools I work with.</h2></div><p>A practical stack shaped by professional development and hands-on projects.</p></div><div class="skills-grid"><div><span class="skill-index">01</span><h3>Frontend</h3><p>React · Angular · TypeScript · JavaScript · HTML · CSS · Responsive UI</p></div><div><span class="skill-index">02</span><h3>Backend &amp; data</h3><p>Python · Django · FastAPI · Node.js · Java / Spring Boot · REST APIs · SQL</p></div><div><span class="skill-index">03</span><h3>AI applications</h3><p>LLM APIs · Structured outputs · Tool calling · Human review · PyTorch experiments</p></div><div><span class="skill-index">04</span><h3>Delivery</h3><p>Git · Docker · CI/CD · Troubleshooting · Requirements analysis</p></div></div></section>
+    <section class="section skills-section deck-slide" id="skills" aria-labelledby="skills-title"><div class="section-heading"><div><p class="section-kicker">04 / TOOLKIT</p><h2 id="skills-title">Tools I work with.</h2></div><p>A full-stack foundation, with newer AI work developed in personal projects.</p></div><div class="skills-grid"><div><span class="skill-index">01</span><h3>Frontend</h3><p>React · Angular · TypeScript · JavaScript · RxJS · Redux · HTML5 · CSS3 · Sass · Responsive design</p></div><div><span class="skill-index">02</span><h3>Backend &amp; data</h3><p>Python · Django · Django REST Framework · FastAPI · Node.js · Java / Spring Boot · REST APIs · SQL · PostgreSQL · MySQL · MongoDB</p></div><div><span class="skill-index">03</span><h3>AI applications</h3><p>Multimodal LLM APIs · Structured outputs · Tool calling · Human review · Prompt engineering · Experimental PyTorch model training and evaluation</p></div><div><span class="skill-index">04</span><h3>Testing &amp; delivery</h3><p>Postman · API testing · Functional validation · Troubleshooting · Git · GitHub · GitLab · Docker · CI/CD · Jira · Azure DevOps</p></div></div><p class="additional-tools">Also: SAP CAP · CDS · OData · SAP BTP · SAP HANA Cloud</p></section>
 
     <section class="contact-section deck-slide" aria-labelledby="contact-title"><p class="section-kicker">05 / CONNECT</p><h2 id="contact-title">Let's build something<br><em>useful.</em></h2><p>Open to software engineering roles across full-stack development and applied AI.</p><a class="button button-light" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a></section>
   </main>
 
-  <footer class="site-footer"><span>© 2026 Agustín Donnian</span><a href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></footer>
+  <footer class="site-footer"><span>© 2026 Agustín Donnian</span><span>Planet imagery: NASA/GSFC · NASA/JPL/SSI</span><a href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></footer>
 </body>
 </html>

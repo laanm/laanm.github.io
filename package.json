@@ -1,0 +1,12 @@
+{
+  "name": "agustin-donnian-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild space-source.js --bundle --minify --format=iife --outfile=space-v2.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "three": "0.186.1"
+  }
+}

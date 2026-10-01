@@ -73,37 +73,3 @@ document.querySelectorAll('[data-decision]').forEach((button) => {
       : 'Demo feedback: merge these into one clip. No real job was changed.';
   });
 });
-
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const slides = [...document.querySelectorAll('.deck-slide')];
-let animationFrame = 0;
-
-function updateSlides() {
-  animationFrame = 0;
-  const viewHeight = window.innerHeight || 800;
-  slides.forEach((slide, index) => {
-    const entry = slide.getBoundingClientRect().top;
-    const progress = Math.max(0, Math.min(1, (viewHeight * 0.98 - entry) / (viewHeight * 0.72)));
-    const remaining = 1 - progress;
-    const direction = index % 2 === 0 ? 1 : -1;
-    const mobile = window.innerWidth < 700;
-    slide.style.setProperty('--slide-x', `${direction * remaining * (mobile ? 17 : 56)}px`);
-    slide.style.setProperty('--slide-y', `${remaining * (mobile ? 21 : 40)}px`);
-    slide.style.setProperty('--slide-z', `${-remaining * (mobile ? 90 : 170)}px`);
-    slide.style.setProperty('--slide-ry', `${direction * remaining * (mobile ? 5 : 9)}deg`);
-    slide.style.setProperty('--slide-rx', `${-remaining * (mobile ? 2 : 3)}deg`);
-    slide.style.setProperty('--slide-rz', `${direction * remaining * (mobile ? 1.3 : 2.1)}deg`);
-    slide.style.setProperty('--slide-opacity', String(0.5 + progress * 0.5));
-  });
-}
-
-function requestSlideUpdate() {
-  if (!animationFrame) animationFrame = window.requestAnimationFrame(updateSlides);
-}
-
-if (!reducedMotion.matches) {
-  updateSlides();
-  document.documentElement.classList.add('motion-ready');
-  window.addEventListener('scroll', requestSlideUpdate, { passive: true });
-  window.addEventListener('resize', requestSlideUpdate);
-}
