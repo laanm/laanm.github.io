@@ -78,6 +78,21 @@ function updateChartLocation(y){
     chart.querySelector('.constellation-origin small').textContent=current==='#top'?'YOU ARE HERE':'START';
   }
 }
+function updateChartTravel(){
+  if(!chartDock || innerWidth<=760)return;
+  const dockWidth=Math.min(520,innerWidth-50);
+  const dockHeight=205;
+  const upper=94;
+  const lower=Math.max(upper,innerHeight-dockHeight-22);
+  const waypoints=[.92,.14,.76,.2,.7,.13];
+  const segment=clamp(Math.floor(targetJourney),0,4);
+  const amount=clamp(targetJourney-segment,0,1);
+  const eased=amount*amount*(3-2*amount);
+  const level=lerp(waypoints[segment],waypoints[segment+1],eased);
+  const left=innerWidth-dockWidth-28-Math.sin(targetJourney*1.35)*30;
+  chartDock.style.setProperty('--dock-left',`${Math.round(left)}px`);
+  chartDock.style.setProperty('--dock-top',`${Math.round(lerp(upper,lower,level))}px`);
+}
 
 function sectionJourney() {
   const y = window.scrollY + window.innerHeight * .38;
@@ -91,6 +106,7 @@ function sectionJourney() {
   if (progressEl) progressEl.style.height = `${clamp(targetJourney / 5, 0, 1) * 100}%`;
   if (labelEl) labelEl.textContent = `${String(index + 1).padStart(2, '0')} / ${labels[index]}`;
   updateChartLocation(y);
+  updateChartTravel();
 }
 window.addEventListener('scroll', sectionJourney, { passive: true });
 window.addEventListener('resize', sectionJourney);
@@ -152,9 +168,11 @@ const projectMap=document.querySelector('.project-constellation');
 if(projectMap){
   const mapLines=projectMap.querySelector('.project-constellation-lines');
   const technologyLinks={
-    typescript:['kiosk','sentinel'], react:['sentinel'], llms:['sylclips'],
-    pytorch:['sylclips'], fastapi:['sylclips'], rest:['kiosk','sylclips'],
-    node:['sap'], sap:['sap']
+    typescript:['professional','sentinel','sylclips'], react:['professional','sentinel'],
+    angular:['professional'], python:['professional','sylclips'],
+    django:['professional'], java:['professional'], llms:['sylclips'],
+    pytorch:['sylclips'], fastapi:['sylclips'], rest:['professional','kiosk','sylclips'],
+    node:['professional','sylclips','sap'], sap:['sap']
   };
   const techButtons=[...projectMap.querySelectorAll('[data-tech]')];
   const projectLinks=[...projectMap.querySelectorAll('[data-project]')];
@@ -162,7 +180,7 @@ if(projectMap){
   let selectedTech=null;
   let hoveredTech=null;
   const activeTech=()=>hoveredTech||selectedTech;
-  const projectNames={kiosk:'Self-service kiosk',sentinel:'Sentinel Desk',sylclips:'SylClips',sap:'Book Management'};
+  const projectNames={professional:'Full-stack delivery',kiosk:'Self-service kiosk',sentinel:'Sentinel Desk',sylclips:'SylClips',sap:'Book Management'};
   function paintConnections(){
     const active=activeTech();
     projectMap.classList.toggle('has-selection',!!active);
@@ -175,7 +193,9 @@ if(projectMap){
     mapLines.querySelectorAll('[data-connection]').forEach(line=>line.classList.toggle('is-lit',line.dataset.connection===active));
     if(active){
       const label=techButtons.find(button=>button.dataset.tech===active)?.textContent.trim();
-      status.textContent=`Projects using ${label}: ${technologyLinks[active].map(key=>projectNames[key]).join(' and ')}.`;
+      const names=technologyLinks[active].map(key=>projectNames[key]);
+      const places=names.length>1?`${names.slice(0,-1).join(', ')} and ${names.at(-1)}`:names[0];
+      status.textContent=`Used in ${places}: ${label}.`;
     }else status.textContent='Hover or choose a technology to reveal its project connections.';
   }
   function drawConnections(){
@@ -526,6 +546,61 @@ if (renderer) {
   nebula(28,12,-264,46,0x7543a5,.3);
   nebula(-27,-11,-338,48,0x1d7994,.31);
 
+  // Small, low-contrast particles add a nearby dust layer without turning the
+  // foreground into another starfield. Each chapter has open space for text.
+  const dustPositions=[];
+  for(let i=0;i<(mobile.matches?900:2100);i++){
+    const z=rand(-365,-12),x=rand(-35,35),y=rand(-22,22);
+    if(Math.abs(x)<8&&Math.abs(y)<5)continue;
+    dustPositions.push(x,y,z);
+  }
+  const dustGeometry=new THREE.BufferGeometry();
+  dustGeometry.setAttribute('position',new THREE.Float32BufferAttribute(dustPositions,3));
+  const dust=new THREE.Points(dustGeometry,new THREE.PointsMaterial({color:0xb7b7ad,size:.09,transparent:true,opacity:.28,depthWrite:false,sizeAttenuation:true}));
+  dust.frustumCulled=false;
+  scene.add(dust);
+
+  // A few rough, unlit-looking fragments sit near the edge of the route.
+  // They are small enough to establish scale without competing with planets.
+  const rockGeometry=new THREE.IcosahedronGeometry(1,2);
+  const rockPosition=rockGeometry.attributes.position;
+  for(let i=0;i<rockPosition.count;i++){
+    const v=new THREE.Vector3().fromBufferAttribute(rockPosition,i);
+    const contour=.86+.12*Math.sin(v.x*18+v.y*11)+.08*Math.sin(v.z*23-v.x*9);
+    v.multiplyScalar(contour);
+    rockPosition.setXYZ(i,v.x,v.y,v.z);
+  }
+  rockGeometry.computeVertexNormals();
+  const rockMaterial=new THREE.MeshStandardMaterial({color:0x57545a,roughness:1,metalness:0,flatShading:false});
+  const rocks=[];
+  for(let i=0;i<(mobile.matches?11:21);i++){
+    const rock=new THREE.Mesh(rockGeometry,rockMaterial);
+    const z=-17-i*16-rand(0,12);
+    const side=i%2?-1:1;
+    rock.position.set(side*rand(13,32),rand(-15,15),z);
+    const scale=rand(.17,.57);
+    rock.scale.set(scale,scale*rand(.7,1.15),scale*rand(.72,1.1));
+    rock.rotation.set(rand(0,Math.PI),rand(0,Math.PI),rand(0,Math.PI));
+    scene.add(rock);rocks.push(rock);
+  }
+
+  // The comet appears briefly in the distant sky, then stays absent for most
+  // of its cycle. A soft tail and a tiny nucleus are sufficient at this scale.
+  const tailCanvas=document.createElement('canvas');tailCanvas.width=256;tailCanvas.height=32;
+  const tailContext=tailCanvas.getContext('2d');
+  const tailGradient=tailContext.createLinearGradient(0,0,256,0);
+  tailGradient.addColorStop(0,'rgba(230,246,255,.65)');
+  tailGradient.addColorStop(.4,'rgba(173,220,238,.17)');
+  tailGradient.addColorStop(1,'rgba(150,199,223,0)');
+  tailContext.fillStyle=tailGradient;tailContext.fillRect(0,0,256,32);
+  const tailMap=new THREE.CanvasTexture(tailCanvas);
+  const comet=new THREE.Group();
+  const cometTail=new THREE.Mesh(new THREE.PlaneGeometry(12,.38),new THREE.MeshBasicMaterial({map:tailMap,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide}));
+  cometTail.position.x=6;
+  const cometCore=new THREE.Sprite(new THREE.SpriteMaterial({map:glowMap,color:0xd7edfa,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));
+  cometCore.scale.set(.95,.95,1);
+  comet.add(cometTail,cometCore);comet.visible=false;scene.add(comet);
+
   const resize=()=>{camera.aspect=innerWidth/innerHeight;camera.fov=mobile.matches?68:58;camera.updateProjectionMatrix();positionWorlds();const ratio=renderRatio();renderer.setPixelRatio(ratio);renderer.setSize(innerWidth,innerHeight);pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});};
   window.addEventListener('resize',resize);
   let last=performance.now();
@@ -556,10 +631,10 @@ if (renderer) {
     const mouseX=motion?pointer.x:0,mouseY=motion?pointer.y:0;
     camera.position.x=smooth(camera.position.x,(Math.sin(journey*1.5)*1.7+mouseX*3.8)*offset,dt*3.2);
     camera.position.y=smooth(camera.position.y,(Math.cos(journey*1.2)*.8-mouseY*2.3)*offset,dt*3.2);
-    const mouseApproach=motion?pointer.activity*1.35*offset:0;
+    const mouseApproach=motion?pointer.activity*2.8*offset:0;
     camera.position.z=smooth(camera.position.z,1-journey*59-mouseApproach,dt*(flightFrame?5.5:2.1));
     const baseFov=mobile.matches?68:58;
-    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*3.6:0)+flightIntensity*1.4;
+    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*8:0)+flightIntensity*1.4;
     const nextFov=smooth(camera.fov,zoomFov,dt*3.1);
     if(Math.abs(nextFov-camera.fov)>.002){camera.fov=nextFov;camera.updateProjectionMatrix();}
     // Off-axis projection keeps the spot beneath the pointer stationary as
@@ -574,7 +649,18 @@ if (renderer) {
     if(motion){
       earth.sphere.rotation.y+=dt*.034;cloudShell.rotation.y+=dt*.041;world2.sphere.rotation.y+=dt*.038;world3.sphere.rotation.y+=dt*.028;world4.sphere.rotation.y+=dt*.033;world5.sphere.rotation.y+=dt*.027;world6.sphere.rotation.y+=dt*.034;
       floaters.forEach((object,i)=>{if(object.isSprite)object.material.rotation=Math.sin(t*.04+i)*.06;else object.rotation.z=Math.sin(t*.17+i)*.013;});
+      rocks.forEach((rock,i)=>{rock.rotation.x+=dt*(i%2?.025:-.02);rock.rotation.y+=dt*.018;});
       if(heroCopy) heroCopy.style.setProperty('--copy-x',`${(-pointer.x*7).toFixed(1)}px`);
+    }
+    const cometPhase=(t+30)%44;
+    comet.visible=motion&&cometPhase<4.8;
+    if(comet.visible){
+      const progress=cometPhase/4.8;
+      const fade=Math.min(1,progress*5,(1-progress)*5);
+      comet.position.set(camera.position.x+22-progress*44,camera.position.y+12-progress*4,camera.position.z-78);
+      comet.rotation.z=-.09;
+      cometTail.material.opacity=fade*.46;
+      cometCore.material.opacity=fade*.57;
     }
     futureWorlds.forEach((world,i)=>{
       const arrival=clamp((journey-(i+.1))/.7,0,1);
