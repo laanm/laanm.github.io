@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050b19">
+  <meta name="demo-api-base" content="">
+  <meta name="description" content="Interactive, fictional SylClips workflow demo: inspect clip boundaries, make a human review decision, and generate a structured plan.">
+  <title>SylClips Lab — Agustín Donnian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./sylclips-lab.css?v=1">
+  <script defer src="./sylclips-lab.js?v=1"></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">Skip to workspace</a>
+  <div class="ambient" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="identity" href="./index.html#work-ai" aria-label="Back to Agustín Donnian's portfolio"><span class="identity-mark">AD.</span><span>Agustín Donnian</span></a>
+    <div class="topbar-center"><span class="orbit-dot" aria-hidden="true"></span> SYLCLIPS / INTERACTIVE LAB <span class="topbar-version">01</span></div>
+    <a class="back-link" href="./index.html#work-ai">← Portfolio</a>
+  </header>
+
+  <main id="workspace">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">AI ENGINEERING · PRODUCT WORKFLOW</p>
+        <h1 id="page-title">From candidate cut<br>to <em>reviewed plan.</em></h1>
+        <p class="intro-copy">Inspect a sample video job, compare example signals, make a human decision and see its effect on a structured clip plan.</p>
+      </div>
+      <aside class="truth-note" aria-label="Demo scope"><span class="truth-icon" aria-hidden="true">◎</span><div><strong>Public simulation</strong><p>Every job, score and model response here is invented for this demo. It does not run inference or access my private videos.</p></div></aside>
+    </section>
+
+    <div class="workspace-grid">
+      <aside class="sidebar" aria-label="Demo controls">
+        <div class="sidebar-head"><p class="overline">01 / SAMPLE WORKSPACE</p><h2>Choose a job</h2><p>Three invented scenarios. Each has different boundaries to inspect.</p></div>
+        <div id="job-list" class="job-list" role="group" aria-label="Fictional jobs"></div>
+        <button id="reset-review" type="button" class="reset-link">Reset my demo decisions ↺</button>
+        <div class="workflow" aria-label="Workflow stages"><p class="overline">PROCESS</p><ol><li class="is-current"><span>01</span>Detect candidates</li><li><span>02</span>Compare signals</li><li><span>03</span>Human review</li><li><span>04</span>Compose plan</li></ol></div>
+        <div class="scope-card"><span class="scope-light" aria-hidden="true"></span><div><strong>What this demonstrates</strong><p>State, review logic, structured output and a bounded agent trace. The visual preview is generated art.</p></div></div>
+      </aside>
+
+      <section class="console" aria-labelledby="console-title">
+        <div class="console-header"><div><p class="overline">02 / INSPECT</p><h2 id="console-title">Boundary review</h2></div><div class="console-status"><span aria-hidden="true"></span> Sample job · ready</div></div>
+        <div class="media-layout">
+          <div class="preview" id="preview" aria-label="Generated illustrative scene preview"><div class="preview-grain"></div><div class="preview-sun"></div><div class="preview-horizon"></div><div class="preview-structure one"></div><div class="preview-structure two"></div><div class="preview-grid"></div><div class="preview-overlay"><span>GENERATED PREVIEW · NO SOURCE VIDEO</span><strong id="preview-label">Coastal transit</strong></div><span class="preview-timestamp" id="preview-timestamp">00:08.4</span></div>
+          <div class="preview-side"><p class="overline">CURRENT JOB</p><h3 id="job-title">Coastal transit</h3><p id="job-summary"></p><dl><div><dt>Duration</dt><dd id="job-duration">—</dd></div><div><dt>Candidates</dt><dd id="job-count">—</dd></div><div><dt>Source</dt><dd>Fictional data</dd></div></dl></div>
+        </div>
+        <div class="timeline" aria-label="Candidate timeline"><div class="timeline-track" id="timeline-track"><span class="timeline-fill" id="timeline-fill"></span></div><div class="timeline-axis"><span>00:00</span><span id="timeline-mid">—</span><span id="timeline-end">—</span></div></div>
+        <div class="content-tabs" role="tablist" aria-label="Workspace views"><button type="button" role="tab" id="tab-review" aria-controls="panel-review" aria-selected="true" data-tab="review">Review candidates</button><button type="button" role="tab" id="tab-plan" aria-controls="panel-plan" aria-selected="false" data-tab="plan">Structured plan <span id="plan-count">0</span></button><button type="button" role="tab" id="tab-trace" aria-controls="panel-trace" aria-selected="false" data-tab="trace">Agent trace</button></div>
+
+        <div id="panel-review" class="tab-panel" role="tabpanel" aria-labelledby="tab-review">
+          <div class="review-layout"><div><div class="list-heading"><h3>Candidate boundaries</h3><span id="review-progress">0 reviewed</span></div><div id="candidate-list" class="candidate-list" role="group" aria-label="Candidate boundaries"></div></div><article class="decision-panel" aria-labelledby="decision-title"><p class="overline" id="candidate-kicker">CANDIDATE 01</p><h3 id="decision-title">—</h3><p id="candidate-rationale" class="rationale"></p><div class="signal-row"><div><span>Illustrative reference</span><strong id="reference-value">—</strong></div><div><span>Illustrative local score</span><strong id="score-value">—</strong></div></div><div class="evidence"><p class="overline">EVIDENCE IN THIS SAMPLE</p><ul id="evidence-list"></ul></div><div class="decision-actions"><p class="overline">YOUR REVIEW</p><div><button type="button" data-decision="separate">Keep separate</button><button type="button" data-decision="merge">Merge</button><button type="button" data-decision="review">Needs review</button></div><p id="decision-feedback" aria-live="polite">Choose a decision. The plan will update immediately.</p></div></article></div>
+        </div>
+
+        <div id="panel-plan" class="tab-panel" role="tabpanel" aria-labelledby="tab-plan" hidden><div class="plan-header"><div><p class="overline">03 / RESULT</p><h3>Structured clip plan</h3><p>Derived from your decisions on this fictional job. Unreviewed candidates keep their sample reference.</p></div><button id="copy-plan" type="button" class="utility-button">Copy JSON ↗</button></div><div class="plan-layout"><div id="plan-cards" class="plan-cards"></div><pre id="plan-json" class="json-output" aria-label="Structured plan JSON"></pre></div></div>
+
+        <div id="panel-trace" class="tab-panel" role="tabpanel" aria-labelledby="tab-trace" hidden><div class="trace-header"><p class="overline">04 / AGENT DESIGN</p><h3>A bounded read path</h3><p>This is an illustrative trace over the fictional job. In the actual project, the agent uses a limited set of read and preview tools; this public page makes no LLM call.</p></div><ol class="trace-list" id="trace-list"></ol><div class="trace-note"><strong>Boundary:</strong> The agent can inspect job state and summaries. It does not publish a video, change model weights or run an autonomous production workflow.</div></div>
+      </section>
+    </div>
+    <section class="engineering-note" aria-label="Engineering context"><div><p class="overline">UNDER THE HOOD</p><h2>A real pipeline, a safe public window.</h2></div><p>The private project uses a TypeScript pipeline and FastAPI services, with multimodal LLM decisions and human review. A PyTorch boundary classifier is experimental. This demo recreates the decision flow with entirely synthetic data so the interface and review logic can be explored publicly.</p><a href="./project-notes.html#sylclips">Read the engineering notes ↗</a></section>
+  </main>
+  <footer><span>© 2026 Agustín Donnian</span><span>Fictional data · no uploads · no model calls</span><a href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></footer>
+</body>
+</html>

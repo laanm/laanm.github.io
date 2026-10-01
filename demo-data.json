@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "notice": "Fictional jobs and illustrative model outputs. No real video, model inference, private channel data or customer content is used.",
+  "jobs": [
+    {
+      "id": "coast",
+      "title": "Coastal transit",
+      "type": "Fictional travel sequence",
+      "duration": 54,
+      "accent": "cyan",
+      "summary": "A short sequence of water, station and night scenes used to demonstrate boundary review.",
+      "candidates": [
+        {
+          "id": "coast-01",
+          "time": 8.4,
+          "title": "Harbor to station",
+          "frames": ["Harbor", "Station"],
+          "reference": "separate",
+          "sampleScore": 0.91,
+          "rationale": "The scene, color palette and camera motion change together at this point.",
+          "evidence": ["Frame pair: shoreline → station platform", "Audio energy changes near 00:08", "Example local score: 0.91"]
+        },
+        {
+          "id": "coast-02",
+          "time": 18.7,
+          "title": "Platform camera pan",
+          "frames": ["Platform", "Platform"],
+          "reference": "merge",
+          "sampleScore": 0.37,
+          "rationale": "The camera pans, but the subject and location remain consistent.",
+          "evidence": ["Frame pair: same station platform", "Motion spike without a clear scene change", "Example local score: 0.37"]
+        },
+        {
+          "id": "coast-03",
+          "time": 31.2,
+          "title": "Station to night skyline",
+          "frames": ["Station", "Skyline"],
+          "reference": "review",
+          "sampleScore": 0.58,
+          "rationale": "The picture changes abruptly, but the example score falls in the review range.",
+          "evidence": ["Frame pair: station → city lights", "Example local score: 0.58", "Illustrative abstain route: human review"]
+        },
+        {
+          "id": "coast-04",
+          "time": 43.9,
+          "title": "Night skyline to close-up",
+          "frames": ["Skyline", "Close-up"],
+          "reference": "separate",
+          "sampleScore": 0.86,
+          "rationale": "A new framing and subject suggest a clean boundary.",
+          "evidence": ["Frame pair: skyline → close-up", "Example local score: 0.86"]
+        }
+      ]
+    },
+    {
+      "id": "atelier",
+      "title": "Atelier walkthrough",
+      "type": "Fictional studio sequence",
+      "duration": 48,
+      "accent": "violet",
+      "summary": "An invented indoor sequence with small camera moves and two clear changes of room.",
+      "candidates": [
+        {
+          "id": "atelier-01",
+          "time": 11.6,
+          "title": "Entrance to workbench",
+          "frames": ["Entrance", "Workbench"],
+          "reference": "separate",
+          "sampleScore": 0.89,
+          "rationale": "The scene moves from the entrance to a new work area.",
+          "evidence": ["Frame pair: entrance → workbench", "Example local score: 0.89"]
+        },
+        {
+          "id": "atelier-02",
+          "time": 23.1,
+          "title": "Workbench reframing",
+          "frames": ["Workbench", "Workbench"],
+          "reference": "merge",
+          "sampleScore": 0.29,
+          "rationale": "A change in framing stays within the same activity and space.",
+          "evidence": ["Frame pair: same workbench", "Example local score: 0.29"]
+        },
+        {
+          "id": "atelier-03",
+          "time": 37.8,
+          "title": "Workbench to gallery",
+          "frames": ["Workbench", "Gallery"],
+          "reference": "review",
+          "sampleScore": 0.55,
+          "rationale": "An unclear transition is intentionally routed to human review.",
+          "evidence": ["Frame pair: workbench → gallery", "Example local score: 0.55", "Illustrative abstain route: human review"]
+        }
+      ]
+    },
+    {
+      "id": "metro",
+      "title": "Metro after dark",
+      "type": "Fictional urban sequence",
+      "duration": 42,
+      "accent": "amber",
+      "summary": "A synthetic night sequence with a deliberately misleading lighting change.",
+      "candidates": [
+        {
+          "id": "metro-01",
+          "time": 9.3,
+          "title": "Tunnel lighting change",
+          "frames": ["Tunnel", "Tunnel"],
+          "reference": "merge",
+          "sampleScore": 0.42,
+          "rationale": "The lighting changes, but the camera stays on the same continuous shot.",
+          "evidence": ["Frame pair: same tunnel", "Example local score: 0.42"]
+        },
+        {
+          "id": "metro-02",
+          "time": 20.5,
+          "title": "Tunnel to street",
+          "frames": ["Tunnel", "Street"],
+          "reference": "separate",
+          "sampleScore": 0.94,
+          "rationale": "The subject, scene and motion direction change together.",
+          "evidence": ["Frame pair: tunnel → street", "Example local score: 0.94"]
+        },
+        {
+          "id": "metro-03",
+          "time": 32.8,
+          "title": "Street to rooftop",
+          "frames": ["Street", "Rooftop"],
+          "reference": "review",
+          "sampleScore": 0.61,
+          "rationale": "The visual evidence suggests a cut, but confidence is deliberately inconclusive.",
+          "evidence": ["Frame pair: street → rooftop", "Example local score: 0.61", "Illustrative abstain route: human review"]
+        }
+      ]
+    }
+  ]
+}

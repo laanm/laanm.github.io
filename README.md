@@ -6,6 +6,12 @@ Personal software engineering portfolio. The page renders a continuous 3D space 
 
 The SylClips walkthrough contains fictional data. It does not connect to the private project, process video, or expose real channel information. Sentinel Desk is also a fictional frontend demo. Public contact is LinkedIn only.
 
+## Recruiter paths and interactive lab
+
+The homepage links directly to AI and full-stack work. `project-notes.html` gives short case studies with scope and evidence limits. `sylclips-lab.html` is a separate interactive application using the fictional scenarios in `demo-data.json`: visitors can inspect candidate boundaries, change review decisions, see the resulting structured plan, and inspect an illustrative bounded agent trace. Review choices stay in the visitor's browser. No private video, channel data, model output or API key is included.
+
+`demo_api.py` is a stateless FastAPI companion for the fictional lab. It exposes `GET /api/v1/jobs`, `POST /api/v1/plan`, and `GET /healthz`, with validation against the fixed sample data. `requirements.txt` and `render.yaml` describe a possible separate deployment. GitHub Pages only serves the static frontend; the live lab currently reads `demo-data.json` directly. To connect a deployed API, set the `demo-api-base` meta tag in `sylclips-lab.html` to the service origin. The lab retains its local sample path if the API is unavailable.
+
 The original transparent nebula layers (`nebula-cyan.png` and `nebula-magenta.png`) were generated for this site with an image generation tool using the user's example images as color and atmosphere references; they do not copy the supplied images. The prompt requested detailed cyan/indigo and magenta/violet gas clouds with dark dust lanes, transparent edges and no stars, planets, text or watermarks.
 
 Planetary imagery credits:
