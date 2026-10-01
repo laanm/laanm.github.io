@@ -32,3 +32,36 @@
 .about-text{border-image:linear-gradient(180deg,#8ee8e7,rgba(141,133,240,.16),transparent) 1}
 .syl-tags span{border-color:rgba(146,223,237,.31);background:linear-gradient(120deg,rgba(20,68,86,.52),rgba(34,27,80,.34));box-shadow:inset 0 1px 0 rgba(220,250,255,.08)}
 @media (prefers-reduced-motion:reduce){#space-scene canvas{transition:none}.site-nav a::after{transition:none}}
+
+/* Star-chart navigation: soft contrast around the type, no stacked UI boxes. */
+.site-header{height:78px;border:0;background:linear-gradient(180deg,rgba(1,5,16,.91),rgba(2,8,22,.42) 72%,transparent);box-shadow:none;backdrop-filter:none}
+.site-header::after{left:3.8vw;right:3.8vw;background:linear-gradient(90deg,transparent,rgba(124,218,232,.38) 16%,rgba(166,174,227,.22) 55%,transparent)}
+.brand-mark{border:0;clip-path:none;background:radial-gradient(circle,rgba(93,217,237,.2),transparent 74%);box-shadow:none;text-shadow:0 0 16px rgba(128,233,241,.5)}
+.site-nav{align-items:center;gap:clamp(17px,2.6vw,42px)}
+.site-nav a{padding:14px 0 14px 15px;color:#d9e7f3}
+.site-nav a::before{content:'';position:absolute;left:0;top:50%;width:4px;height:4px;border:1px solid #9ad8e7;border-radius:50%;transform:translateY(-50%);box-shadow:0 0 9px #72c8db;transition:background .25s,box-shadow .25s}
+.site-nav a:hover::before,.site-nav a:focus-visible::before{background:#bafaf4;box-shadow:0 0 17px #79f1ec}
+.site-nav a::after{bottom:7px}
+.header-contact{border:0;clip-path:none;background:radial-gradient(ellipse at center,rgba(26,86,111,.28),transparent 75%);box-shadow:none;padding:11px 13px}
+.section-work .section-heading,.syl-section .section-heading,.syl-intro,.skills-section .section-heading{border:0;background:linear-gradient(90deg,rgba(2,8,21,.89),rgba(2,8,21,.52) 69%,transparent);box-shadow:none}
+.section-work .section-heading{padding:13px 26px 13px 0}
+.section-work .project-grid{position:relative;gap:3px;padding-left:25px}
+.section-work .project-grid::before{content:'';position:absolute;left:6px;top:17px;bottom:17px;width:1px;background:linear-gradient(180deg,transparent,rgba(110,238,238,.67) 17%,rgba(183,139,234,.53) 70%,transparent);box-shadow:0 0 15px rgba(100,216,246,.25)}
+.section-work .project-card,.section-work .project-featured{overflow:visible;border:0;background:linear-gradient(90deg,rgba(2,9,22,.84),rgba(3,11,26,.46) 66%,transparent);background-image:linear-gradient(90deg,rgba(2,9,22,.84),rgba(3,11,26,.46) 66%,transparent);box-shadow:none;backdrop-filter:none;transition:transform .3s,background .3s}
+.section-work .project-card:hover{border:0;background:linear-gradient(90deg,rgba(5,20,38,.91),rgba(6,22,41,.49) 70%,transparent);box-shadow:none;transform:translateX(6px)}
+.section-work .project-card::before{left:-23px;top:28px;width:10px;height:10px;border:1px solid rgba(148,237,239,.82);border-radius:50%;background:#0a3344;box-shadow:0 0 0 4px rgba(43,143,164,.14),0 0 18px rgba(112,240,231,.6)}
+.section-work .project-card::after{display:none}
+.section-work .project-body,.section-work .project-featured .project-body{padding:17px 20px 18px}
+.section-work .project-meta{border:0;padding:0}
+.section-work .project-body h3{margin-top:9px}
+.skills-grid{gap:8px 20px}
+.skills-grid>div,.architecture-grid>div{border:0;border-left:1px solid rgba(128,219,232,.55);background:linear-gradient(90deg,rgba(3,12,28,.84),rgba(3,11,27,.44) 78%,transparent);background-image:linear-gradient(90deg,rgba(3,12,28,.84),rgba(3,11,27,.44) 78%,transparent);box-shadow:none;backdrop-filter:none;overflow:visible}
+.skills-grid>div::before,.architecture-grid>div::before{top:0;left:-2px;width:2px;height:42px;background:#9ceee9;box-shadow:0 0 14px rgba(122,235,235,.65)}
+.about-text{border:0;border-left:1px solid rgba(124,228,231,.59);border-image:none;background:linear-gradient(90deg,rgba(2,9,23,.87),rgba(2,9,23,.48) 75%,transparent);backdrop-filter:none;box-shadow:none}
+.summary-strip{border:0;background:linear-gradient(90deg,rgba(3,13,30,.86),rgba(3,13,30,.48) 83%,transparent);backdrop-filter:none}
+.demo-shell{border-color:rgba(119,211,226,.3);background-image:linear-gradient(135deg,rgba(5,19,39,.91),rgba(5,15,31,.8));box-shadow:0 25px 90px rgba(0,0,0,.25)}
+.contact-section>p,.additional-tools{background:linear-gradient(90deg,rgba(2,9,23,.67),transparent);text-shadow:0 2px 18px #000}
+@media(max-width:760px){.site-header{height:64px}.section-work .project-grid{padding-left:22px}.section-work .project-card::before{left:-21px}.skills-grid>div,.architecture-grid>div{background:linear-gradient(90deg,rgba(3,12,28,.91),rgba(3,11,27,.66) 85%,transparent)}.about-text{background:linear-gradient(90deg,rgba(2,9,23,.91),rgba(2,9,23,.67) 90%,transparent)}}
+.syl-section .section-heading,.syl-intro,.skills-section .section-heading{background:radial-gradient(ellipse 85% 115% at 42% 50%,rgba(2,8,21,.83),rgba(2,8,21,.55) 54%,transparent 100%)}
+.section-work .section-heading,.syl-section .section-heading,.syl-intro,.skills-section .section-heading{position:relative;isolation:isolate;background:none}
+.section-work .section-heading::before,.syl-section .section-heading::before,.syl-intro::before,.skills-section .section-heading::before{content:'';position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 38% 50%,rgba(1,6,18,.94),rgba(1,6,18,.6) 55%,transparent 90%);filter:blur(23px);pointer-events:none}

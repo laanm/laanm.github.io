@@ -11,7 +11,7 @@ const rand = (a, b) => a + Math.random() * (b - a);
 const labels = ['DEPARTURE','SELECTED WORK','SYLCLIPS','EXPERIENCE','TOOLKIT','CONNECT'];
 const progressEl = document.getElementById('journey-fill');
 const labelEl = document.getElementById('chapter-label');
-let pointer = { x: 0, y: 0, tx: 0, ty: 0, activity: 0 };
+let pointer = { x: 0, y: 0, tx: 0, ty: 0, activity: 0, targetActive: 0 };
 let targetJourney = 0;
 let journey = 0;
 let chapterIndex = 0;
@@ -42,9 +42,9 @@ window.addEventListener('resize', sectionJourney);
 window.addEventListener('pointermove', event => {
   pointer.tx = event.clientX / innerWidth * 2 - 1;
   pointer.ty = event.clientY / innerHeight * 2 - 1;
-  pointer.activity = 1;
+  pointer.targetActive = 1;
 }, { passive: true });
-window.addEventListener('pointerleave', () => { pointer.tx = 0; pointer.ty = 0; });
+window.addEventListener('pointerleave', () => { pointer.tx = 0; pointer.ty = 0; pointer.targetActive=0; });
 sectionJourney();
 if(motion){
   document.documentElement.classList.add('motion-ready');
@@ -223,10 +223,25 @@ if (renderer) {
   earth.group.add(cloudShell);
   const world2=planet(6.1,0xffe4cd,8,1,-92,null);
   const world3=planet(6.3,0xf0d8ac,-8,-2,-151,null);
+  // Saturn is visibly oblate. Its rings and the narrow shadow they cast make
+  // the sphere read as a physical planet rather than a perfectly round prop.
+  world3.sphere.scale.y=.905;
+  world3.halo.scale.y=.91;
   const world4=planet(5.7,0xe67a54,-8,0,-212,null);
   const world5=planet(6.3,0x537bc4,-8,0,-270,null);
   const world6=planet(6.8,0x80c8db,9,-2,-330,null);
   world5.sphere.rotation.y=Math.PI;
+  const voyagerPhoto=loader.load('./neptune-voyager-nasa.png');
+  voyagerPhoto.colorSpace=THREE.SRGBColorSpace;
+  // Voyager 2 photographed one hemisphere. Project that actual observation
+  // over the front of the 3D globe and retain the globe texture at the limb.
+  const neptunePhoto=new THREE.Mesh(new THREE.SphereGeometry(6.315,128,96),new THREE.ShaderMaterial({
+    uniforms:{uPhoto:{value:voyagerPhoto}},
+    vertexShader:`varying vec3 vNormal;void main(){vNormal=normal;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+    fragmentShader:`uniform sampler2D uPhoto;varying vec3 vNormal;void main(){vec3 n=normalize(vNormal);vec2 uv=vec2(.5+n.x*.41,.5+n.y*.41);vec3 photo=texture2D(uPhoto,uv).rgb*vec3(.74,.82,.9);float front=smoothstep(.03,.27,n.z);float rim=smoothstep(.0,.14,1.-length(n.xy));float valid=smoothstep(.035,.10,max(max(photo.r,photo.g),photo.b));gl_FragColor=vec4(photo,front*rim*valid*.9);}`,
+    transparent:true,depthWrite:false,toneMapped:false
+  }));
+  world5.group.add(neptunePhoto);
   [earth,world2,world3,world4,world5,world6].forEach((world,i)=>world.halo.material.uniforms.uColor.value.set([0x62b8e6,0xdba480,0xcdb680,0xcf8267,0x628fd5,0x85dbe4][i]));
   const futureWorlds=[world2,world3,world4,world5,world6];
   const planetMaps=[
@@ -302,6 +317,13 @@ if (renderer) {
     const mesh=new THREE.Mesh(geometry,material);mesh.rotation.x=-.47;mesh.rotation.y=.24;world.group.add(mesh);
   }
   rings(world3,7.5,12.5);
+  const saturnShadow=new THREE.Mesh(new THREE.SphereGeometry(6.312,128,96),new THREE.ShaderMaterial({
+    vertexShader:`varying vec3 vLocal;void main(){vLocal=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+    fragmentShader:`varying vec3 vLocal;void main(){float band=exp(-pow((vLocal.y-1.1)/.31,2.));float face=smoothstep(-1.,1.6,vLocal.z);gl_FragColor=vec4(.055,.043,.045,band*face*.17);}`,
+    transparent:true,depthWrite:false
+  }));
+  saturnShadow.scale.y=.905;
+  world3.group.add(saturnShadow);
 
   // Spiral clusters are also 3D point clouds, with each arm at a different depth.
   function galaxy(cx,cy,cz,count,radius,hue) {
@@ -330,7 +352,7 @@ if (renderer) {
     // during setup. A negative delta would move deep links backward past 0.
     const dt=clamp((now-last)/1000,0,.05);last=now;
     pointer.x=smooth(pointer.x,pointer.tx,dt*4.5);pointer.y=smooth(pointer.y,pointer.ty,dt*4.5);
-    pointer.activity=Math.max(0,pointer.activity-dt*.68);
+    pointer.activity=smooth(pointer.activity,pointer.targetActive,dt*2.6);
     journey=motion?smooth(journey,targetJourney,dt*2.1):targetJourney;
     syncPlanetMaps();
     if(!Number.isFinite(journey)){
@@ -345,12 +367,20 @@ if (renderer) {
     const mouseX=motion?pointer.x:0,mouseY=motion?pointer.y:0;
     camera.position.x=smooth(camera.position.x,(Math.sin(journey*1.5)*1.7+mouseX*3.8)*offset,dt*3.2);
     camera.position.y=smooth(camera.position.y,(Math.cos(journey*1.2)*.8-mouseY*2.3)*offset,dt*3.2);
-    const mouseApproach=motion?((Math.abs(pointer.x)+Math.abs(pointer.y))*2.8+pointer.activity*1.2)*offset:0;
+    const mouseApproach=motion?pointer.activity*.6*offset:0;
     camera.position.z=smooth(camera.position.z,1-journey*59-mouseApproach,dt*2.1);
-    const zoomFov=(mobile.matches?68:58)-(motion&&!mobile.matches?pointer.activity*1.15:0);
+    const baseFov=mobile.matches?68:58;
+    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*1.45:0);
     const nextFov=smooth(camera.fov,zoomFov,dt*3.1);
     if(Math.abs(nextFov-camera.fov)>.002){camera.fov=nextFov;camera.updateProjectionMatrix();}
+    // Off-axis projection keeps the spot beneath the pointer stationary as
+    // the field of view tightens; camera tracking above remains unchanged.
+    const magnification=Math.tan(THREE.MathUtils.degToRad(baseFov*.5))/Math.tan(THREE.MathUtils.degToRad(camera.fov*.5));
+    camera.projectionMatrix.elements[8]=(magnification-1)*mouseX;
+    camera.projectionMatrix.elements[9]=(magnification-1)*-mouseY;
+    camera.projectionMatrixInverse.copy(camera.projectionMatrix).invert();
     camera.lookAt(camera.position.x*.36+mouseX*.8,camera.position.y*.2-mouseY*.55,camera.position.z-50);
+    neptunePhoto.quaternion.copy(camera.quaternion);
     camera.rotation.z=motion?Math.sin(journey*1.12)*.025+mouseX*.012:0;
     if(motion){
       earth.sphere.rotation.y+=dt*.034;cloudShell.rotation.y+=dt*.041;world2.sphere.rotation.y+=dt*.038;world3.sphere.rotation.y+=dt*.028;world4.sphere.rotation.y+=dt*.033;world5.sphere.rotation.y+=dt*.027;world6.sphere.rotation.y+=dt*.034;
