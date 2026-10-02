@@ -65,6 +65,13 @@ function updateChartLocation(y){
     const el=document.getElementById(id);
     if(el && y>=el.getBoundingClientRect().top+scrollY) current=href;
   }
+  const headerSection=current==='#about'?'#about':current==='#skills'?'#skills':current==='#top'?'':'#work';
+  document.querySelectorAll('.site-nav a').forEach(link=>{
+    const active=link.getAttribute('href')===headerSection;
+    link.classList.toggle('is-current',active);
+    if(active)link.setAttribute('aria-current','location');
+    else link.removeAttribute('aria-current');
+  });
   for(const chart of charts){
     const [x,py]=chartPositions[current];
     chart.style.setProperty('--traveler-x',`${x}%`);
