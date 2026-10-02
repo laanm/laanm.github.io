@@ -41,7 +41,7 @@ function renderJobList(){
   const target=$('job-list');target.replaceChildren();
   for(const job of state.jobs){
     const button=document.createElement('button');button.type='button';button.className='job-button';
-    button.setAttribute('aria-pressed',String(job.id===state.job.id));
+    button.setAttribute('aria-pressed',String(job.id===state.job.id));button.dataset.scene=job.id;
     const symbol=document.createElement('span');symbol.className='job-symbol';symbol.setAttribute('aria-hidden','true');
     const text=document.createElement('span');const title=document.createElement('strong');title.textContent=job.title;
     const sub=document.createElement('small');sub.textContent=job.type;text.append(title,sub);button.append(symbol,text);
@@ -99,8 +99,18 @@ function renderDecision(){
     $('candidate-rationale').after(comparison);
   }
   comparison.dataset.scene=job.id;
-  comparison.querySelector('[data-side="before"] .frame-caption').textContent=candidate.frames?.[0]||'Before';
-  comparison.querySelector('[data-side="after"] .frame-caption').textContent=candidate.frames?.[1]||'After';
+  const frameScene=label=>{
+    const name=(label||'').toLowerCase();
+    if(/harbor|shore|water|coast/.test(name))return 'coast';
+    if(/station|platform|skyline|metro|night/.test(name))return 'metro';
+    if(/atelier|entrance|workbench|gallery|studio|close-up/.test(name))return 'atelier';
+    return job.id;
+  };
+  for(const [side,frameIndex] of [['before',0],['after',1]]){
+    const frame=comparison.querySelector(`[data-side="${side}"]`);
+    frame.dataset.scene=frameScene(candidate.frames?.[frameIndex]);
+    frame.querySelector('.frame-caption').textContent=candidate.frames?.[frameIndex]||side;
+  }
   $('reference-value').textContent=labelFor[candidate.reference];
   $('score-value').textContent=candidate.sampleScore.toFixed(2);
   const evidence=$('evidence-list');evidence.replaceChildren();
@@ -112,6 +122,9 @@ function renderDecision(){
     ?`Your decision: ${labelFor[state.decisions[candidate.id]]}. The plan reflects it.`
     :'Choose a decision. The plan will update immediately.';
   $('preview-timestamp').textContent=formatTime(candidate.time);
+  $('transport-current').textContent=String(index+1).padStart(2,'0');
+  $('transport-total').textContent=String(job.candidates.length).padStart(2,'0');
+  $('transport-time').innerHTML=`${formatTime(candidate.time)} <span class="transport-muted">/ ${formatTime(job.duration,0)}</span>`;
   renderTimeline();
 }
 
@@ -194,7 +207,8 @@ function selectJob(id){
   $('job-title').textContent=job.title;$('job-summary').textContent=job.summary;
   $('job-duration').textContent=formatTime(job.duration,0);
   $('job-count').textContent=String(job.candidates.length);
-  $('preview-label').textContent=job.title;$('preview').dataset.accent=job.accent;
+  $('preview-label').textContent=job.title;$('preview').dataset.accent=job.accent;$('preview').dataset.scene=job.id;
+  document.querySelector('.timeline-filmstrip').dataset.scene=job.id;
   renderJobList();renderCandidateList();renderDecision();renderPlan();renderTrace();
 }
 
