@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./space-v2.css?v=19">
-<link rel="stylesheet" href="./work-journey.css?v=7">
+<link rel="stylesheet" href="./work-journey.css?v=8">
 <script defer src="./space-v2.js?v=24"></script>
-<script defer src="./work-journey.js?v=3"></script>
+<script defer src="./work-journey.js?v=4"></script>
 </head>
 <body>
   <div id="space-scene" aria-hidden="true"></div>
@@ -22,7 +22,7 @@
   <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="true" aria-label="Pause scene animation">MOTION <span>ON</span></button>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="Agustín Donnian, back to top"><span class="brand-mark">AD<span class="brand-dot">.</span></span><span class="brand-name">Agustín Donnian</span></a>
+    <a class="brand" href="#top" aria-label="Agustín Donnian, Software Engineer, back to top"><span class="brand-mark">AD<span class="brand-dot">.</span></span><span class="brand-name">Agustín Donnian</span><span class="brand-role">Software Engineer</span></a>
     <nav class="site-nav" aria-label="Main navigation">
       <a href="#work">Work</a><a href="#about">About</a><a href="#skills">Skills</a>
     </nav>
@@ -102,7 +102,7 @@
 
     <section class="section skills-section deck-slide" id="skills" aria-labelledby="skills-title">
       <div class="section-heading"><div><p class="section-kicker">04 / TOOLKIT</p><h2 id="skills-title">Tools I work with.</h2></div><p>Select a technology to see the professional experience or personal project where I used it.</p></div>
-      <div class="project-constellation" aria-label="Projects connected to selected technologies">
+      <div class="toolkit-layout"><div class="project-constellation" aria-label="Projects connected to selected technologies">
         <svg class="project-constellation-lines" aria-hidden="true"></svg>
         <span class="map-caption">PROJECTS × TECHNOLOGIES</span>
         <button class="map-tech tech-typescript" type="button" data-tech="typescript" aria-pressed="false"><i></i>TypeScript</button>
@@ -124,7 +124,7 @@
         <a class="map-project project-sap" data-project="sap" href="./project-notes.html#sap"><i></i><span>Book Management<small>SAP CAP · in progress</small></span></a>
         <p class="map-status" aria-live="polite">Hover or choose a technology to reveal its project connections.</p>
       </div>
-      <details class="toolkit-details"><summary>Explore the full toolkit</summary><p><strong>Frontend:</strong> React · Angular · TypeScript · JavaScript · RxJS · Redux · HTML5 · CSS3 · Sass · Responsive design</p><p><strong>Backend &amp; data:</strong> Python · Django · Django REST Framework · FastAPI · Node.js · Java / Spring Boot · REST APIs · SQL · PostgreSQL · MySQL · MongoDB</p><p><strong>AI applications:</strong> Multimodal LLM APIs · Structured outputs · Tool calling · Human review · Prompt engineering · Experimental PyTorch model training and evaluation</p><p><strong>Testing &amp; delivery:</strong> Postman · API testing · Functional validation · Troubleshooting · Git · GitHub · GitLab · Docker · CI/CD · Jira · Azure DevOps</p><p><strong>SAP:</strong> SAP CAP · CDS · OData · SAP BTP · SAP HANA Cloud</p></details>
+      <aside class="toolkit-panel" aria-label="Full toolkit"><p class="toolkit-panel-kicker">FULL TOOLKIT / AT A GLANCE</p><h3>Tools behind the work.</h3><div class="toolkit-group"><h4>Frontend development</h4><p>Angular · React · RxJS · Redux · Context API · HTML5 · CSS3 · Sass · JavaScript · TypeScript · Responsive design · npm · yarn</p></div><div class="toolkit-group"><h4>Backend development</h4><p>Python · Django · Django REST Framework · CRUD · Node.js · JWT · Java · Spring Boot (basic) · Postman · SAP CAP · CDS · OData · Authorization · Microservices</p></div><div class="toolkit-group"><h4>Databases</h4><p>SQL · PostgreSQL · MySQL · MongoDB · SQLite · SAP HANA Cloud</p></div><div class="toolkit-group"><h4>Tools &amp; DevOps</h4><p>Git · GitHub · GitLab · Docker · CI/CD · SAP BTP · Cloud Foundry Runtime · Jira · Azure DevOps</p></div><div class="toolkit-group"><h4>Service management</h4><p>Jira Service Management · AnyDesk · Incident management · User provisioning</p></div><div class="toolkit-group"><h4>AI &amp; intelligent development</h4><p>AI-assisted engineering · Claude · ChatGPT · Copilot · LLM APIs · Prompt engineering · AI agents · Multimodal LLMs · Structured outputs · Tool calling · Human review · Experimental PyTorch · FastAPI</p></div></aside></div>
     </section>
 
     <section class="contact-section deck-slide" id="contact" aria-labelledby="contact-title"><p class="section-kicker">05 / CONNECT</p><h2 id="contact-title">Let's build something<br><em>useful.</em></h2><p>Open to software engineering roles across full-stack development and applied AI.</p><a class="button button-light" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a></section>
