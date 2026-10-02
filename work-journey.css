@@ -2760,7 +2760,13 @@
   padding-bottom: 32px;
 }
 .site-footer {
-  background: linear-gradient(90deg, rgba(3, 12, 26, .86), rgba(3, 12, 26, .56) 72%, transparent);
+  background: linear-gradient(90deg, rgba(3, 12, 26, .82), rgba(3, 12, 26, .48));
+}
+@media (min-width: 1180px) {
+  .site-footer {
+    margin-right: 0;
+    padding-right: calc(var(--chart-lane) + 22px);
+  }
 }
 @media (max-width: 760px) {
   .site-footer,
