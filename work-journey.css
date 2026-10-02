@@ -212,3 +212,71 @@
 }
 .constellation-dock.is-visible{opacity:1}
 .site-header{background:#030b1b}
+
+/* Editorial contrast: preserve the sky while giving text a quieter foreground. */
+.hero-copy{isolation:isolate}
+.hero-copy::before{content:"";position:absolute;z-index:-1;inset:-64px -85px -80px -60px;pointer-events:none;background:radial-gradient(ellipse at 37% 47%,rgba(2,8,22,.85) 0%,rgba(2,8,22,.68) 48%,transparent 78%)}
+.hero-lede{max-width:590px;color:#e0ecf5}
+.hero-actions{flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero-actions .button{min-height:46px;padding:0 17px;box-shadow:0 8px 30px rgba(62,216,231,.14)}
+.hero-link-secondary{display:inline-flex;align-items:center;gap:13px;min-height:46px;padding:0 16px;border:1px solid rgba(158,220,236,.55);background:rgba(3,12,27,.83);color:#e9f7fc;font:600 12px var(--display);letter-spacing:.03em;transition:background .2s,border-color .2s,transform .2s}
+.hero-link-secondary:hover,.hero-link-secondary:focus-visible{background:rgba(27,65,83,.9);border-color:#9fe7ed;transform:translateY(-2px)}
+.hero-actions a:focus-visible,.sylclips-view:focus-visible{outline:2px solid #b4f3f3;outline-offset:4px}
+.section-work .section-heading,.work-foundation,.syl-section .section-heading,.syl-intro,.skills-section .section-heading{background:linear-gradient(90deg,rgba(2,9,23,.94),rgba(2,9,23,.81) 67%,rgba(2,9,23,.18));box-shadow:0 0 58px 23px rgba(2,8,21,.34)}
+.section-work .section-heading,.syl-section .section-heading,.skills-section .section-heading{padding:17px 19px}
+.stop-story{background:radial-gradient(ellipse at 34% 50%,rgba(2,8,21,.98),rgba(2,8,21,.89) 58%,rgba(2,8,21,.24) 88%)}
+.about-section .about-grid>div:first-child{padding:20px 22px;background:radial-gradient(ellipse at 35% 38%,rgba(2,8,21,.96),rgba(2,8,21,.8) 62%,transparent 100%);box-shadow:0 0 48px 15px rgba(2,8,21,.36)}
+.about-section .about-text{padding:20px 22px 20px 27px;background:linear-gradient(90deg,rgba(2,8,21,.97),rgba(2,8,21,.85) 75%,rgba(2,8,21,.45));box-shadow:0 0 52px 20px rgba(2,8,21,.36)}
+.experience-entry p,.about-text>p,.experience-intro{color:#d7e4ed}
+.project-constellation{background:radial-gradient(ellipse at 45% 50%,rgba(2,9,23,.78),rgba(2,9,23,.54) 58%,transparent 82%)}
+.toolkit-panel{padding:18px 19px 20px 24px;background:linear-gradient(90deg,rgba(2,9,23,.97),rgba(2,9,23,.91) 78%,rgba(2,9,23,.65));box-shadow:0 0 45px 16px rgba(2,8,21,.36)}
+.toolkit-group p{font-size:12px;line-height:1.62;color:#d3e0e9}
+.toolkit-group h4{font-size:13px}
+.map-tech,.map-project{color:#e9f4fb;text-shadow:0 2px 7px #010713,0 0 17px #010713}
+.architecture-grid>div{background:rgba(3,12,28,.92)}
+.syl-intro{padding:16px 19px}
+.section-work{background:linear-gradient(180deg,transparent 0%,rgba(2,8,21,.14) 35%,rgba(2,8,21,.24) 70%,transparent 100%)}
+.about-section{background:linear-gradient(90deg,rgba(2,8,21,.49),rgba(2,8,21,.27) 75%,transparent)}
+.skills-section{background:linear-gradient(90deg,rgba(2,8,21,.36),rgba(2,8,21,.24) 72%,transparent)}
+
+/* Let the AI product preview carry more weight than the scenery around it. */
+.stop-sylclips .stop-layout{grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);gap:clamp(20px,3vw,44px)}
+.stop-sylclips .stop-visual{min-height:545px;box-shadow:0 32px 100px #000b,0 0 70px rgba(217,140,207,.13)}
+.stop-sylclips .sylclips-view{inset:54px 5% 77px;display:block;transition:border-color .2s,box-shadow .2s,transform .25s}
+.stop-sylclips .sylclips-view:hover,.stop-sylclips .sylclips-view:focus-visible{border-color:#eac6e3;box-shadow:0 27px 75px #000c,0 0 23px rgba(235,170,220,.17);transform:translateY(-3px)}
+.preview-open{position:absolute;z-index:4;right:12px;bottom:12px;padding:10px 12px;border:1px solid rgba(197,236,243,.68);background:rgba(3,13,28,.94);color:#f1fcff;font:600 10px var(--display);letter-spacing:.1em;box-shadow:0 8px 25px #0008}
+
+/* Keep the wayfinding readable without turning it into a boxed game HUD. */
+@media(min-width:1180px){
+  .constellation-dock{isolation:isolate}
+  .constellation-dock::before{content:"";display:block;position:absolute;inset:-20px -16px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 49%,rgba(2,9,24,.82),rgba(2,9,24,.65) 52%,transparent 82%);filter:blur(8px)}
+  .constellation-dock .constellation-heading{font-size:10px;color:#b4d9e6}
+  .constellation-dock .constellation-destination strong{font-size:12px;font-weight:600;color:#edf7fc;text-shadow:0 2px 7px #010713,0 0 15px #010713}
+  .constellation-dock .constellation-destination.is-current::after{font-size:8px;color:#aee9ee}
+  .constellation-dock .constellation-destination.is-current .destination-star{transform:scale(1.45)}
+  .constellation-dock .constellation-origin small{font-size:9px}
+  .constellation-dock .constellation-destination,.constellation-dock .constellation-origin{padding:5px}
+}
+@media(max-width:1179px){
+  html{scroll-padding-top:174px}
+  main{padding-top:91px}
+  .constellation-dock,.constellation-dock.is-experience{height:90px;padding-top:6px;padding-bottom:4px}
+  .constellation-dock .constellation-map{height:60px}
+  .constellation-dock .constellation-origin,.constellation-dock .constellation-destination{min-height:56px}
+}
+@media(max-width:1020px){.stop-sylclips .stop-layout{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}.stop-sylclips .stop-visual{min-height:470px}}
+@media(max-width:760px){
+  html{scroll-padding-top:169px}
+  main{padding-top:95px}
+  .constellation-dock,.constellation-dock.is-experience{top:64px;height:99px;padding:6px 6px 4px}
+  .constellation-dock .constellation-map{grid-template-rows:repeat(2,38px);height:78px}
+  .constellation-dock .constellation-origin,.constellation-dock .constellation-destination{height:38px;min-height:0}
+  .hero-copy::before{inset:-32px -24px -45px;background:radial-gradient(ellipse at 43% 50%,rgba(2,8,21,.87),rgba(2,8,21,.55) 69%,transparent 100%)}
+  .hero-actions{gap:9px}.hero-actions .button,.hero-link-secondary{font-size:11px;padding:0 12px;min-height:43px}
+  .section-work .section-heading,.syl-section .section-heading,.skills-section .section-heading{padding:15px}
+  .about-section .about-grid>div:first-child,.about-section .about-text{padding:16px}
+  .stop-sylclips .stop-layout{display:flex;flex-direction:column}
+  .stop-sylclips .stop-visual{min-height:380px}
+  .stop-sylclips .sylclips-view{inset:53px 5% 73px}
+  .toolkit-panel{padding-right:14px}.toolkit-group p{font-size:12px}
+}
