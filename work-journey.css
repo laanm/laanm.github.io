@@ -198,17 +198,17 @@
   .chart-docked .site-footer{margin-top:0;padding-bottom:25px}
 }
 @media(max-width:760px){
-  html{scroll-padding-top:183px}
-  main{padding-top:100px}
-  .constellation-dock,.constellation-dock.is-experience{height:99px;padding:7px 6px 5px}
+  html{scroll-padding-top:193px}
+  main{padding-top:110px}
+  .constellation-dock,.constellation-dock.is-experience{height:109px;padding:7px 6px 5px}
   .constellation-dock .constellation-heading{display:block;margin:0 0 3px 8px;font-size:7px}
-  .constellation-dock .constellation-map{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,37px);gap:1px 3px;height:76px}
+  .constellation-dock .constellation-map{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,42px);gap:1px 3px;height:86px}
   .constellation-dock .constellation-map::before{top:29%}
-  .constellation-dock .constellation-origin,.constellation-dock .constellation-destination{min-height:0;height:37px;flex-direction:row;gap:4px;padding:1px}
-  .constellation-dock .constellation-origin small,.constellation-dock .constellation-destination strong{font-size:8px;line-height:1.03;text-align:left}
+  .constellation-dock .constellation-origin,.constellation-dock .constellation-destination{min-height:0;height:42px;flex-direction:row;gap:4px;padding:1px}
+  .constellation-dock .constellation-origin small,.constellation-dock .constellation-destination strong{font-size:9px;line-height:1.08;text-align:left}
   .constellation-dock .constellation-destination.is-current::after{display:none}
   .constellation-dock .constellation-destination.is-current strong,.constellation-dock .constellation-origin.is-current small{color:#fff;text-shadow:0 0 12px var(--star,#9edce7)}
-  .chart-docked .motion-toggle{top:185px;right:10px}
+  .chart-docked .motion-toggle{top:195px;right:10px}
 }
 .constellation-dock.is-visible{opacity:1}
 .site-header{background:#030b1b}
