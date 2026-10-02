@@ -147,3 +147,68 @@
   .chart-docked .motion-toggle{top:76px;left:16px;right:auto;bottom:auto}
   .chart-docked .site-footer{padding-bottom:25px}
 }
+
+/* Reserve a clear navigation lane so the map can travel without covering copy. */
+@media(min-width:1180px){
+  :root{--chart-lane:clamp(320px,25vw,365px)}
+  main{margin-right:var(--chart-lane)}
+  .site-footer{margin-right:var(--chart-lane)}
+  .constellation-dock,.constellation-dock.is-experience{
+    left:auto;right:14px;bottom:auto;
+    top:clamp(90px,var(--dock-top,95px),calc(100dvh - 222px));
+    width:calc(var(--chart-lane) - 34px);max-width:none;
+    opacity:1;visibility:visible;pointer-events:auto;
+    transition:top .34s cubic-bezier(.24,.7,.2,1),transform .3s ease-out;
+  }
+  .constellation-dock .constellation-map{height:168px}
+  .constellation-dock .constellation-heading{font-size:9px}
+  .constellation-dock .constellation-destination{min-width:46px}
+  .constellation-dock .constellation-destination strong{font-size:11px;max-width:85px;line-height:1.08}
+  .constellation-dock .constellation-origin small{font-size:8px}
+  .constellation-dock .constellation-destination.is-current::after{font-size:6px}
+  .chart-docked .motion-toggle{left:16px;top:88px}
+}
+
+/* On narrower screens the same stars stay visible in a compact upper orbit. */
+@media(max-width:1179px){
+  html{scroll-padding-top:190px}
+  main{padding-top:107px}
+  .site-header{background:#030b1b;border-bottom-color:rgba(147,199,229,.2)}
+  .site-nav{display:none}
+  .constellation-dock,.constellation-dock.is-experience{
+    position:fixed;left:0;right:0;top:80px;bottom:auto;
+    width:100%;max-width:none;height:106px;min-height:0;
+    padding:8px 18px 6px;margin:0;
+    display:block;background:#030b1b;backdrop-filter:none;
+    border-bottom:1px solid rgba(147,199,229,.2);
+    opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:none;
+  }
+  .constellation-dock .constellation-heading{display:block;font-size:8px;margin:0 0 4px;letter-spacing:.19em}
+  .constellation-dock .constellation-map{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;height:69px;align-items:center;margin:0}
+  .constellation-dock .constellation-map::before{content:"";position:absolute;left:4%;right:4%;top:35%;height:1px;background:linear-gradient(90deg,transparent,rgba(150,203,229,.28),transparent);pointer-events:none}
+  .constellation-dock .constellation-lines,.constellation-dock .chart-traveler{display:none}
+  .constellation-dock .constellation-origin,.constellation-dock .constellation-destination{
+    position:relative;left:auto;top:auto;transform:none;
+    width:auto;min-width:0;min-height:64px;padding:4px 1px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;
+  }
+  .constellation-dock .constellation-origin small,.constellation-dock .constellation-destination strong{font-size:9px;line-height:1.08;max-width:110px}
+  .constellation-dock .constellation-destination.is-current::after{font-size:6px;margin-top:0}
+  .chart-docked .motion-toggle{display:none}
+  .chart-docked .site-footer{margin-top:0;padding-bottom:25px}
+}
+@media(max-width:760px){
+  html{scroll-padding-top:183px}
+  main{padding-top:100px}
+  .constellation-dock,.constellation-dock.is-experience{height:99px;padding:7px 6px 5px}
+  .constellation-dock .constellation-heading{display:block;margin:0 0 3px 8px;font-size:7px}
+  .constellation-dock .constellation-map{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,37px);gap:1px 3px;height:76px}
+  .constellation-dock .constellation-map::before{top:29%}
+  .constellation-dock .constellation-origin,.constellation-dock .constellation-destination{min-height:0;height:37px;flex-direction:row;gap:4px;padding:1px}
+  .constellation-dock .constellation-origin small,.constellation-dock .constellation-destination strong{font-size:8px;line-height:1.03;text-align:left}
+  .constellation-dock .constellation-destination.is-current::after{display:none}
+  .constellation-dock .constellation-destination.is-current strong,.constellation-dock .constellation-origin.is-current small{color:#fff;text-shadow:0 0 12px var(--star,#9edce7)}
+  .chart-docked .motion-toggle{top:185px;right:10px}
+}
+.constellation-dock.is-visible{opacity:1}
+.site-header{background:#030b1b}
