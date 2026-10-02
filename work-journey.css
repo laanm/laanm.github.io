@@ -77,7 +77,7 @@
 @media(prefers-reduced-motion:reduce){.constellation-dock{transition:none!important}}
 /* Keep the moving star chart readable without turning it into a boxed menu. */
 @media(min-width:761px){
-  .constellation-dock{width:min(560px,calc(100vw - 30px));isolation:isolate}
+  .constellation-dock{left:clamp(8px,var(--dock-left,calc(100vw - 578px)),calc(100vw - 568px));width:min(560px,calc(100vw - 30px));isolation:isolate}
   .constellation-dock::before{content:"";display:block;position:absolute;inset:-22px -14px;background:radial-gradient(ellipse at 51% 50%,rgba(2,8,22,.78) 0%,rgba(2,8,22,.48) 46%,transparent 76%);filter:blur(13px);pointer-events:none;z-index:-1}
   .constellation-dock .constellation-map{height:185px}
   .constellation-dock .constellation-heading{font-size:11px;letter-spacing:.2em}
@@ -85,4 +85,6 @@
   .constellation-dock .constellation-origin small{font-size:10px}
   .constellation-dock .constellation-destination.is-current::after{font-size:8px}
   .constellation-dock .destination-star{transform:scale(1.18)}
+  .constellation-dock.is-experience{left:18px;top:calc(100vh - 235px);opacity:.8}
+  .chart-docked .motion-toggle{left:18px;right:auto;top:92px;bottom:auto}
 }

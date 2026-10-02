@@ -15,3 +15,19 @@
   });
   document.documentElement.classList.add('work-enhanced');
 })();
+
+(() => {
+  const dock = document.querySelector('.constellation-dock');
+  const about = document.getElementById('about');
+  const skills = document.getElementById('skills');
+  if (!dock || !about || !skills) return;
+  const placeChart = () => {
+    const readingPoint = scrollY + innerHeight * .38;
+    const aboutTop = about.getBoundingClientRect().top + scrollY;
+    const skillsTop = skills.getBoundingClientRect().top + scrollY;
+    dock.classList.toggle('is-experience', readingPoint >= aboutTop && readingPoint < skillsTop);
+  };
+  addEventListener('scroll', placeChart, { passive: true });
+  addEventListener('resize', placeChart);
+  placeChart();
+})();
