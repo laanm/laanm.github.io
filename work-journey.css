@@ -58,9 +58,43 @@
 .stop-sylclips {
   --stop-color: #e8b2d7;
 }
+.stop-nexo { --stop-color: #c8e28a; }
 .stop-sentinel {
   --stop-color: #91d9df;
 }
+
+/* NEXO is a hand-built, illustrative view of the public demo. */
+.visual-nexo { display: flex; flex-direction: column; justify-content: center; padding: 48px clamp(16px, 3vw, 30px); }
+.nexo-preview { width: 100%; max-width: 630px; margin: auto; overflow: hidden; border: 1px solid #bed6a542; border-radius: 17px; background: #10201e; box-shadow: 0 30px 55px #0008, 0 0 50px #89c9b015; color: #e9eee2; font-family: var(--display); }
+.nexo-preview-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 17px; border-bottom: 1px solid #c6dfb333; background: #122320; }
+.nexo-preview-head strong { display: flex; align-items: center; gap: 7px; font-size: 11px; letter-spacing: .08em; }
+.nexo-preview-head strong i { width: 10px; height: 10px; border-radius: 50%; background: #d4eb9b; box-shadow: 0 0 12px #cce69a; }
+.nexo-preview-head strong span, .nexo-preview-head small { color: #a9bcaf; font-size: 8px; letter-spacing: .09em; }
+.nexo-preview-body { padding: clamp(18px, 3vw, 30px); }
+.nexo-preview-body > p { margin: 0 0 9px; color: #cae29d; font-size: 9px; font-weight: 700; letter-spacing: .13em; }
+.nexo-preview-body h4 { margin: 0 0 18px; font: 500 clamp(24px, 3vw, 42px)/1.03 Georgia, serif; letter-spacing: -.04em; }
+.nexo-preview-body h4 em { color: #d0e69e; font-style: normal; }
+.nexo-preview-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-bottom: 14px; }
+.nexo-preview-metrics span { min-width: 0; padding: 10px 12px; border: 1px solid #d3e6be27; border-radius: 8px; background: #1a2a27; color: #adbdaf; font-size: 8px; letter-spacing: .08em; }
+.nexo-preview-metrics b { display: block; color: #eef4e2; font-size: 20px; letter-spacing: -.04em; }
+.nexo-preview-table { overflow: hidden; border: 1px solid #d3e6be27; border-radius: 8px; font-size: 9px; }
+.nexo-preview-table > div { display: grid; grid-template-columns: minmax(0, 1fr) 63px 74px; gap: 5px; align-items: center; padding: 10px 12px; border-bottom: 1px solid #d3e6be1d; }
+.nexo-preview-table > div:first-child { color: #84998b; font-size: 7px; letter-spacing: .1em; background: #192a26; }
+.nexo-preview-table > div:last-child { border-bottom: 0; }
+.nexo-preview-table span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nexo-preview-table strong { color: #f3be9b; font-size: 8px; }
+.nexo-preview-table em { color: #cfe6a5; font-size: 8px; font-style: normal; }
+
+/* Credits remain readable within the text lane and above the mobile dock. */
+.site-footer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto; align-items: start; gap: 20px; min-width: 0; padding-top: 26px; padding-bottom: 32px; letter-spacing: .04em; }
+.site-footer .footer-credits { min-width: 0; max-width: 560px; border-left: 1px solid #92b8bd69; padding-left: 18px; }
+.footer-credits > span { display: block; margin-bottom: 8px; color: #c0dee2; font-size: 9px; letter-spacing: .17em; }
+.footer-credits p { margin: 5px 0; color: #9fb6bd; font-size: 11px; line-height: 1.55; overflow-wrap: anywhere; }
+.footer-credits a { color: #d6ede9; text-decoration: underline; text-decoration-color: #93d4c67d; text-underline-offset: 3px; }
+.footer-link { white-space: nowrap; }
+@media (max-width: 900px) { .site-footer { grid-template-columns: minmax(0, 1fr) auto; } .site-footer .footer-credits { grid-column: 1 / -1; grid-row: 2; } }
+@media (max-width: 760px) { .site-footer { padding: 24px 24px 145px !important; } .chart-docked .site-footer { padding-bottom: 145px !important; } }
+@media (max-width: 460px) { .nexo-preview-metrics span { padding: 8px; font-size: 7px; } .nexo-preview-table > div { grid-template-columns: minmax(0, 1fr) 42px 56px; padding: 8px; font-size: 8px; } .nexo-preview-table strong, .nexo-preview-table em { font-size: 7px; } .site-footer { grid-template-columns: 1fr; gap: 10px; } .site-footer .footer-credits { grid-column: 1; grid-row: auto; } }
 .stop-sap {
   --stop-color: #e7be8c;
 }
@@ -1092,6 +1126,7 @@
   left: 90%;
   top: 77%;
 }
+.toolkit-layout .tech-sql { left: 7%; top: 57%; }
 .toolkit-layout .project-professional {
   left: 43%;
   top: 54%;
@@ -1112,6 +1147,7 @@
   left: 69%;
   top: 72%;
 }
+.toolkit-layout .project-nexo { left: 51%; top: 72%; }
 .toolkit-layout .map-tech i {
   width: 8px;
   height: 8px;
@@ -2717,4 +2753,16 @@
   .sap-capabilities span {
     font-size: 6px;
   }
+}
+
+.chart-docked .site-footer {
+  margin-top: 0;
+  padding-bottom: 32px;
+}
+.site-footer {
+  background: linear-gradient(90deg, rgba(3, 12, 26, .86), rgba(3, 12, 26, .56) 72%, transparent);
+}
+@media (max-width: 760px) {
+  .site-footer,
+  .chart-docked .site-footer { padding-bottom: 28px !important; }
 }

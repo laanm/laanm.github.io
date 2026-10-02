@@ -21,8 +21,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./space-v2.css?v=19" />
-    <link rel="stylesheet" href="./work-journey.css?v=13" />
-    <script defer src="./space-v2.js?v=24"></script>
+    <link rel="stylesheet" href="./work-journey.css?v=14" />
+    <script defer src="./space-v2.js?v=25"></script>
     <script defer src="./work-journey.js?v=5"></script>
   </head>
   <body>
@@ -328,13 +328,48 @@
           </div>
 
           <article
+            class="project-stop stop-nexo"
+            id="work-nexo"
+            aria-labelledby="nexo-title"
+          >
+            <div class="stop-heading">
+              <span class="stop-marker" aria-hidden="true"></span
+              ><span class="stop-index">02 / FULL-STACK DEMO</span
+              ><span class="stop-state">PERSONAL PROJECT · LIVE DEMO</span>
+            </div>
+            <div class="stop-layout">
+              <div class="stop-story">
+                <p class="stop-overline">ANGULAR · JAVA / SPRING BOOT · SQL</p>
+                <h3 id="nexo-title">NEXO<br />Service Desk<span class="title-period">.</span></h3>
+                <p class="stop-lede">An incident workflow from the first report to a documented fix.</p>
+                <div class="stop-facts">
+                  <div><span>THE CHALLENGE</span><p>Trace a user-reported problem across the interface, REST API, backend rules and data layer.</p></div>
+                  <div><span>MY CONTRIBUTION</span><p>Built the Angular UI, Spring Boot API and SQL-backed history, including evidence for diagnosis and required closure details.</p></div>
+                </div>
+                <div class="stop-actions">
+                  <a href="https://nexo-service-desk-demo.onrender.com/" target="_blank" rel="noopener noreferrer">Explore the live demo <span aria-hidden="true">↗</span></a
+                  ><a href="./project-notes.html#nexo">Engineering notes <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+              <div class="stop-visual visual-nexo">
+                <span class="visual-topline">INTERFACE STUDY <i>02 / 05</i></span>
+                <div class="nexo-preview" role="img" aria-label="Illustrative NEXO Service Desk incident dashboard with status, priority and investigation notes">
+                  <div class="nexo-preview-head"><strong><i></i>NEXO <span>SERVICE DESK</span></strong><small>INCIDENT WORKSPACE</small></div>
+                  <div class="nexo-preview-body"><p>FROM SIGNAL TO SOLUTION</p><h4>Incidents, with<br><em>context.</em></h4><div class="nexo-preview-metrics"><span><b>08</b>OPEN</span><span><b>03</b>IN PROGRESS</span><span><b>12</b>RESOLVED</span></div><div class="nexo-preview-table"><div><b>INCIDENT</b><b>PRIORITY</b><b>STATUS</b></div><div><span>Invoice total mismatch</span><strong>HIGH</strong><em>Investigating</em></div><div><span>Search returns no results</span><strong>MEDIUM</strong><em>Open</em></div></div></div>
+                </div>
+                <span class="visual-caption">ILLUSTRATIVE PREVIEW · FICTIONAL CASES</span>
+              </div>
+            </div>
+          </article>
+
+          <article
             class="project-stop stop-sylclips"
             id="work-ai"
             aria-labelledby="sylclips-work-title"
           >
             <div class="stop-heading">
               <span class="stop-marker" aria-hidden="true"></span
-              ><span class="stop-index">02 / APPLIED AI</span
+              ><span class="stop-index">03 / APPLIED AI</span
               ><span class="stop-state">PERSONAL PROJECT · IN PROGRESS</span>
             </div>
             <div class="stop-layout">
@@ -376,7 +411,7 @@
                 </div>
               </div>
               <div class="stop-visual visual-sylclips">
-                <span class="visual-topline">PUBLIC LAB <i>02 / 04</i></span
+                <span class="visual-topline">PUBLIC LAB <i>03 / 05</i></span
                 ><a
                   class="sylclips-view"
                   href="./sylclips-lab.html"
@@ -444,7 +479,7 @@
           >
             <div class="stop-heading">
               <span class="stop-marker" aria-hidden="true"></span
-              ><span class="stop-index">03 / FRONTEND DEMO</span
+              ><span class="stop-index">04 / FRONTEND DEMO</span
               ><span class="stop-state">PUBLIC PRODUCT + SOURCE</span>
             </div>
             <div class="stop-layout">
@@ -491,7 +526,7 @@
               </div>
               <div class="stop-visual visual-sentinel">
                 <span class="visual-topline"
-                  >PRODUCT PREVIEW <i>03 / 04</i></span
+                  >PRODUCT PREVIEW <i>04 / 05</i></span
                 >
                 <div class="sentinel-view">
                   <img
@@ -514,7 +549,7 @@
           >
             <div class="stop-heading">
               <span class="stop-marker" aria-hidden="true"></span
-              ><span class="stop-index">04 / BACKEND EXPLORATION</span
+              ><span class="stop-index">05 / BACKEND EXPLORATION</span
               ><span class="stop-state">PERSONAL PROJECT · IN PROGRESS</span>
             </div>
             <div class="stop-layout">
@@ -555,7 +590,7 @@
                 role="img"
                 aria-label="Illustrative SAP CAP service console for an in-progress library backend"
               >
-                <span class="visual-topline">BACKEND STUDY <i>04 / 04</i></span>
+                <span class="visual-topline">BACKEND STUDY <i>05 / 05</i></span>
                 <div class="sap-console">
                   <div class="sap-console-top">
                     <strong
@@ -895,6 +930,7 @@
             >
               <i></i>SAP CAP
             </button>
+            <button class="map-tech tech-sql" type="button" data-tech="sql" aria-pressed="false"><i></i>SQL</button>
             <a
               class="map-project project-professional"
               data-project="professional"
@@ -927,6 +963,7 @@
               href="#work-ai"
               ><i></i><span>SylClips<small>AI engineering</small></span></a
             >
+            <a class="map-project project-nexo" data-project="nexo" href="#work-nexo"><i></i><span>NEXO Service Desk<small>Java + Angular demo</small></span></a>
             <a
               class="map-project project-sap"
               data-project="sap"
@@ -1013,28 +1050,13 @@
     </main>
 
     <footer class="site-footer">
-      <span>© 2026 Agustín Donnian</span
-      ><span
-        >Planet maps:
-        <a
-          href="https://www.solarsystemscope.com/textures/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Solar System Scope · CC BY 4.0</a
-        >
-        · Neptune photo:
-        <a
-          href="https://science.nasa.gov/asset/webb/neptune-voyager-2/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >NASA/Caltech</a
-        ></span
-      ><a
-        href="https://www.linkedin.com/in/agustin-donnian"
-        target="_blank"
-        rel="noopener noreferrer"
-        >LinkedIn ↗</a
-      >
+      <span class="footer-copyright">© 2026 Agustín Donnian</span>
+      <div class="footer-credits" aria-label="Visual asset credits">
+        <span>VISUAL CREDITS</span>
+        <p>Planet maps: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener noreferrer">Solar System Scope · CC BY 4.0</a></p>
+        <p>Neptune photo: <a href="https://science.nasa.gov/asset/webb/neptune-voyager-2/" target="_blank" rel="noopener noreferrer">NASA/Caltech</a></p>
+      </div>
+      <a class="footer-link" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
     </footer>
   </body>
 </html>

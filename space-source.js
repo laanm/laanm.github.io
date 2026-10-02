@@ -4,7 +4,7 @@ const mount = document.getElementById('space-scene');
 const chapters = [...document.querySelectorAll('#top,#work,#sylclips-demo,#about,#skills,#contact-title')];
 const mobile = matchMedia('(max-width: 760px)');
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-const renderRatio = () => Math.min(devicePixelRatio || 1, 2.15, Math.sqrt(10000000 / Math.max(1, innerWidth * innerHeight)));
+const renderRatio = () => Math.min(devicePixelRatio || 1, 2.15, Math.sqrt(8500000 / Math.max(1, innerWidth * innerHeight)));
 const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = (a, b, t) => lerp(a, b, 1 - Math.exp(-t));
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -169,11 +169,11 @@ const projectMap=document.querySelector('.project-constellation');
 if(projectMap){
   const mapLines=projectMap.querySelector('.project-constellation-lines');
   const technologyLinks={
-    typescript:['professional','sentinel','sylclips'], react:['professional','sentinel'],
-    angular:['professional'], python:['professional','sylclips'],
-    django:['professional'], java:['professional'], llms:['sylclips'],
-    pytorch:['sylclips'], fastapi:['sylclips'], rest:['professional','kiosk','sylclips'],
-    node:['professional','sylclips','sap'], sap:['sap']
+    typescript:['professional','sentinel','sylclips','nexo'], react:['professional','sentinel'],
+    angular:['professional','nexo'], python:['professional','sylclips'],
+    django:['professional'], java:['professional','nexo'], llms:['sylclips'],
+    pytorch:['sylclips'], fastapi:['sylclips'], rest:['professional','kiosk','sylclips','nexo'],
+    node:['professional','sylclips','sap'], sap:['sap'], sql:['professional','nexo']
   };
   const techButtons=[...projectMap.querySelectorAll('[data-tech]')];
   const projectLinks=[...projectMap.querySelectorAll('[data-project]')];
@@ -181,7 +181,7 @@ if(projectMap){
   let selectedTech=null;
   let hoveredTech=null;
   const activeTech=()=>hoveredTech||selectedTech;
-  const projectNames={professional:'Full-stack delivery',kiosk:'Self-service kiosk',sentinel:'Sentinel Desk',sylclips:'SylClips',sap:'Book Management'};
+  const projectNames={professional:'Full-stack delivery',kiosk:'Self-service kiosk',sentinel:'Sentinel Desk',sylclips:'SylClips',sap:'Book Management',nexo:'NEXO Service Desk'};
   function paintConnections(){
     const active=activeTech();
     projectMap.classList.toggle('has-selection',!!active);
@@ -602,16 +602,35 @@ if (renderer) {
   cometCore.scale.set(.95,.95,1);
   comet.add(cometTail,cometCore);comet.visible=false;scene.add(comet);
 
-  const resize=()=>{camera.aspect=innerWidth/innerHeight;camera.fov=mobile.matches?68:58;camera.updateProjectionMatrix();positionWorlds();const ratio=renderRatio();renderer.setPixelRatio(ratio);renderer.setSize(innerWidth,innerHeight);pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});};
+  const resize=()=>{camera.aspect=innerWidth/innerHeight;camera.fov=mobile.matches?68:58;camera.updateProjectionMatrix();positionWorlds();const ratio=renderRatio()*resolutionScale;renderer.setPixelRatio(ratio);renderer.setSize(innerWidth,innerHeight);pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});};
   window.addEventListener('resize',resize);
   let last=performance.now();
+  let resolutionScale=1;
+  let slowFrames=0;
+  let stableFrames=0;
+  const applyRenderResolution=()=>{
+    const ratio=renderRatio()*resolutionScale;
+    renderer.setPixelRatio(ratio);
+    renderer.setSize(innerWidth,innerHeight);
+    pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});
+  };
+  document.addEventListener('visibilitychange',()=>{last=performance.now();slowFrames=0;stableFrames=0;});
   let rendered=false;
   setTimeout(()=>{if(!rendered)fallback();},4500);
   const backdropColors=[0x031023,0x071b2d,0x201020,0x0b1f37,0x190f2a,0x072431].map(c=>new THREE.Color(c));
   function tick(now){
+    // A 144/240 Hz display should not multiply WebGL work for the same journey.
+    // The elapsed time below still controls motion, so travel speed stays stable.
+    if(now-last<1000/72-1){requestAnimationFrame(tick);return;}
     // The first animation timestamp can precede performance.now() sampled
     // during setup. A negative delta would move deep links backward past 0.
-    const dt=clamp((now-last)/1000,0,.05);last=now;
+    const frameTime=now-last;
+    const dt=clamp(frameTime/1000,0,.05);last=now;
+    if(frameTime>28){slowFrames++;stableFrames=0;}
+    else if(frameTime<20){stableFrames++;slowFrames=0;}
+    else{slowFrames=0;stableFrames=0;}
+    if(slowFrames>=18&&resolutionScale>.65){resolutionScale=Math.max(.65,resolutionScale-.1);applyRenderResolution();slowFrames=0;}
+    if(stableFrames>=180&&resolutionScale<1){resolutionScale=Math.min(1,resolutionScale+.05);applyRenderResolution();stableFrames=0;}
     pointer.x=smooth(pointer.x,pointer.tx,dt*4.5);pointer.y=smooth(pointer.y,pointer.ty,dt*4.5);
     pointer.activity=smooth(pointer.activity,pointer.targetActive,dt*2.6);
     journey=motion?smooth(journey,targetJourney,dt*(flightFrame?5.5:2.1)):targetJourney;
