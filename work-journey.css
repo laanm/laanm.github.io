@@ -75,3 +75,14 @@
 @media(min-width:761px){.constellation-dock{left:var(--dock-left,calc(100vw - 550px));top:var(--dock-top,calc(100vh - 220px));right:auto;bottom:auto;width:min(520px,calc(100vw - 50px));transition:left 1.1s cubic-bezier(.22,.7,.2,1),top 1.1s cubic-bezier(.22,.7,.2,1),opacity .35s,transform .3s ease-out,visibility .35s}.constellation-dock .constellation-map{height:165px}.constellation-dock .constellation-heading{font-size:10px;letter-spacing:.2em}.constellation-dock .constellation-destination{min-width:66px}.constellation-dock .constellation-destination strong{font-size:12px;max-width:105px}.constellation-dock .constellation-origin small{font-size:8px}.constellation-dock .constellation-destination small{font-size:8px}.constellation-dock .constellation-destination.is-current::after{font-size:7px}.constellation-dock .constellation-lines{opacity:.34}}
 @media(max-width:760px){.constellation-dock{top:auto;bottom:calc(12px + env(safe-area-inset-bottom));min-height:104px;padding:9px 8px 8px;background:linear-gradient(0deg,rgba(2,7,17,.9),rgba(2,7,17,.64) 72%,transparent)}.constellation-dock .constellation-heading{display:block;margin:0 0 3px 10px;font-size:9px;color:#cce5f0}.constellation-dock .constellation-map{height:78px;align-items:center}.constellation-dock .constellation-origin,.constellation-dock .constellation-destination{gap:5px}.constellation-dock .constellation-origin small,.constellation-dock .constellation-destination strong{font-size:10px;line-height:1.12}.constellation-dock .constellation-destination small{font-size:7px}.constellation-dock .destination-star{min-width:8px;min-height:8px}.chart-docked .motion-toggle{bottom:132px}.chart-docked .site-footer{padding-bottom:150px}}
 @media(prefers-reduced-motion:reduce){.constellation-dock{transition:none!important}}
+/* Keep the moving star chart readable without turning it into a boxed menu. */
+@media(min-width:761px){
+  .constellation-dock{width:min(560px,calc(100vw - 30px));isolation:isolate}
+  .constellation-dock::before{content:"";display:block;position:absolute;inset:-22px -14px;background:radial-gradient(ellipse at 51% 50%,rgba(2,8,22,.78) 0%,rgba(2,8,22,.48) 46%,transparent 76%);filter:blur(13px);pointer-events:none;z-index:-1}
+  .constellation-dock .constellation-map{height:185px}
+  .constellation-dock .constellation-heading{font-size:11px;letter-spacing:.2em}
+  .constellation-dock .constellation-destination strong{font-size:14px;max-width:120px;font-weight:600}
+  .constellation-dock .constellation-origin small{font-size:10px}
+  .constellation-dock .constellation-destination.is-current::after{font-size:8px}
+  .constellation-dock .destination-star{transform:scale(1.18)}
+}

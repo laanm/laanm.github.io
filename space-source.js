@@ -80,16 +80,17 @@ function updateChartLocation(y){
 }
 function updateChartTravel(){
   if(!chartDock || innerWidth<=760)return;
-  const dockWidth=Math.min(520,innerWidth-50);
-  const dockHeight=205;
-  const upper=94;
+  const dockWidth=Math.min(560,innerWidth-30);
+  const dockHeight=225;
+  const upper=83;
   const lower=Math.max(upper,innerHeight-dockHeight-22);
-  const waypoints=[.92,.14,.76,.2,.7,.13];
+  // The chart follows the trip while staying away from the lower reading area.
+  const waypoints=[.17,.1,.35,.02,.3,.08];
   const segment=clamp(Math.floor(targetJourney),0,4);
   const amount=clamp(targetJourney-segment,0,1);
   const eased=amount*amount*(3-2*amount);
   const level=lerp(waypoints[segment],waypoints[segment+1],eased);
-  const left=innerWidth-dockWidth-28-Math.sin(targetJourney*1.35)*30;
+  const left=innerWidth-dockWidth-18-Math.sin(targetJourney*1.35)*46;
   chartDock.style.setProperty('--dock-left',`${Math.round(left)}px`);
   chartDock.style.setProperty('--dock-top',`${Math.round(lerp(upper,lower,level))}px`);
 }
@@ -631,10 +632,10 @@ if (renderer) {
     const mouseX=motion?pointer.x:0,mouseY=motion?pointer.y:0;
     camera.position.x=smooth(camera.position.x,(Math.sin(journey*1.5)*1.7+mouseX*3.8)*offset,dt*3.2);
     camera.position.y=smooth(camera.position.y,(Math.cos(journey*1.2)*.8-mouseY*2.3)*offset,dt*3.2);
-    const mouseApproach=motion?pointer.activity*2.8*offset:0;
+    const mouseApproach=motion?pointer.activity*4.5*offset:0;
     camera.position.z=smooth(camera.position.z,1-journey*59-mouseApproach,dt*(flightFrame?5.5:2.1));
     const baseFov=mobile.matches?68:58;
-    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*8:0)+flightIntensity*1.4;
+    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*13:0)+flightIntensity*1.4;
     const nextFov=smooth(camera.fov,zoomFov,dt*3.1);
     if(Math.abs(nextFov-camera.fov)>.002){camera.fov=nextFov;camera.updateProjectionMatrix();}
     // Off-axis projection keeps the spot beneath the pointer stationary as
