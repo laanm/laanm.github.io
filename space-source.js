@@ -180,24 +180,29 @@ if(projectMap){
   const status=projectMap.querySelector('.map-status');
   let selectedTech=null;
   let hoveredTech=null;
+  let hoveredProject=null;
   const activeTech=()=>hoveredTech||selectedTech;
   const projectNames={professional:'Full-stack delivery',kiosk:'Self-service kiosk',sentinel:'Sentinel Desk',sylclips:'SylClips',sap:'Book Management',nexo:'NEXO Service Desk'};
   function paintConnections(){
     const active=activeTech();
-    projectMap.classList.toggle('has-selection',!!active);
+    const projectTechs=hoveredProject?Object.keys(technologyLinks).filter(key=>technologyLinks[key].includes(hoveredProject)):[];
+    projectMap.classList.toggle('has-selection',!!active||!!hoveredProject);
     techButtons.forEach(button=>{
       const key=button.dataset.tech;
-      button.classList.toggle('is-lit',key===active);
+      button.classList.toggle('is-lit',hoveredProject?projectTechs.includes(key):key===active);
       button.setAttribute('aria-pressed',String(key===selectedTech));
     });
-    projectLinks.forEach(link=>link.classList.toggle('is-lit',!!active&&technologyLinks[active].includes(link.dataset.project)));
-    mapLines.querySelectorAll('[data-connection]').forEach(line=>line.classList.toggle('is-lit',line.dataset.connection===active));
-    if(active){
+    projectLinks.forEach(link=>link.classList.toggle('is-lit',hoveredProject?link.dataset.project===hoveredProject:!!active&&technologyLinks[active].includes(link.dataset.project)));
+    mapLines.querySelectorAll('[data-project]').forEach(line=>line.classList.toggle('is-lit',!!hoveredProject&&line.dataset.project===hoveredProject));
+    if(hoveredProject){
+      const names=projectTechs.map(key=>techButtons.find(button=>button.dataset.tech===key)?.textContent.trim()).filter(Boolean);
+      status.textContent=`${projectNames[hoveredProject]}: ${names.join(', ')}.`;
+    }else if(active){
       const label=techButtons.find(button=>button.dataset.tech===active)?.textContent.trim();
       const names=technologyLinks[active].map(key=>projectNames[key]);
       const places=names.length>1?`${names.slice(0,-1).join(', ')} and ${names.at(-1)}`:names[0];
       status.textContent=`Used in ${places}: ${label}.`;
-    }else status.textContent='Hover or choose a technology to reveal its project connections.';
+    }else status.textContent='Hover a project to see its technologies, or choose a technology to find related work.';
   }
   function drawConnections(){
     const bounds=projectMap.getBoundingClientRect();
@@ -208,20 +213,19 @@ if(projectMap){
       const rect=element.getBoundingClientRect();
       return [rect.left+rect.width/2-bounds.left,rect.top+rect.height/2-bounds.top];
     };
-    const makeLine=(a,b,key,shared=false)=>{
+    const makeLine=(a,b,key,project)=>{
       const [x1,y1]=point(a),[x2,y2]=point(b);
       const line=document.createElementNS('http://www.w3.org/2000/svg','line');
       line.setAttribute('x1',x1);line.setAttribute('y1',y1);
       line.setAttribute('x2',x2);line.setAttribute('y2',y2);
       line.dataset.connection=key;
-      if(shared)line.classList.add('shared-connection');
+      line.dataset.project=project;
       mapLines.appendChild(line);
     };
     techButtons.forEach(button=>{
       const key=button.dataset.tech;
-      const matches=technologyLinks[key].map(project=>projectMap.querySelector(`[data-project="${project}"]`));
-      matches.forEach(link=>makeLine(button,link,key));
-      if(matches.length>1)makeLine(matches[0],matches[1],key,true);
+      const matches=technologyLinks[key].map(project=>projectLinks.find(link=>link.dataset.project===project));
+      matches.forEach(link=>makeLine(button,link,key,link.dataset.project));
     });
     paintConnections();
   }
@@ -235,6 +239,12 @@ if(projectMap){
       hoveredTech=null;
       paintConnections();
     });
+  });
+  projectLinks.forEach(link=>{
+    link.addEventListener('pointerenter',()=>{hoveredProject=link.dataset.project;paintConnections();});
+    link.addEventListener('pointerleave',()=>{hoveredProject=null;paintConnections();});
+    link.addEventListener('focus',()=>{hoveredProject=link.dataset.project;paintConnections();});
+    link.addEventListener('blur',()=>{hoveredProject=null;paintConnections();});
   });
   new ResizeObserver(drawConnections).observe(projectMap);
   drawConnections();
