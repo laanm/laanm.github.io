@@ -3078,6 +3078,17 @@
   stroke-width: 1.3 !important;
   filter: drop-shadow(0 1px 2px rgba(2, 8, 19, 0.85)) !important;
 }
+.constellation-dock .constellation-lines .constellation-thread-glints {
+  stroke: rgba(237, 194, 139, 0.82) !important;
+  stroke-width: 1.1 !important;
+  stroke-linecap: round;
+  stroke-dasharray: 1 48 2 109 1 76;
+  filter: drop-shadow(0 0 3px rgba(237, 194, 139, 0.55)) !important;
+  animation: constellation-glints 24s linear infinite;
+}
+@keyframes constellation-glints {
+  to { stroke-dashoffset: -237; }
+}
 .constellation-dock .constellation-scatter circle {
   opacity: 0.7;
   animation: chart-scintillate 6s ease-in-out infinite alternate;
@@ -3114,4 +3125,112 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .constellation-dock .constellation-scatter circle { animation: none; }
+  .constellation-dock .constellation-thread-glints { animation: none; }
+}
+
+/* Keep the brightest parts of the sky behind the work, not behind its words. */
+.skills-section .section-heading {
+  background: radial-gradient(ellipse at 34% 48%, rgba(2, 9, 23, .98) 0 36%, rgba(2, 9, 23, .86) 64%, transparent 95%);
+  box-shadow: 0 0 52px 18px rgba(2, 8, 21, .32);
+}
+.skills-section .project-constellation {
+  background: radial-gradient(ellipse at 45% 50%, rgba(2, 9, 23, .91), rgba(2, 9, 23, .75) 57%, transparent 86%);
+}
+.contact-section::before {
+  background: radial-gradient(ellipse at 26% 52%, rgba(2, 9, 23, .92) 0 18%, rgba(2, 9, 23, .62) 50%, transparent 77%);
+}
+.contact-section h2,
+.contact-section > p {
+  text-shadow: 0 2px 22px rgba(1, 5, 14, .96), 0 0 42px rgba(1, 5, 14, .68);
+}
+.contact-section h2 {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  isolation: isolate;
+}
+.contact-section h2::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -.32em -.45em;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 36% 51%, rgba(2, 7, 18, .95), rgba(2, 7, 18, .77) 57%, transparent 86%);
+  filter: blur(15px);
+}
+.contact-section h2 em { color: #b9dcfa; }
+.contact-section > p:not(.section-kicker) {
+  background: linear-gradient(90deg, rgba(2, 9, 23, .9), rgba(2, 9, 23, .65) 73%, transparent);
+}
+
+/* One short, inspectable action next to each public engineering demo. */
+.project-proof {
+  position: relative;
+  max-width: 580px;
+  margin: 24px 0 19px;
+  padding: 11px 17px 12px 20px;
+  color: #dce9f2;
+  font-size: 13px;
+  line-height: 1.55;
+  background: linear-gradient(90deg, rgba(5, 16, 32, .8), rgba(5, 16, 32, .42) 72%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--stop-color), transparent 20%);
+}
+.project-proof span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--stop-color);
+  font: 700 10px var(--display);
+  letter-spacing: .13em;
+}
+
+.mobile-chart-toggle { display: none; }
+@media (max-width: 760px) {
+  html { scroll-padding-top: 128px; }
+  main { padding-top: 62px; }
+  .chart-docked .header-explore { display: none; }
+  .constellation-dock,
+  .constellation-dock.is-experience {
+    top: 64px;
+    height: 54px;
+    min-height: 0;
+    padding: 0 16px;
+    background: rgba(3, 11, 27, .94);
+    transition: height .25s ease;
+  }
+  .constellation-dock .constellation-heading { display: none; }
+  .constellation-dock .mobile-chart-toggle {
+    display: flex;
+    width: 100%;
+    min-height: 53px;
+    padding: 0 4px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border: 0;
+    background: none;
+    color: #e0edf6;
+    text-align: left;
+    cursor: pointer;
+  }
+  .mobile-chart-toggle:focus-visible { outline: 2px solid #9cccf0; outline-offset: -3px; }
+  .mobile-chart-location { font: 700 10px var(--display); letter-spacing: .14em; }
+  .mobile-chart-action { color: #edc48e; font: 700 10px var(--display); letter-spacing: .14em; white-space: nowrap; }
+  .mobile-chart-action span { display: inline-block; margin-left: 7px; transition: transform .25s ease; }
+  .constellation-dock.is-mobile-open .mobile-chart-action span { transform: rotate(180deg); }
+  .constellation-dock:not(.is-mobile-open) .constellation-map { display: none; }
+  .constellation-dock.is-mobile-open,
+  .constellation-dock.is-mobile-open.is-experience { height: 160px; }
+  .constellation-dock.is-mobile-open .constellation-map {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2px 5px;
+    height: 100px;
+  }
+  .constellation-dock .constellation-origin,
+  .constellation-dock .constellation-destination { min-height: 43px; }
+  .project-proof { margin-top: 19px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .constellation-dock { transition: none; }
+  .mobile-chart-action span { transition: none; }
 }

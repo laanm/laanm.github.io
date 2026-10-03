@@ -36,11 +36,31 @@ if(chartMap){
   chartMap.appendChild(traveler);
 }
 const chartDock=heroChart?.cloneNode(true);
+let mobileChartToggle;
 if(chartDock){
   chartDock.classList.add('constellation-dock');
   chartDock.classList.add('is-visible');
   chartDock.setAttribute('aria-label','Persistent portfolio navigation');
   chartDock.inert=false;
+  mobileChartToggle=document.createElement('button');
+  mobileChartToggle.type='button';
+  mobileChartToggle.className='mobile-chart-toggle';
+  mobileChartToggle.setAttribute('aria-expanded','false');
+  chartDock.querySelector('.constellation-map').id='portfolio-mobile-map';
+  mobileChartToggle.setAttribute('aria-controls','portfolio-mobile-map');
+  mobileChartToggle.setAttribute('aria-label','Open destination map');
+  mobileChartToggle.innerHTML='<span class="mobile-chart-location">CURRENT · START</span><span class="mobile-chart-action">EXPLORE <span aria-hidden="true">⌄</span></span>';
+  chartDock.insertBefore(mobileChartToggle,chartDock.firstChild);
+  mobileChartToggle.addEventListener('click',()=>{
+    const open=chartDock.classList.toggle('is-mobile-open');
+    mobileChartToggle.setAttribute('aria-expanded',String(open));
+    mobileChartToggle.setAttribute('aria-label',open?'Close destination map':'Open destination map');
+  });
+  chartDock.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+    chartDock.classList.remove('is-mobile-open');
+    mobileChartToggle.setAttribute('aria-expanded','false');
+    mobileChartToggle.setAttribute('aria-label','Open destination map');
+  }));
   document.body.appendChild(chartDock);
   document.documentElement.classList.add('chart-docked');
 }
@@ -83,6 +103,11 @@ function updateChartLocation(y){
       else link.removeAttribute('aria-current');
     });
     chart.querySelector('.constellation-origin small').textContent=current==='#top'?'YOU ARE HERE':'START';
+  }
+  if(mobileChartToggle){
+    const currentLink=chartDock.querySelector(`a[href="${current}"]`);
+    const name=current==='#top'?'START':currentLink?.querySelector('strong')?.textContent?.trim()||'START';
+    mobileChartToggle.querySelector('.mobile-chart-location').textContent=`CURRENT · ${name.toUpperCase()}`;
   }
 }
 function updateChartTravel(){
@@ -625,13 +650,14 @@ if (renderer) {
   let resolutionScale=1;
   let slowFrames=0;
   let stableFrames=0;
+  let smoothedFrameTime=16.7;
   const applyRenderResolution=()=>{
     const ratio=renderRatio()*resolutionScale;
     renderer.setPixelRatio(ratio);
     renderer.setSize(innerWidth,innerHeight);
     pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});
   };
-  document.addEventListener('visibilitychange',()=>{last=performance.now();slowFrames=0;stableFrames=0;});
+  document.addEventListener('visibilitychange',()=>{last=performance.now();slowFrames=0;stableFrames=0;smoothedFrameTime=16.7;});
   let rendered=false;
   setTimeout(()=>{if(!rendered)fallback();},4500);
   const backdropColors=[0x031023,0x071b2d,0x201020,0x0b1f37,0x190f2a,0x072431].map(c=>new THREE.Color(c));
@@ -643,11 +669,12 @@ if (renderer) {
     // during setup. A negative delta would move deep links backward past 0.
     const frameTime=now-last;
     const dt=clamp(frameTime/1000,0,.05);last=now;
-    if(frameTime>28){slowFrames++;stableFrames=0;}
-    else if(frameTime<20){stableFrames++;slowFrames=0;}
+    smoothedFrameTime=lerp(smoothedFrameTime,frameTime,.08);
+    if(smoothedFrameTime>20){slowFrames++;stableFrames=0;}
+    else if(smoothedFrameTime<17.5){stableFrames++;slowFrames=0;}
     else{slowFrames=0;stableFrames=0;}
-    if(slowFrames>=18&&resolutionScale>.65){resolutionScale=Math.max(.65,resolutionScale-.1);applyRenderResolution();slowFrames=0;}
-    if(stableFrames>=180&&resolutionScale<1){resolutionScale=Math.min(1,resolutionScale+.05);applyRenderResolution();stableFrames=0;}
+    if(slowFrames>=15&&resolutionScale>.62){resolutionScale=Math.max(.62,resolutionScale-.08);applyRenderResolution();slowFrames=0;}
+    if(stableFrames>=240&&resolutionScale<1){resolutionScale=Math.min(1,resolutionScale+.04);applyRenderResolution();stableFrames=0;}
     pointer.x=smooth(pointer.x,pointer.tx,dt*4.5);pointer.y=smooth(pointer.y,pointer.ty,dt*4.5);
     pointer.activity=smooth(pointer.activity,pointer.targetActive,dt*2.6);
     journey=motion?smooth(journey,targetJourney,dt*(flightFrame?5.5:2.1)):targetJourney;
