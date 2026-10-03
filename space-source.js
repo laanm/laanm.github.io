@@ -4,7 +4,7 @@ const mount = document.getElementById('space-scene');
 const chapters = [...document.querySelectorAll('#top,#work,#sylclips-demo,#about,#skills,#contact-title')];
 const mobile = matchMedia('(max-width: 760px)');
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-const renderRatio = () => Math.min(devicePixelRatio || 1, 2.15, Math.sqrt(10000000 / Math.max(1, innerWidth * innerHeight)));
+const renderRatio = () => Math.min(devicePixelRatio || 1, 2.15, Math.sqrt(8500000 / Math.max(1, innerWidth * innerHeight)));
 const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = (a, b, t) => lerp(a, b, 1 - Math.exp(-t));
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -65,6 +65,13 @@ function updateChartLocation(y){
     const el=document.getElementById(id);
     if(el && y>=el.getBoundingClientRect().top+scrollY) current=href;
   }
+  const headerSection=current==='#about'?'#about':current==='#skills'?'#skills':current==='#top'?'':'#work';
+  document.querySelectorAll('.site-nav a').forEach(link=>{
+    const active=link.getAttribute('href')===headerSection;
+    link.classList.toggle('is-current',active);
+    if(active)link.setAttribute('aria-current','location');
+    else link.removeAttribute('aria-current');
+  });
   for(const chart of charts){
     const [x,py]=chartPositions[current];
     chart.style.setProperty('--traveler-x',`${x}%`);
@@ -80,16 +87,17 @@ function updateChartLocation(y){
 }
 function updateChartTravel(){
   if(!chartDock || innerWidth<=760)return;
-  const dockWidth=Math.min(520,innerWidth-50);
-  const dockHeight=205;
-  const upper=94;
+  const dockWidth=Math.min(560,innerWidth-30);
+  const dockHeight=225;
+  const upper=83;
   const lower=Math.max(upper,innerHeight-dockHeight-22);
-  const waypoints=[.92,.14,.76,.2,.7,.13];
+  // The chart follows the trip while staying away from the lower reading area.
+  const waypoints=[.17,.1,.35,.02,.3,.08];
   const segment=clamp(Math.floor(targetJourney),0,4);
   const amount=clamp(targetJourney-segment,0,1);
   const eased=amount*amount*(3-2*amount);
   const level=lerp(waypoints[segment],waypoints[segment+1],eased);
-  const left=innerWidth-dockWidth-28-Math.sin(targetJourney*1.35)*30;
+  const left=innerWidth-dockWidth-18-Math.sin(targetJourney*1.35)*46;
   chartDock.style.setProperty('--dock-left',`${Math.round(left)}px`);
   chartDock.style.setProperty('--dock-top',`${Math.round(lerp(upper,lower,level))}px`);
 }
@@ -168,35 +176,40 @@ const projectMap=document.querySelector('.project-constellation');
 if(projectMap){
   const mapLines=projectMap.querySelector('.project-constellation-lines');
   const technologyLinks={
-    typescript:['professional','sentinel','sylclips'], react:['professional','sentinel'],
-    angular:['professional'], python:['professional','sylclips'],
-    django:['professional'], java:['professional'], llms:['sylclips'],
-    pytorch:['sylclips'], fastapi:['sylclips'], rest:['professional','kiosk','sylclips'],
-    node:['professional','sylclips','sap'], sap:['sap']
+    typescript:['professional','sentinel','sylclips','nexo'], react:['professional','sentinel'],
+    angular:['professional','nexo'], python:['professional','sylclips'],
+    django:['professional'], java:['professional','nexo'], llms:['sylclips'],
+    pytorch:['sylclips'], fastapi:['sylclips'], rest:['professional','kiosk','sylclips','nexo'],
+    node:['professional','sylclips','sap'], sap:['sap'], sql:['professional','nexo']
   };
   const techButtons=[...projectMap.querySelectorAll('[data-tech]')];
   const projectLinks=[...projectMap.querySelectorAll('[data-project]')];
   const status=projectMap.querySelector('.map-status');
   let selectedTech=null;
   let hoveredTech=null;
+  let hoveredProject=null;
   const activeTech=()=>hoveredTech||selectedTech;
-  const projectNames={professional:'Full-stack delivery',kiosk:'Self-service kiosk',sentinel:'Sentinel Desk',sylclips:'SylClips',sap:'Book Management'};
+  const projectNames={professional:'Full-stack delivery',kiosk:'Self-service kiosk',sentinel:'Sentinel Desk',sylclips:'SylClips',sap:'Book Management',nexo:'NEXO Service Desk'};
   function paintConnections(){
     const active=activeTech();
-    projectMap.classList.toggle('has-selection',!!active);
+    const projectTechs=hoveredProject?Object.keys(technologyLinks).filter(key=>technologyLinks[key].includes(hoveredProject)):[];
+    projectMap.classList.toggle('has-selection',!!active||!!hoveredProject);
     techButtons.forEach(button=>{
       const key=button.dataset.tech;
-      button.classList.toggle('is-lit',key===active);
+      button.classList.toggle('is-lit',hoveredProject?projectTechs.includes(key):key===active);
       button.setAttribute('aria-pressed',String(key===selectedTech));
     });
-    projectLinks.forEach(link=>link.classList.toggle('is-lit',!!active&&technologyLinks[active].includes(link.dataset.project)));
-    mapLines.querySelectorAll('[data-connection]').forEach(line=>line.classList.toggle('is-lit',line.dataset.connection===active));
-    if(active){
+    projectLinks.forEach(link=>link.classList.toggle('is-lit',hoveredProject?link.dataset.project===hoveredProject:!!active&&technologyLinks[active].includes(link.dataset.project)));
+    mapLines.querySelectorAll('[data-project]').forEach(line=>line.classList.toggle('is-lit',!!hoveredProject&&line.dataset.project===hoveredProject));
+    if(hoveredProject){
+      const names=projectTechs.map(key=>techButtons.find(button=>button.dataset.tech===key)?.textContent.trim()).filter(Boolean);
+      status.textContent=`${projectNames[hoveredProject]}: ${names.join(', ')}.`;
+    }else if(active){
       const label=techButtons.find(button=>button.dataset.tech===active)?.textContent.trim();
       const names=technologyLinks[active].map(key=>projectNames[key]);
       const places=names.length>1?`${names.slice(0,-1).join(', ')} and ${names.at(-1)}`:names[0];
       status.textContent=`Used in ${places}: ${label}.`;
-    }else status.textContent='Hover or choose a technology to reveal its project connections.';
+    }else status.textContent='Hover a project to see its technologies, or choose a technology to find related work.';
   }
   function drawConnections(){
     const bounds=projectMap.getBoundingClientRect();
@@ -207,20 +220,19 @@ if(projectMap){
       const rect=element.getBoundingClientRect();
       return [rect.left+rect.width/2-bounds.left,rect.top+rect.height/2-bounds.top];
     };
-    const makeLine=(a,b,key,shared=false)=>{
+    const makeLine=(a,b,key,project)=>{
       const [x1,y1]=point(a),[x2,y2]=point(b);
       const line=document.createElementNS('http://www.w3.org/2000/svg','line');
       line.setAttribute('x1',x1);line.setAttribute('y1',y1);
       line.setAttribute('x2',x2);line.setAttribute('y2',y2);
       line.dataset.connection=key;
-      if(shared)line.classList.add('shared-connection');
+      line.dataset.project=project;
       mapLines.appendChild(line);
     };
     techButtons.forEach(button=>{
       const key=button.dataset.tech;
-      const matches=technologyLinks[key].map(project=>projectMap.querySelector(`[data-project="${project}"]`));
-      matches.forEach(link=>makeLine(button,link,key));
-      if(matches.length>1)makeLine(matches[0],matches[1],key,true);
+      const matches=technologyLinks[key].map(project=>projectLinks.find(link=>link.dataset.project===project));
+      matches.forEach(link=>makeLine(button,link,key,link.dataset.project));
     });
     paintConnections();
   }
@@ -234,6 +246,12 @@ if(projectMap){
       hoveredTech=null;
       paintConnections();
     });
+  });
+  projectLinks.forEach(link=>{
+    link.addEventListener('pointerenter',()=>{hoveredProject=link.dataset.project;paintConnections();});
+    link.addEventListener('pointerleave',()=>{hoveredProject=null;paintConnections();});
+    link.addEventListener('focus',()=>{hoveredProject=link.dataset.project;paintConnections();});
+    link.addEventListener('blur',()=>{hoveredProject=null;paintConnections();});
   });
   new ResizeObserver(drawConnections).observe(projectMap);
   drawConnections();
@@ -601,16 +619,35 @@ if (renderer) {
   cometCore.scale.set(.95,.95,1);
   comet.add(cometTail,cometCore);comet.visible=false;scene.add(comet);
 
-  const resize=()=>{camera.aspect=innerWidth/innerHeight;camera.fov=mobile.matches?68:58;camera.updateProjectionMatrix();positionWorlds();const ratio=renderRatio();renderer.setPixelRatio(ratio);renderer.setSize(innerWidth,innerHeight);pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});};
+  const resize=()=>{camera.aspect=innerWidth/innerHeight;camera.fov=mobile.matches?68:58;camera.updateProjectionMatrix();positionWorlds();const ratio=renderRatio()*resolutionScale;renderer.setPixelRatio(ratio);renderer.setSize(innerWidth,innerHeight);pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});};
   window.addEventListener('resize',resize);
   let last=performance.now();
+  let resolutionScale=1;
+  let slowFrames=0;
+  let stableFrames=0;
+  const applyRenderResolution=()=>{
+    const ratio=renderRatio()*resolutionScale;
+    renderer.setPixelRatio(ratio);
+    renderer.setSize(innerWidth,innerHeight);
+    pointFields.forEach(field=>{field.material.uniforms.uPixelRatio.value=ratio;});
+  };
+  document.addEventListener('visibilitychange',()=>{last=performance.now();slowFrames=0;stableFrames=0;});
   let rendered=false;
   setTimeout(()=>{if(!rendered)fallback();},4500);
   const backdropColors=[0x031023,0x071b2d,0x201020,0x0b1f37,0x190f2a,0x072431].map(c=>new THREE.Color(c));
   function tick(now){
+    // A 144/240 Hz display should not multiply WebGL work for the same journey.
+    // The elapsed time below still controls motion, so travel speed stays stable.
+    if(now-last<1000/72-1){requestAnimationFrame(tick);return;}
     // The first animation timestamp can precede performance.now() sampled
     // during setup. A negative delta would move deep links backward past 0.
-    const dt=clamp((now-last)/1000,0,.05);last=now;
+    const frameTime=now-last;
+    const dt=clamp(frameTime/1000,0,.05);last=now;
+    if(frameTime>28){slowFrames++;stableFrames=0;}
+    else if(frameTime<20){stableFrames++;slowFrames=0;}
+    else{slowFrames=0;stableFrames=0;}
+    if(slowFrames>=18&&resolutionScale>.65){resolutionScale=Math.max(.65,resolutionScale-.1);applyRenderResolution();slowFrames=0;}
+    if(stableFrames>=180&&resolutionScale<1){resolutionScale=Math.min(1,resolutionScale+.05);applyRenderResolution();stableFrames=0;}
     pointer.x=smooth(pointer.x,pointer.tx,dt*4.5);pointer.y=smooth(pointer.y,pointer.ty,dt*4.5);
     pointer.activity=smooth(pointer.activity,pointer.targetActive,dt*2.6);
     journey=motion?smooth(journey,targetJourney,dt*(flightFrame?5.5:2.1)):targetJourney;
@@ -631,10 +668,10 @@ if (renderer) {
     const mouseX=motion?pointer.x:0,mouseY=motion?pointer.y:0;
     camera.position.x=smooth(camera.position.x,(Math.sin(journey*1.5)*1.7+mouseX*3.8)*offset,dt*3.2);
     camera.position.y=smooth(camera.position.y,(Math.cos(journey*1.2)*.8-mouseY*2.3)*offset,dt*3.2);
-    const mouseApproach=motion?pointer.activity*2.8*offset:0;
+    const mouseApproach=motion?pointer.activity*4.5*offset:0;
     camera.position.z=smooth(camera.position.z,1-journey*59-mouseApproach,dt*(flightFrame?5.5:2.1));
     const baseFov=mobile.matches?68:58;
-    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*8:0)+flightIntensity*1.4;
+    const zoomFov=baseFov-(motion&&!mobile.matches?pointer.activity*13:0)+flightIntensity*1.4;
     const nextFov=smooth(camera.fov,zoomFov,dt*3.1);
     if(Math.abs(nextFov-camera.fov)>.002){camera.fov=nextFov;camera.updateProjectionMatrix();}
     // Off-axis projection keeps the spot beneath the pointer stationary as

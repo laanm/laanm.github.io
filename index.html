@@ -1,135 +1,1065 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050913">
-  <meta name="description" content="Agustín Donnian — software engineer building full-stack products and practical AI applications.">
-  <title>Agustín Donnian — Software Engineer</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2317201e'/%3E%3Cpath d='M16 46 29 17h6l13 29h-8l-3-7H26l-3 7zm13-13h6l-3-8z' fill='%23d5f16a'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./space-v2.css?v=19">
-<link rel="stylesheet" href="./work-journey.css?v=4">
-<script defer src="./space-v2.js?v=23"></script>
-<script defer src="./work-journey.js?v=2"></script>
-</head>
-<body>
-  <div id="space-scene" aria-hidden="true"></div>
-  <div class="space-grain" aria-hidden="true"></div>
-  <div class="journey-progress" aria-hidden="true"><span id="chapter-label">01 / DEPARTURE</span><i><b id="journey-fill"></b></i><span>06 / CONNECT</span></div>
-  <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="true" aria-label="Pause scene animation">MOTION <span>ON</span></button>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Agustín Donnian, back to top"><span class="brand-mark">AD<span class="brand-dot">.</span></span><span class="brand-name">Agustín Donnian</span></a>
-    <nav class="site-nav" aria-label="Main navigation">
-      <a href="#work">Work</a><a href="#about">About</a><a href="#skills">Skills</a>
-    </nav>
-    <a class="header-contact" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">Let's connect <span aria-hidden="true">↗</span></a>
-  </header>
-
-  <main id="main">
-    <section class="hero deck-slide" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="eyebrow-line"></span> SOFTWARE ENGINEER · BARCELONA</p>
-        <h1 id="hero-title">I build software<br><em>end to end.</em></h1>
-        <p class="hero-lede">Full-stack engineer with three years of professional experience across interfaces, APIs, and data. Now building practical AI applications that put reliable software around models.</p>
-<nav class="constellation-nav" aria-label="Quick routes through the portfolio"><span class="constellation-heading">NAVIGATE <span>· FOLLOW A STAR</span></span><div class="constellation-map"><svg class="constellation-lines" viewBox="0 0 630 230" preserveAspectRatio="none" aria-hidden="true"><path d="M126 18 277 94 447 41 567 120 460 198M277 94 63 150 195 209 460 198M126 18 63 150M277 94 195 209"/><g class="constellation-scatter"><circle cx="164" cy="43" r="1.6"/><circle cx="141" cy="101" r="1"/><circle cx="93" cy="124" r="1"/><circle cx="257" cy="50" r="1.2"/><circle cx="256" cy="155" r="1.3"/><circle cx="365" cy="38" r="1.5"/><circle cx="466" cy="100" r="1.3"/><circle cx="532" cy="94" r="1"/><circle cx="339" cy="186" r="1.1"/><circle cx="483" cy="188" r="1.5"/></g></svg><a class="constellation-origin" href="#top" aria-label="Back to start"><b aria-hidden="true"></b><small>YOU ARE HERE</small></a><a class="constellation-destination star-experience" href="#about"><span class="destination-star" aria-hidden="true"></span><small>01</small><strong>Experience</strong></a><a class="constellation-destination star-professional" href="#work-fullstack"><span class="destination-star" aria-hidden="true"></span><small>02</small><strong>Professional work</strong></a><a class="constellation-destination star-ai" href="#work-ai"><span class="destination-star" aria-hidden="true"></span><small>03</small><strong>AI project</strong></a><a class="constellation-destination star-frontend" href="#work-frontend"><span class="destination-star" aria-hidden="true"></span><small>04</small><strong>Frontend demo</strong></a><a class="constellation-destination star-skills" href="#skills"><span class="destination-star" aria-hidden="true"></span><small>05</small><strong>Skills</strong></a><a class="constellation-destination star-contact" href="#contact"><span class="destination-star" aria-hidden="true"></span><small>06</small><strong>Contact</strong></a></div><span class="constellation-hint">Choose a star to move through the portfolio <span aria-hidden="true">↗</span></span></nav>
-      </div>
-      <div class="hero-visual" aria-hidden="true"><span class="scene-label scene-label-bottom">MOVE YOUR MOUSE · SCROLL TO TRAVEL <i>↓</i></span></div>
-    </section>
-
-    <div class="summary-strip" aria-label="Profile at a glance">
-      <div><strong>03</strong><span>Years in full-stack development</span></div>
-      <div><strong>FE + BE</strong><span>Product interfaces to APIs</span></div>
-      <div><strong>AI</strong><span>Applied LLM &amp; ML projects</span></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050913" />
+    <meta
+      name="description"
+      content="Agustín Donnian — software engineer building full-stack products and practical AI applications."
+    />
+    <title>Agustín Donnian — Software Engineer</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2317201e'/%3E%3Cpath d='M16 46 29 17h6l13 29h-8l-3-7H26l-3 7zm13-13h6l-3-8z' fill='%23d5f16a'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./space-v2.css?v=19" />
+    <link rel="stylesheet" href="./work-journey.css?v=20" />
+    <script defer src="./space-v2.js?v=27"></script>
+    <script defer src="./work-journey.js?v=5"></script>
+  </head>
+  <body>
+    <div id="space-scene" aria-hidden="true"></div>
+    <div class="space-grain" aria-hidden="true"></div>
+    <div class="journey-progress" aria-hidden="true">
+      <span id="chapter-label">01 / DEPARTURE</span
+      ><i><b id="journey-fill"></b></i><span>06 / CONNECT</span>
     </div>
+    <button
+      class="motion-toggle"
+      id="motion-toggle"
+      type="button"
+      aria-pressed="true"
+      aria-label="Pause scene animation"
+    >
+      MOTION <span>ON</span>
+    </button>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a
+        class="brand"
+        href="#top"
+        aria-label="Agustín Donnian, Software Engineer, back to top"
+        ><span class="brand-mark">AD<span class="brand-dot">.</span></span
+        ><span class="brand-name">Agustín Donnian</span
+        ><span class="brand-role">Software Engineer</span></a
+      >
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#work">Work</a><a href="#about">Experience</a
+        ><a href="#skills">Skills</a>
+      </nav>
+      <a class="header-explore" href="#work">Explore <span aria-hidden="true">↓</span></a>
+      <a
+        class="header-contact"
+        href="https://www.linkedin.com/in/agustin-donnian"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Let's connect <span aria-hidden="true">↗</span></a
+      >
+    </header>
 
-    <section class="section section-work deck-slide" id="work" aria-labelledby="work-title">
-      <div class="section-heading"><div><p class="section-kicker">01 / SELECTED WORK</p><h2 id="work-title">Proof in the work.</h2></div><p>Professional delivery and personal builds that show how I approach useful software.</p></div>
-      <div class="work-foundation"><div><span>PROFESSIONAL FOUNDATION · JAN 2023 — AUG 2025</span><strong>Full-stack delivery across interfaces, APIs and data.</strong><p>React and Angular components, REST services, SQL-backed features, integration and production support.</p></div><a href="#about">See experience ↗</a></div>
-      <div class="project-route" aria-label="Selected projects along the journey">
-        <article class="project-stop stop-kiosk" id="work-fullstack" aria-labelledby="kiosk-title">
-          <div class="stop-heading"><span class="stop-marker" aria-hidden="true"></span><span class="stop-index">01 / PROFESSIONAL WORK</span><span class="stop-state">ANONYMIZED CASE</span></div>
-          <div class="stop-layout">
-            <div class="stop-story"><p class="stop-overline">FRONTEND · USER EXPERIENCE · INTEGRATION</p><h3 id="kiosk-title">Self-service<br>kiosk<span class="title-period">.</span></h3><p class="stop-lede">Making healthcare requests understandable at a glance, without staff assistance.</p><div class="stop-facts"><div><span>THE CHALLENGE</span><p>Guide a first-time visitor through common requests and information on a self-service screen.</p></div><div><span>MY CONTRIBUTION</span><p>Built frontend screens, navigation and interactions, then connected them with application services.</p></div></div><div class="stop-actions"><a href="./project-notes.html#kiosk">Read the case study <span aria-hidden="true">↗</span></a><small>Original screens and source are private.</small></div></div>
-            <div class="stop-visual visual-kiosk" role="img" aria-label="Conceptual illustration of a healthcare self-service screen; not a client screenshot"><span class="visual-topline">INTERFACE STUDY <i>01 / 04</i></span><div class="kiosk-concept"><div class="kiosk-concept-head"><i></i><span>Self-service</span><small>EN</small></div><div class="kiosk-concept-main"><span class="concept-eyebrow">START HERE</span><strong>How can we help?</strong><p>Choose what you need to continue.</p><div><b>Check a request <i>↗</i></b><b>Find information <i>↗</i></b></div></div><div class="kiosk-concept-foot">CLEAR NEXT STEP <span>·</span> LOW-FRICTION NAVIGATION</div></div><span class="visual-caption">CONCEPTUAL REPRESENTATION · NO CLIENT MATERIAL</span></div>
+    <main id="main">
+      <section class="hero deck-slide" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="eyebrow-line"></span> SOFTWARE ENGINEER · BARCELONA
+          </p>
+          <h1 id="hero-title">I build software<br /><em>end to end.</em></h1>
+          <p class="hero-lede">
+            Three years of full-stack development across React and Angular
+            interfaces and backend services with Java/Spring Boot, Django, and
+            Node.js. I now apply that foundation to LLM workflows, bounded AI
+            agents, validated outputs, and experimental PyTorch models.
+          </p>
+          <div class="hero-actions" aria-label="Choose what to explore">
+            <a class="button button-light" href="#work-fullstack"
+              >View professional work <span aria-hidden="true">↗</span></a
+            ><a class="hero-link-secondary" href="#work-ai"
+              >Explore SylClips <span aria-hidden="true">↗</span></a
+            >
           </div>
-        </article>
-
-        <div class="professional-extensions" aria-label="Additional professional work">
-          <p class="extensions-label">ALSO DELIVERED IN THE SAME FULL-STACK ROLE · 2023–2025</p>
-          <div><span>01</span><p><strong>CORONIS system</strong> · Frontend development and backend integration for a professional application.</p></div>
-          <div><span>02</span><p><strong>SEIS landing page</strong> · Independently designed and developed the company’s main landing page.</p></div>
-          <div><span>03</span><p><strong>Services and data</strong> · Worked on REST APIs, microservices and SQL-backed features across the role with Django, Java/Spring Boot and Node.js.</p></div>
+          <nav
+            class="constellation-nav"
+            aria-label="Quick routes through the portfolio"
+          >
+            <span class="constellation-heading"
+              >NAVIGATE <span>· FOLLOW A STAR</span></span
+            >
+            <div class="constellation-map">
+              <svg
+                class="constellation-lines"
+                viewBox="0 0 630 230"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M126 18 277 94 447 41 567 120 460 198M277 94 63 150 195 209 460 198M126 18 63 150M277 94 195 209"
+                />
+                <g class="constellation-scatter">
+                  <circle cx="164" cy="43" r="1.6" />
+                  <circle cx="141" cy="101" r="1" />
+                  <circle cx="93" cy="124" r="1" />
+                  <circle cx="257" cy="50" r="1.2" />
+                  <circle cx="256" cy="155" r="1.3" />
+                  <circle cx="365" cy="38" r="1.5" />
+                  <circle cx="466" cy="100" r="1.3" />
+                  <circle cx="532" cy="94" r="1" />
+                  <circle cx="339" cy="186" r="1.1" />
+                  <circle cx="483" cy="188" r="1.5" />
+                </g></svg
+              ><a
+                class="constellation-origin"
+                href="#top"
+                aria-label="Back to start"
+                ><b aria-hidden="true"></b><small>YOU ARE HERE</small></a
+              ><a
+                class="constellation-destination star-experience"
+                href="#about"
+                ><span class="destination-star" aria-hidden="true"></span
+                ><small>01</small><strong>Experience</strong></a
+              ><a
+                class="constellation-destination star-professional"
+                href="#work-fullstack"
+                ><span class="destination-star" aria-hidden="true"></span
+                ><small>02</small><strong>Professional work</strong></a
+              ><a class="constellation-destination star-ai" href="#work-ai"
+                ><span class="destination-star" aria-hidden="true"></span
+                ><small>03</small><strong>AI project</strong></a
+              ><a
+                class="constellation-destination star-frontend"
+                href="#work-frontend"
+                ><span class="destination-star" aria-hidden="true"></span
+                ><small>04</small><strong>Frontend demo</strong></a
+              ><a class="constellation-destination star-skills" href="#skills"
+                ><span class="destination-star" aria-hidden="true"></span
+                ><small>05</small><strong>Skills</strong></a
+              ><a class="constellation-destination star-contact" href="#contact"
+                ><span class="destination-star" aria-hidden="true"></span
+                ><small>06</small><strong>Contact</strong></a
+              >
+            </div>
+            <span class="constellation-hint"
+              >Choose a star to move through the portfolio
+              <span aria-hidden="true">↗</span></span
+            >
+          </nav>
         </div>
+        <div class="hero-visual" aria-hidden="true">
+          <span class="scene-label scene-label-bottom"
+            >MOVE YOUR MOUSE · SCROLL TO TRAVEL <i>↓</i></span
+          >
+        </div>
+      </section>
 
-        <article class="project-stop stop-sylclips" id="work-ai" aria-labelledby="sylclips-work-title">
-          <div class="stop-heading"><span class="stop-marker" aria-hidden="true"></span><span class="stop-index">02 / APPLIED AI</span><span class="stop-state">PERSONAL PROJECT · IN PROGRESS</span></div>
-          <div class="stop-layout">
-            <div class="stop-story"><p class="stop-overline">MULTIMODAL LLMS · AGENT · EXPERIMENTAL ML</p><h3 id="sylclips-work-title">SylClips<span class="title-period">.</span></h3><p class="stop-lede">Turning long video into structured clip decisions that a person can review.</p><div class="stop-facts"><div><span>THE CHALLENGE</span><p>Connect model suggestions to a reliable workflow instead of treating generated output as a final decision.</p></div><div><span>MY CONTRIBUTION</span><p>Built validation and human review around multimodal LLM output, a scoped tool-calling agent and an experimental PyTorch classifier.</p></div></div><div class="stop-actions"><a href="./sylclips-lab.html">Try the fictional-data demo <span aria-hidden="true">↗</span></a><a href="./project-notes.html#sylclips">Engineering notes <span aria-hidden="true">↗</span></a></div></div>
-            <div class="stop-visual visual-sylclips"><span class="visual-topline">PUBLIC LAB <i>02 / 04</i></span><div class="sylclips-view"><iframe src="./sylclips-lab.html?embed=1" title="Visual preview of the public SylClips Lab using fictional data" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div><div class="syl-flow" aria-hidden="true"><span>ANALYZE</span><i></i><span>VALIDATE</span><i></i><span>REVIEW</span><i></i><span>PLAN</span></div><span class="visual-caption">LIVE LAB PREVIEW · FICTIONAL DATA</span></div>
-          </div>
-        </article>
-
-        <article class="project-stop stop-sentinel" id="work-frontend" aria-labelledby="sentinel-title">
-          <div class="stop-heading"><span class="stop-marker" aria-hidden="true"></span><span class="stop-index">03 / FRONTEND DEMO</span><span class="stop-state">PUBLIC PRODUCT + SOURCE</span></div>
-          <div class="stop-layout">
-            <div class="stop-story"><p class="stop-overline">REACT · TYPESCRIPT · INTERACTION DESIGN</p><h3 id="sentinel-title">Sentinel<br>Desk<span class="title-period">.</span></h3><p class="stop-lede">A security overview designed to make alert priority and asset risk easy to scan.</p><div class="stop-facts"><div><span>THE CHALLENGE</span><p>Present dense operational information without making important states disappear into the interface.</p></div><div><span>MY CONTRIBUTION</span><p>Built responsive views with search, filters, detail panels and local acknowledgement using fictional data.</p></div></div><div class="stop-actions"><a href="https://laanm.github.io/sentinel-desk-demo/" target="_blank" rel="noopener noreferrer">Explore the live demo <span aria-hidden="true">↗</span></a><a href="https://github.com/laanm/sentinel-desk-demo" target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a></div></div>
-            <div class="stop-visual visual-sentinel"><span class="visual-topline">PRODUCT PREVIEW <i>03 / 04</i></span><div class="sentinel-view"><img src="./sentinel-preview.svg" alt="Preview of the fictional Sentinel Desk security overview" loading="lazy"></div><span class="visual-caption">INTERACTIVE FRONTEND DEMO · FICTIONAL DATA</span></div>
-          </div>
-        </article>
-
-        <article class="project-stop stop-sap" id="work-sap" aria-labelledby="sap-title">
-          <div class="stop-heading"><span class="stop-marker" aria-hidden="true"></span><span class="stop-index">04 / BACKEND EXPLORATION</span><span class="stop-state">PERSONAL PROJECT · IN PROGRESS</span></div>
-          <div class="stop-layout">
-            <div class="stop-story"><p class="stop-overline">SAP CAP · CDS · ODATA · HANA CLOUD</p><h3 id="sap-title">Book<br>Management<span class="title-period">.</span></h3><p class="stop-lede">A library backend for modeling data and exposing operations through an enterprise service layer.</p><div class="stop-facts"><div><span>THE CHALLENGE</span><p>Represent book operations as a structured domain with service contracts and authorization.</p></div><div><span>MY CONTRIBUTION</span><p>Developing CDS models, OData operations, validations and actions. The backend has been deployed and tested with SAP HANA Cloud.</p></div></div><div class="stop-actions"><a href="./project-notes.html#sap">Read development notes <span aria-hidden="true">↗</span></a><small>Application remains in development.</small></div></div>
-            <div class="stop-visual visual-sap" role="img" aria-label="Architecture diagram showing CDS domain models, OData services and SAP HANA Cloud"><span class="visual-topline">SERVICE ARCHITECTURE <i>04 / 04</i></span><div class="sap-system"><div><small>DOMAIN</small><strong>CDS Models</strong><span>Books · operations</span></div><i aria-hidden="true"></i><div><small>SERVICE</small><strong>OData</strong><span>CRUD · actions</span></div><i aria-hidden="true"></i><div><small>DATA</small><strong>HANA Cloud</strong><span>Persistence</span></div></div><span class="visual-caption">ARCHITECTURE OVERVIEW · WORK IN PROGRESS</span></div>
-          </div>
-        </article>
+      <div class="summary-strip" aria-label="Profile at a glance">
+        <div>
+          <strong>03</strong><span>Years in full-stack development</span>
+        </div>
+        <div>
+          <strong>FE + BE</strong><span>Product interfaces to APIs</span>
+        </div>
+        <div><strong>AI</strong><span>Applied LLM &amp; ML projects</span></div>
       </div>
-    </section>
 
-    <section class="section syl-section deck-slide" id="sylclips-demo" aria-labelledby="syl-title">
-      <div class="section-heading"><div><p class="section-kicker">02 / PROJECT WALKTHROUGH</p><h2 id="syl-title">Inside SylClips.</h2></div><p>Explore the shape of the workflow without seeing a private channel, real footage, or production data.</p></div>
-      <div class="syl-intro"><p>SylClips turns long videos into reviewable clips and short-form plans through multimodal LLM analysis, structured outputs and human feedback. Gemini is the default decision path; a trained PyTorch classifier and hybrid routing are experimental. A scoped LLM agent can inspect jobs, while a RAG assistant for project documentation is <strong>in development</strong>. TypeScript and FastAPI support the workflow. This public interface uses <strong>invented data</strong>.</p><div class="syl-tags"><span>Gemini + Claude</span><span>Multimodal LLMs</span><span>Tool-calling agent</span><span>PyTorch · experimental</span><span>RAG · in development</span><span>FastAPI</span></div></div>
-      <div class="lab-link"><div><span>NEW / INTERACTIVE WORKSPACE</span><h3>Make a boundary decision.</h3><p>Inspect fictional evidence, review cuts and see how your choice changes a structured plan.</p></div><a href="./sylclips-lab.html">Launch SylClips Lab ↗</a></div>
-      <div class="architecture-grid"><div><span>01 / MULTIMODAL LLMS</span><h3>Validated model output</h3><p>Gemini analyzes video and proposes clip decisions and rankings. Claude provides a fallback path. Schemas and project rules validate outputs before rendering.</p></div><div><span>02 / MACHINE LEARNING</span><h3>PyTorch with an abstain path</h3><p>A trained boundary classifier scores frame pairs. The experimental hybrid handles confident cases locally and routes uncertain ones to Gemini or human review.</p></div><div><span>03 / AI AGENT</span><h3>Scoped tool calling</h3><p>An LLM agent uses bounded read and preview tools to inspect pipeline jobs. FastAPI provides progress, logs, cancellation and feedback.</p></div><div><span>04 / IN DEVELOPMENT</span><h3>Documentation RAG</h3><p>A source-grounded assistant for pipeline documentation is being developed. It is separate from the current video decision path.</p></div></div>
-    </section>
+      <section
+        class="section section-work deck-slide"
+        id="work"
+        aria-labelledby="work-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">01 / SELECTED WORK</p>
+            <h2 id="work-title">Proof in the work.</h2>
+          </div>
+          <p>
+            Professional delivery and personal builds that show how I approach
+            useful software.
+          </p>
+        </div>
+        <div class="work-foundation">
+          <div>
+            <span>PROFESSIONAL FOUNDATION · JAN 2023 — AUG 2025</span
+            ><strong
+              >Full-stack delivery across interfaces, APIs and data.</strong
+            >
+            <p>
+              React and Angular components, REST services, SQL-backed features,
+              integration and production support.
+            </p>
+          </div>
+          <a href="#about">See experience ↗</a>
+        </div>
+        <div
+          class="project-route"
+          aria-label="Selected projects along the journey"
+        >
+          <article
+            class="project-stop stop-kiosk"
+            id="work-fullstack"
+            aria-labelledby="kiosk-title"
+          >
+            <div class="stop-heading">
+              <span class="stop-marker" aria-hidden="true"></span
+              ><span class="stop-index">01 / PROFESSIONAL WORK</span
+              ><span class="stop-state">ANONYMIZED CASE</span>
+            </div>
+            <div class="stop-layout">
+              <div class="stop-story">
+                <p class="stop-overline">
+                  FRONTEND · USER EXPERIENCE · INTEGRATION
+                </p>
+                <h3 id="kiosk-title">
+                  Self-service<br />kiosk<span class="title-period">.</span>
+                </h3>
+                <p class="stop-lede">
+                  Making healthcare requests understandable at a glance, without
+                  staff assistance.
+                </p>
+                <div class="stop-facts">
+                  <div>
+                    <span>THE CHALLENGE</span>
+                    <p>
+                      Guide a first-time visitor through common requests and
+                      information on a self-service screen.
+                    </p>
+                  </div>
+                  <div>
+                    <span>MY CONTRIBUTION</span>
+                    <p>
+                      Built frontend screens, navigation and interactions, then
+                      connected them with application services.
+                    </p>
+                  </div>
+                </div>
+                <div class="stop-actions">
+                  <a href="./project-notes.html#kiosk"
+                    >Read the case study <span aria-hidden="true">↗</span></a
+                  ><small>Original screens and source are private.</small>
+                </div>
+              </div>
+              <div
+                class="stop-visual visual-kiosk"
+                role="img"
+                aria-label="Conceptual illustration of a healthcare self-service screen; not a client screenshot"
+              >
+                <span class="visual-topline"
+                  >INTERFACE STUDY <i>01 / 04</i></span
+                >
+                <div class="kiosk-concept">
+                  <div class="kiosk-concept-head">
+                    <i></i><span>CarePoint <small>SELF-SERVICE</small></span
+                    ><b>ES <span>/</span> EN</b>
+                  </div>
+                  <div class="kiosk-concept-main">
+                    <span class="concept-eyebrow">WELCOME · START HERE</span
+                    ><strong>How can we help?</strong>
+                    <p>
+                      Choose one option to continue. You can ask for assistance
+                      at any time.
+                    </p>
+                    <div class="kiosk-options">
+                      <b
+                        ><span class="kiosk-option-icon">01</span
+                        ><span
+                          >Check a request
+                          <small>See the current status</small></span
+                        ><i>↗</i></b
+                      ><b
+                        ><span class="kiosk-option-icon">02</span
+                        ><span
+                          >Find information
+                          <small>Departments and services</small></span
+                        ><i>↗</i></b
+                      ><b
+                        ><span class="kiosk-option-icon">03</span
+                        ><span
+                          >Get help
+                          <small>Speak with the service desk</small></span
+                        ><i>↗</i></b
+                      >
+                    </div>
+                  </div>
+                  <div class="kiosk-concept-foot">
+                    <span>●</span> PRIVATE SESSION
+                    <b>ACCESSIBLE · STEP BY STEP</b>
+                  </div>
+                </div>
+                <span class="visual-caption"
+                  >ILLUSTRATIVE SCREEN · NO CLIENT MATERIAL</span
+                >
+              </div>
+            </div>
+          </article>
 
-    <section class="section about-section deck-slide" id="about" aria-labelledby="about-title"><div class="about-grid"><div><p class="section-kicker">03 / EXPERIENCE</p><h2 id="about-title">From user support to full-stack delivery.</h2><p class="experience-intro">I began by solving users' problems directly, then moved into building the products behind those workflows. My AI work continues that progression through personal engineering projects.</p></div><div class="about-text"><div class="experience-entry experience-entry-current"><span>2026 — PRESENT · PERSONAL PROJECTS</span><h3>Applied AI engineering</h3><p>Building SylClips with multimodal LLMs, validated structured outputs and a scoped tool-calling agent. Training and evaluating an experimental PyTorch classifier; developing a separate documentation RAG assistant.</p></div><div class="experience-entry experience-entry-fullstack"><span>JAN 2023 — AUG 2025 · REMOTE, CHILE</span><h3>Full Stack Developer</h3><p>Delivered features from requirements and design through frontend, REST APIs, integration, testing and production support. Built reusable interfaces with React and Angular and worked across Django, Java/Spring Boot, Node.js and SQL services.</p><div class="experience-deliveries" aria-label="Work delivered during this role"><div><strong>Self-service kiosk</strong><p>Developed frontend screens, navigation and interactions for a healthcare self-service flow, integrated with application services.</p></div><div><strong>CORONIS system</strong><p>Contributed to frontend development and backend integration as part of the same full-stack role.</p></div><div><strong>SEIS landing page</strong><p>Independently designed and developed the company’s main landing page.</p></div></div></div><div class="experience-entry"><span>OCT 2021 — JAN 2023 · REMOTE, CHILE</span><h3>Help Desk Level 1</h3><p>First point of contact for end users. Diagnosed software and network issues remotely with AnyDesk; tracked and escalated incidents by priority and SLA in Jira Service Management. Managed user provisioning, permissions and access control, and documented solutions in the team knowledge base.</p></div><div class="background-line"><span>EDUCATION</span><p>Technical Diploma in Computer Science · Computer Engineering studies at the University of Buenos Aires</p></div><div class="background-line"><span>LANGUAGES</span><p>Spanish native · English C1 (Cambridge CAE)</p></div><a class="text-link" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">More on LinkedIn <span aria-hidden="true">↗</span></a></div></div></section>
+          <div
+            class="professional-extensions"
+            aria-label="Additional professional work"
+          >
+            <p class="extensions-label">
+              ALSO DELIVERED IN THE SAME FULL-STACK ROLE · 2023–2025
+            </p>
+            <div>
+              <span>01</span>
+              <p>
+                <strong>CORONIS system</strong> · Frontend development and
+                backend integration for a professional application.
+              </p>
+            </div>
+            <div>
+              <span>02</span>
+              <p>
+                <strong>SEIS landing page</strong> · Independently designed and
+                developed the company’s main landing page.
+              </p>
+            </div>
+            <div>
+              <span>03</span>
+              <p>
+                <strong>Services and data</strong> · Worked on REST APIs,
+                microservices and SQL-backed features across the role with
+                Django, Java/Spring Boot and Node.js.
+              </p>
+            </div>
+          </div>
 
-    <section class="section skills-section deck-slide" id="skills" aria-labelledby="skills-title">
-      <div class="section-heading"><div><p class="section-kicker">04 / TOOLKIT</p><h2 id="skills-title">Tools I work with.</h2></div><p>Select a technology to see the professional experience or personal project where I used it.</p></div>
-      <div class="project-constellation" aria-label="Projects connected to selected technologies">
-        <svg class="project-constellation-lines" aria-hidden="true"></svg>
-        <span class="map-caption">PROJECTS × TECHNOLOGIES</span>
-        <button class="map-tech tech-typescript" type="button" data-tech="typescript" aria-pressed="false"><i></i>TypeScript</button>
-        <button class="map-tech tech-react" type="button" data-tech="react" aria-pressed="false"><i></i>React</button>
-        <button class="map-tech tech-angular" type="button" data-tech="angular" aria-pressed="false"><i></i>Angular</button>
-        <button class="map-tech tech-python" type="button" data-tech="python" aria-pressed="false"><i></i>Python</button>
-        <button class="map-tech tech-django" type="button" data-tech="django" aria-pressed="false"><i></i>Django</button>
-        <button class="map-tech tech-java" type="button" data-tech="java" aria-pressed="false"><i></i>Java / Spring Boot</button>
-        <button class="map-tech tech-llms" type="button" data-tech="llms" aria-pressed="false"><i></i>LLMs</button>
-        <button class="map-tech tech-pytorch" type="button" data-tech="pytorch" aria-pressed="false"><i></i>PyTorch</button>
-        <button class="map-tech tech-fastapi" type="button" data-tech="fastapi" aria-pressed="false"><i></i>FastAPI</button>
-        <button class="map-tech tech-rest" type="button" data-tech="rest" aria-pressed="false"><i></i>REST APIs</button>
-        <button class="map-tech tech-node" type="button" data-tech="node" aria-pressed="false"><i></i>Node.js</button>
-        <button class="map-tech tech-sap" type="button" data-tech="sap" aria-pressed="false"><i></i>SAP CAP</button>
-        <a class="map-project project-professional" data-project="professional" href="#about"><i></i><span>Full-stack delivery<small>Professional experience · 2023–2025</small></span></a>
-        <a class="map-project project-kiosk" data-project="kiosk" href="#work-fullstack"><i></i><span>Self-service kiosk<small>Professional work</small></span></a>
-        <a class="map-project project-sentinel" data-project="sentinel" href="#work-frontend"><i></i><span>Sentinel Desk<small>Frontend demo</small></span></a>
-        <a class="map-project project-sylclips" data-project="sylclips" href="#work-ai"><i></i><span>SylClips<small>AI engineering</small></span></a>
-        <a class="map-project project-sap" data-project="sap" href="./project-notes.html#sap"><i></i><span>Book Management<small>SAP CAP · in progress</small></span></a>
-        <p class="map-status" aria-live="polite">Hover or choose a technology to reveal its project connections.</p>
+          <article
+            class="project-stop stop-nexo"
+            id="work-nexo"
+            aria-labelledby="nexo-title"
+          >
+            <div class="stop-heading">
+              <span class="stop-marker" aria-hidden="true"></span
+              ><span class="stop-index">02 / FULL-STACK DEMO</span
+              ><span class="stop-state">PERSONAL PROJECT · LIVE DEMO</span>
+            </div>
+            <div class="stop-layout">
+              <div class="stop-story">
+                <p class="stop-overline">ANGULAR · JAVA / SPRING BOOT · SQL</p>
+                <h3 id="nexo-title">NEXO<br />Service Desk<span class="title-period">.</span></h3>
+                <p class="stop-lede">An incident workflow from the first report to a documented fix.</p>
+                <div class="stop-facts">
+                  <div><span>THE CHALLENGE</span><p>Trace a user-reported problem across the interface, REST API, backend rules and data layer.</p></div>
+                  <div><span>MY CONTRIBUTION</span><p>Built the Angular UI, Spring Boot API and SQL-backed history, including evidence for diagnosis and required closure details.</p></div>
+                </div>
+                <div class="stop-actions">
+                  <a href="https://nexo-service-desk-demo.onrender.com/" target="_blank" rel="noopener noreferrer">Explore the live demo <span aria-hidden="true">↗</span></a
+                  ><a href="./project-notes.html#nexo">Engineering notes <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+              <div class="stop-visual visual-nexo">
+                <span class="visual-topline">INTERFACE STUDY <i>02 / 05</i></span>
+                <div class="nexo-preview" role="img" aria-label="Illustrative NEXO Service Desk incident dashboard with status, priority and investigation notes">
+                  <div class="nexo-preview-head"><strong><i></i>NEXO <span>SERVICE DESK</span></strong><small>INCIDENT WORKSPACE</small></div>
+                  <div class="nexo-preview-body"><p>FROM SIGNAL TO SOLUTION</p><h4>Incidents, with<br><em>context.</em></h4><div class="nexo-preview-metrics"><span><b>08</b>OPEN</span><span><b>03</b>IN PROGRESS</span><span><b>12</b>RESOLVED</span></div><div class="nexo-preview-table"><div><b>INCIDENT</b><b>PRIORITY</b><b>STATUS</b></div><div><span>Invoice total mismatch</span><strong>HIGH</strong><em>Investigating</em></div><div><span>Search returns no results</span><strong>MEDIUM</strong><em>Open</em></div></div></div>
+                </div>
+                <span class="visual-caption">ILLUSTRATIVE PREVIEW · FICTIONAL CASES</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="project-stop stop-sylclips"
+            id="work-ai"
+            aria-labelledby="sylclips-work-title"
+          >
+            <div class="stop-heading">
+              <span class="stop-marker" aria-hidden="true"></span
+              ><span class="stop-index">03 / APPLIED AI</span
+              ><span class="stop-state">PERSONAL PROJECT · IN PROGRESS</span>
+            </div>
+            <div class="stop-layout">
+              <div class="stop-story">
+                <p class="stop-overline">
+                  MULTIMODAL LLMS · AGENT · EXPERIMENTAL ML
+                </p>
+                <h3 id="sylclips-work-title">
+                  SylClips<span class="title-period">.</span>
+                </h3>
+                <p class="stop-lede">
+                  Turning long video into structured clip decisions that a
+                  person can review.
+                </p>
+                <div class="stop-facts">
+                  <div>
+                    <span>THE CHALLENGE</span>
+                    <p>
+                      Connect model suggestions to a reliable workflow instead
+                      of treating generated output as a final decision.
+                    </p>
+                  </div>
+                  <div>
+                    <span>MY CONTRIBUTION</span>
+                    <p>
+                      Built validation and human review around multimodal LLM
+                      output, a scoped tool-calling agent and an experimental
+                      PyTorch classifier.
+                    </p>
+                  </div>
+                </div>
+                <div class="stop-actions">
+                  <a href="./sylclips-lab.html"
+                    >Try the fictional-data demo
+                    <span aria-hidden="true">↗</span></a
+                  ><a href="./project-notes.html#sylclips"
+                    >Engineering notes <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+              </div>
+              <div class="stop-visual visual-sylclips">
+                <span class="visual-topline">PUBLIC LAB <i>03 / 05</i></span
+                ><a
+                  class="sylclips-view"
+                  href="./sylclips-lab.html"
+                  aria-label="Open SylClips interactive lab with fictional data"
+                  ><div class="syl-product" aria-hidden="true">
+                    <div class="syl-product-top">
+                      <strong
+                        ><span></span> SYLCLIPS <b>/</b> REVIEW STUDIO</strong
+                      ><small>PUBLIC DEMO</small>
+                    </div>
+                    <div class="syl-product-body">
+                      <div class="syl-product-monitor">
+                        <div class="syl-product-picture">
+                          <span>FICTIONAL SAMPLE FOOTAGE</span
+                          ><b>Coastal transit</b><i>00:08.4</i>
+                        </div>
+                        <div class="syl-product-transport">
+                          <span>STILL PREVIEW</span
+                          ><small>BOUNDARY 01 / 04</small>
+                        </div>
+                      </div>
+                      <div class="syl-product-side">
+                        <small>CANDIDATE 01 / 00:08.4</small
+                        ><strong>Harbor to station</strong>
+                        <p>Scene and motion change at this boundary.</p>
+                        <div><span>REFERENCE</span><b>Separate</b></div>
+                        <div><span>LOCAL SCORE</span><b>0.91</b></div>
+                        <em>HUMAN REVIEW</em
+                        ><span class="syl-product-choice">Keep separate ✓</span>
+                      </div>
+                    </div>
+                    <div class="syl-product-bottom">
+                      <div class="syl-product-ruler">
+                        <span>00:00</span><span>00:27</span><span>00:54</span>
+                      </div>
+                      <div class="syl-product-filmstrip">
+                        <span></span><span></span><span></span><span></span
+                        ><span></span><span></span><span></span>
+                      </div>
+                      <div class="syl-product-track">
+                        <b>V1</b> SAMPLE SEQUENCE <i>REVIEW ONLY</i>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="preview-open"
+                    >EXPLORE THE REVIEW STUDIO
+                    <span aria-hidden="true">↗</span></span
+                  ></a
+                >
+                <div class="syl-flow" aria-hidden="true">
+                  <span>ANALYZE</span><i></i><span>VALIDATE</span><i></i
+                  ><span>REVIEW</span><i></i><span>PLAN</span>
+                </div>
+                <span class="visual-caption"
+                  >INTERACTIVE LAB · FICTIONAL DATA</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="project-stop stop-sentinel"
+            id="work-frontend"
+            aria-labelledby="sentinel-title"
+          >
+            <div class="stop-heading">
+              <span class="stop-marker" aria-hidden="true"></span
+              ><span class="stop-index">04 / FRONTEND DEMO</span
+              ><span class="stop-state">PUBLIC PRODUCT + SOURCE</span>
+            </div>
+            <div class="stop-layout">
+              <div class="stop-story">
+                <p class="stop-overline">
+                  REACT · TYPESCRIPT · INTERACTION DESIGN
+                </p>
+                <h3 id="sentinel-title">
+                  Sentinel<br />Desk<span class="title-period">.</span>
+                </h3>
+                <p class="stop-lede">
+                  A security overview designed to make alert priority and asset
+                  risk easy to scan.
+                </p>
+                <div class="stop-facts">
+                  <div>
+                    <span>THE CHALLENGE</span>
+                    <p>
+                      Present dense operational information without making
+                      important states disappear into the interface.
+                    </p>
+                  </div>
+                  <div>
+                    <span>MY CONTRIBUTION</span>
+                    <p>
+                      Built responsive views with search, filters, detail panels
+                      and local acknowledgement using fictional data.
+                    </p>
+                  </div>
+                </div>
+                <div class="stop-actions">
+                  <a
+                    href="https://laanm.github.io/sentinel-desk-demo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Explore the live demo <span aria-hidden="true">↗</span></a
+                  ><a
+                    href="https://github.com/laanm/sentinel-desk-demo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Source code <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+              </div>
+              <div class="stop-visual visual-sentinel">
+                <span class="visual-topline"
+                  >PRODUCT PREVIEW <i>04 / 05</i></span
+                >
+                <div class="sentinel-view">
+                  <img
+                    src="./sentinel-preview.svg"
+                    alt="Preview of the fictional Sentinel Desk security overview"
+                    loading="lazy"
+                  />
+                </div>
+                <span class="visual-caption"
+                  >INTERACTIVE FRONTEND DEMO · FICTIONAL DATA</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="project-stop stop-sap"
+            id="work-sap"
+            aria-labelledby="sap-title"
+          >
+            <div class="stop-heading">
+              <span class="stop-marker" aria-hidden="true"></span
+              ><span class="stop-index">05 / BACKEND EXPLORATION</span
+              ><span class="stop-state">PERSONAL PROJECT · IN PROGRESS</span>
+            </div>
+            <div class="stop-layout">
+              <div class="stop-story">
+                <p class="stop-overline">SAP CAP · CDS · ODATA · HANA CLOUD</p>
+                <h3 id="sap-title">
+                  Book<br />Management<span class="title-period">.</span>
+                </h3>
+                <p class="stop-lede">
+                  A library backend for modeling data and exposing operations
+                  through an enterprise service layer.
+                </p>
+                <div class="stop-facts">
+                  <div>
+                    <span>THE CHALLENGE</span>
+                    <p>
+                      Represent book operations as a structured domain with
+                      service contracts and authorization.
+                    </p>
+                  </div>
+                  <div>
+                    <span>MY CONTRIBUTION</span>
+                    <p>
+                      Developing CDS models, OData operations, validations and
+                      actions. The backend has been deployed and tested with SAP
+                      HANA Cloud.
+                    </p>
+                  </div>
+                </div>
+                <div class="stop-actions">
+                  <a href="./project-notes.html#sap"
+                    >Read development notes <span aria-hidden="true">↗</span></a
+                  ><small>Application remains in development.</small>
+                </div>
+              </div>
+              <div
+                class="stop-visual visual-sap"
+                role="img"
+                aria-label="Illustrative SAP CAP service console for an in-progress library backend"
+              >
+                <span class="visual-topline">BACKEND STUDY <i>05 / 05</i></span>
+                <div class="sap-console">
+                  <div class="sap-console-top">
+                    <strong
+                      >BOOK MANAGEMENT <span>/</span> SERVICE EXPLORER</strong
+                    ><small>IN DEVELOPMENT</small>
+                  </div>
+                  <div class="sap-console-body">
+                    <div class="sap-console-nav">
+                      <span>CATALOG SERVICE</span><b class="is-current">Books</b
+                      ><b>Authors</b><b>Actions</b>
+                      <div>CAP <i>→</i> HANA CLOUD</div>
+                    </div>
+                    <div class="sap-console-main">
+                      <div class="sap-request">
+                        <span>GET</span><strong>/catalog/Books</strong
+                        ><small>OData</small>
+                      </div>
+                      <div class="sap-response-label">
+                        <span>ILLUSTRATIVE RESPONSE</span><b>200 OK</b>
+                      </div>
+                      <pre>
+{
+  "ID": "BK-001",
+  "title": "Designing Systems",
+  "status": "available"
+}</pre
+                      >
+                      <div class="sap-capabilities">
+                        <span>CDS MODELS</span><span>ODATA</span
+                        ><span>VALIDATION</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <span class="visual-caption"
+                  >ILLUSTRATIVE SERVICE VIEW · WORK IN PROGRESS</span
+                >
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="section syl-section deck-slide"
+        id="sylclips-demo"
+        aria-labelledby="syl-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">02 / PROJECT WALKTHROUGH</p>
+            <h2 id="syl-title">Inside SylClips.</h2>
+          </div>
+          <p>
+            Explore the shape of the workflow without seeing a private channel,
+            real footage, or production data.
+          </p>
+        </div>
+        <div class="syl-intro">
+          <p>
+            SylClips turns long videos into reviewable clips and short-form
+            plans through multimodal LLM analysis, structured outputs and human
+            feedback. Gemini is the default decision path; a trained PyTorch
+            classifier and hybrid routing are experimental. A scoped LLM agent
+            can inspect jobs, while a RAG assistant for project documentation is
+            <strong>in development</strong>. TypeScript and FastAPI support the
+            workflow. This public interface uses <strong>invented data</strong>.
+          </p>
+          <div class="syl-tags">
+            <span>Gemini + Claude</span><span>Multimodal LLMs</span
+            ><span>Tool-calling agent</span><span>PyTorch · experimental</span
+            ><span>RAG · in development</span><span>FastAPI</span>
+          </div>
+        </div>
+        <div class="lab-link">
+          <div>
+            <span>NEW / INTERACTIVE WORKSPACE</span>
+            <h3>Make a boundary decision.</h3>
+            <p>
+              Inspect fictional evidence, review cuts and see how your choice
+              changes a structured plan.
+            </p>
+          </div>
+          <a href="./sylclips-lab.html">Launch SylClips Lab ↗</a>
+        </div>
+        <div class="architecture-grid">
+          <div>
+            <span>01 / MULTIMODAL LLMS</span>
+            <h3>Validated model output</h3>
+            <p>
+              Gemini analyzes video and proposes clip decisions and rankings.
+              Claude provides a fallback path. Schemas and project rules
+              validate outputs before rendering.
+            </p>
+          </div>
+          <div>
+            <span>02 / MACHINE LEARNING</span>
+            <h3>PyTorch with an abstain path</h3>
+            <p>
+              A trained boundary classifier scores frame pairs. The experimental
+              hybrid handles confident cases locally and routes uncertain ones
+              to Gemini or human review.
+            </p>
+          </div>
+          <div>
+            <span>03 / AI AGENT</span>
+            <h3>Scoped tool calling</h3>
+            <p>
+              An LLM agent uses bounded read and preview tools to inspect
+              pipeline jobs. FastAPI provides progress, logs, cancellation and
+              feedback.
+            </p>
+          </div>
+          <div>
+            <span>04 / IN DEVELOPMENT</span>
+            <h3>Documentation RAG</h3>
+            <p>
+              A source-grounded assistant for pipeline documentation is being
+              developed. It is separate from the current video decision path.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section about-section deck-slide"
+        id="about"
+        aria-labelledby="about-title"
+      >
+        <div class="about-grid">
+          <div>
+            <p class="section-kicker">03 / EXPERIENCE</p>
+            <h2 id="about-title">From user support to full-stack delivery.</h2>
+            <p class="experience-intro">
+              I began by solving users' problems directly, then moved into
+              building the products behind those workflows. My AI work continues
+              that progression through personal engineering projects.
+            </p>
+          </div>
+          <div class="about-text">
+            <div class="experience-entry experience-entry-current">
+              <span>2026 — PRESENT · PERSONAL PROJECTS</span>
+              <h3>Applied AI engineering</h3>
+              <p>
+                Building SylClips with multimodal LLMs, validated structured
+                outputs and a scoped tool-calling agent. Training and evaluating
+                an experimental PyTorch classifier; developing a separate
+                documentation RAG assistant.
+              </p>
+            </div>
+            <div class="experience-entry experience-entry-fullstack">
+              <span>JAN 2023 — AUG 2025 · REMOTE, CHILE</span>
+              <h3>Full Stack Developer</h3>
+              <p>
+                Delivered features from requirements and design through
+                frontend, REST APIs, integration, testing and production
+                support. Built reusable interfaces with React and Angular and
+                worked across Django, Java/Spring Boot, Node.js and SQL
+                services.
+              </p>
+              <div
+                class="experience-deliveries"
+                aria-label="Work delivered during this role"
+              >
+                <div>
+                  <strong>Self-service kiosk</strong>
+                  <p>
+                    Developed frontend screens, navigation and interactions for
+                    a healthcare self-service flow, integrated with application
+                    services.
+                  </p>
+                </div>
+                <div>
+                  <strong>CORONIS system</strong>
+                  <p>
+                    Contributed to frontend development and backend integration
+                    as part of the same full-stack role.
+                  </p>
+                </div>
+                <div>
+                  <strong>SEIS landing page</strong>
+                  <p>
+                    Independently designed and developed the company’s main
+                    landing page.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="experience-entry">
+              <span>OCT 2021 — JAN 2023 · REMOTE, CHILE</span>
+              <h3>Help Desk Level 1</h3>
+              <p>
+                First point of contact for end users. Diagnosed software and
+                network issues remotely with AnyDesk; tracked and escalated
+                incidents by priority and SLA in Jira Service Management.
+                Managed user provisioning, permissions and access control, and
+                documented solutions in the team knowledge base.
+              </p>
+            </div>
+            <div class="background-line">
+              <span>EDUCATION</span>
+              <p>
+                Technical Diploma in Computer Science · Computer Engineering
+                studies at the University of Buenos Aires
+              </p>
+            </div>
+            <div class="background-line">
+              <span>LANGUAGES</span>
+              <p>Spanish native · English C1 (Cambridge CAE)</p>
+            </div>
+            <a
+              class="text-link"
+              href="https://www.linkedin.com/in/agustin-donnian"
+              target="_blank"
+              rel="noopener noreferrer"
+              >More on LinkedIn <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section skills-section deck-slide"
+        id="skills"
+        aria-labelledby="skills-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">04 / TOOLKIT</p>
+            <h2 id="skills-title">Tools I work with.</h2>
+          </div>
+          <p>
+            Hover a project to reveal the technologies behind it, or choose a
+            technology to find related work.
+          </p>
+        </div>
+        <div class="toolkit-layout">
+          <div
+            class="project-constellation"
+            aria-label="Projects connected to selected technologies"
+          >
+            <svg class="project-constellation-lines" aria-hidden="true"></svg>
+            <span class="map-caption">PROJECTS × TECHNOLOGIES</span>
+            <button
+              class="map-tech tech-typescript"
+              type="button"
+              data-tech="typescript"
+              aria-pressed="false"
+            >
+              <i></i>TypeScript
+            </button>
+            <button
+              class="map-tech tech-react"
+              type="button"
+              data-tech="react"
+              aria-pressed="false"
+            >
+              <i></i>React
+            </button>
+            <button
+              class="map-tech tech-angular"
+              type="button"
+              data-tech="angular"
+              aria-pressed="false"
+            >
+              <i></i>Angular
+            </button>
+            <button
+              class="map-tech tech-python"
+              type="button"
+              data-tech="python"
+              aria-pressed="false"
+            >
+              <i></i>Python
+            </button>
+            <button
+              class="map-tech tech-django"
+              type="button"
+              data-tech="django"
+              aria-pressed="false"
+            >
+              <i></i>Django
+            </button>
+            <button
+              class="map-tech tech-java"
+              type="button"
+              data-tech="java"
+              aria-pressed="false"
+            >
+              <i></i>Java / Spring Boot
+            </button>
+            <button
+              class="map-tech tech-llms"
+              type="button"
+              data-tech="llms"
+              aria-pressed="false"
+            >
+              <i></i>LLMs
+            </button>
+            <button
+              class="map-tech tech-pytorch"
+              type="button"
+              data-tech="pytorch"
+              aria-pressed="false"
+            >
+              <i></i>PyTorch
+            </button>
+            <button
+              class="map-tech tech-fastapi"
+              type="button"
+              data-tech="fastapi"
+              aria-pressed="false"
+            >
+              <i></i>FastAPI
+            </button>
+            <button
+              class="map-tech tech-rest"
+              type="button"
+              data-tech="rest"
+              aria-pressed="false"
+            >
+              <i></i>REST APIs
+            </button>
+            <button
+              class="map-tech tech-node"
+              type="button"
+              data-tech="node"
+              aria-pressed="false"
+            >
+              <i></i>Node.js
+            </button>
+            <button
+              class="map-tech tech-sap"
+              type="button"
+              data-tech="sap"
+              aria-pressed="false"
+            >
+              <i></i>SAP CAP
+            </button>
+            <button class="map-tech tech-sql" type="button" data-tech="sql" aria-pressed="false"><i></i>SQL</button>
+            <a
+              class="map-project project-professional"
+              data-project="professional"
+              href="#about"
+              ><i></i
+              ><span
+                >Full-stack delivery<small
+                  >Professional experience · 2023–2025</small
+                ></span
+              ></a
+            >
+            <a
+              class="map-project project-kiosk"
+              data-project="kiosk"
+              href="#work-fullstack"
+              ><i></i
+              ><span
+                >Self-service kiosk<small>Professional work</small></span
+              ></a
+            >
+            <a
+              class="map-project project-sentinel"
+              data-project="sentinel"
+              href="#work-frontend"
+              ><i></i><span>Sentinel Desk<small>Frontend demo</small></span></a
+            >
+            <a
+              class="map-project project-sylclips"
+              data-project="sylclips"
+              href="#work-ai"
+              ><i></i><span>SylClips<small>AI engineering</small></span></a
+            >
+            <a class="map-project project-nexo" data-project="nexo" href="#work-nexo"><i></i><span>NEXO Service Desk<small>Java + Angular demo</small></span></a>
+            <a
+              class="map-project project-sap"
+              data-project="sap"
+              href="./project-notes.html#sap"
+              ><i></i
+              ><span
+                >Book Management<small>SAP CAP · in progress</small></span
+              ></a
+            >
+            <p class="map-status" aria-live="polite">
+              Hover a project to see its technologies, or choose a technology
+              to find related work.
+            </p>
+          </div>
+          <aside class="toolkit-panel" aria-label="Full toolkit">
+            <p class="toolkit-panel-kicker">FULL TOOLKIT / AT A GLANCE</p>
+            <h3>Tools behind the work.</h3>
+            <div class="toolkit-group">
+              <h4>Frontend development</h4>
+              <p>
+                Angular · React · RxJS · Redux · Context API · HTML5 · CSS3 ·
+                Sass · JavaScript · TypeScript · Responsive design · npm · yarn
+              </p>
+            </div>
+            <div class="toolkit-group">
+              <h4>Backend development</h4>
+              <p>
+                Python · Django · Django REST Framework · CRUD · Node.js · JWT ·
+                Java · Spring Boot (basic) · Postman · SAP CAP · CDS · OData ·
+                Authorization · Microservices
+              </p>
+            </div>
+            <div class="toolkit-group">
+              <h4>Databases</h4>
+              <p>
+                SQL · PostgreSQL · MySQL · MongoDB · SQLite · SAP HANA Cloud
+              </p>
+            </div>
+            <div class="toolkit-group">
+              <h4>Tools &amp; DevOps</h4>
+              <p>
+                Git · GitHub · GitLab · Docker · CI/CD · SAP BTP · Cloud Foundry
+                Runtime · Jira · Azure DevOps
+              </p>
+            </div>
+            <div class="toolkit-group">
+              <h4>Service management</h4>
+              <p>
+                Jira Service Management · AnyDesk · Incident management · User
+                provisioning
+              </p>
+            </div>
+            <div class="toolkit-group">
+              <h4>AI &amp; intelligent development</h4>
+              <p>
+                AI-assisted engineering · Claude · ChatGPT · Copilot · LLM APIs
+                · Prompt engineering · AI agents · Multimodal LLMs · Structured
+                outputs · Tool calling · Human review · Experimental PyTorch ·
+                FastAPI
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="contact-section deck-slide"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <p class="section-kicker">05 / CONNECT</p>
+        <h2 id="contact-title">Let's build something<br /><em>useful.</em></h2>
+        <p>
+          Open to software engineering roles across full-stack development and
+          applied AI.
+        </p>
+        <a
+          class="button button-light"
+          href="https://www.linkedin.com/in/agustin-donnian"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Connect on LinkedIn <span aria-hidden="true">↗</span></a
+        >
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span class="footer-copyright">© 2026 Agustín Donnian</span>
+      <div class="footer-credits" aria-label="Visual asset credits">
+        <span>VISUAL CREDITS</span>
+        <p>Planet maps: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener noreferrer">Solar System Scope · CC BY 4.0</a></p>
+        <p>Neptune photo: <a href="https://science.nasa.gov/asset/webb/neptune-voyager-2/" target="_blank" rel="noopener noreferrer">NASA/Caltech</a></p>
       </div>
-      <details class="toolkit-details"><summary>Explore the full toolkit</summary><p><strong>Frontend:</strong> React · Angular · TypeScript · JavaScript · RxJS · Redux · HTML5 · CSS3 · Sass · Responsive design</p><p><strong>Backend &amp; data:</strong> Python · Django · Django REST Framework · FastAPI · Node.js · Java / Spring Boot · REST APIs · SQL · PostgreSQL · MySQL · MongoDB</p><p><strong>AI applications:</strong> Multimodal LLM APIs · Structured outputs · Tool calling · Human review · Prompt engineering · Experimental PyTorch model training and evaluation</p><p><strong>Testing &amp; delivery:</strong> Postman · API testing · Functional validation · Troubleshooting · Git · GitHub · GitLab · Docker · CI/CD · Jira · Azure DevOps</p><p><strong>SAP:</strong> SAP CAP · CDS · OData · SAP BTP · SAP HANA Cloud</p></details>
-    </section>
-
-    <section class="contact-section deck-slide" id="contact" aria-labelledby="contact-title"><p class="section-kicker">05 / CONNECT</p><h2 id="contact-title">Let's build something<br><em>useful.</em></h2><p>Open to software engineering roles across full-stack development and applied AI.</p><a class="button button-light" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a></section>
-  </main>
-
-  <footer class="site-footer"><span>© 2026 Agustín Donnian</span><span>Planet maps: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener noreferrer">Solar System Scope · CC BY 4.0</a> · Neptune photo: <a href="https://science.nasa.gov/asset/webb/neptune-voyager-2/" target="_blank" rel="noopener noreferrer">NASA/Caltech</a></span><a href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></footer>
-</body>
+      <a class="footer-link" href="https://www.linkedin.com/in/agustin-donnian" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+    </footer>
+  </body>
 </html>
